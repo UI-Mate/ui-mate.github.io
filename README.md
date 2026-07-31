@@ -28,10 +28,31 @@ forces one for sharing a specific version.
 | `i18n.js` | **All copy, both languages**, plus the chart and demo data |
 | `main.js` | Language switching, scrollspy, chart rendering, demo reel, copy button |
 | `assets/hy_logo.png` | Tencent Hunyuan mark, used in the nav, hero badge, and footer |
+| `assets/favicon.*`, `assets/apple-touch-icon.png` | Tab and home-screen icons, built from the desktop app's own icon |
 | `assets/demos/` | Demo videos and posters — see the README in that folder |
 
 Sections, in order: title and team, overview, capabilities, method, results, demos,
 citation.
+
+## Icons
+
+The tab and home-screen icons come from the desktop app's own cursor mark, not
+the Hunyuan logo. Colours and path data are copied from
+`GUI-Agent-App/scripts/render_app_icon.py`, which authors the artwork on a
+170×170 tile, with two changes for this use:
+
+- The glyph fills roughly 72% of the frame. That script insets it heavily because
+  macOS app icons are meant to sit inside their tile, which leaves the mark
+  unreadable at 16px.
+- The 16%-opacity motion ghost is dropped. It pulls the composition's centre away
+  from the blue cursor, and below about 100px it reads as a smudge rather than a
+  trail.
+
+`assets/favicon.svg` is the source of truth and is what modern browsers use; the
+PNGs are rasterised fallbacks. To regenerate after an artwork change, edit the
+SVG and re-export at 16, 32, and 192, plus a 180 for `apple-touch-icon.png` —
+that one is a full-bleed white square with no rounded corners of its own, since
+iOS applies its own corner mask.
 
 ## Editing copy
 
