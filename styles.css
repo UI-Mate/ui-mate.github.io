@@ -33,6 +33,12 @@
   --nav-h: 64px;
   --wrap: 1160px;
 
+  /* Control heights — every pill picks one of these so edges line up */
+  --ctl-nav: 34px;
+  --ctl-sm: 32px;
+  --ctl-md: 38px;
+  --ctl-lg: 44px;
+
   --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
     "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
   --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
@@ -107,11 +113,12 @@ svg .stroke {
 /* ============================================================
    NAV
    ============================================================ */
+/* The height lives on .nav-inner so the 1px border does not eat into it and
+   push every control half a pixel off the bar's centre. */
 .nav {
   position: sticky;
   top: 0;
   z-index: 50;
-  height: var(--nav-h);
   background: rgba(255, 255, 255, 0.78);
   backdrop-filter: saturate(180%) blur(18px);
   -webkit-backdrop-filter: saturate(180%) blur(18px);
@@ -124,7 +131,7 @@ svg .stroke {
 }
 
 .nav-inner {
-  height: 100%;
+  height: var(--nav-h);
   max-width: var(--wrap);
   margin: 0 auto;
   padding: 0 24px;
@@ -139,6 +146,7 @@ svg .stroke {
 .nav-product {
   font-weight: 700;
   font-size: 15px;
+  line-height: 1;
   letter-spacing: -0.01em;
   color: var(--ink);
 }
@@ -149,12 +157,18 @@ svg .stroke {
   gap: 4px;
   margin-left: auto;
 }
+/* Control heights are fixed and line-height is reset, so a pill is the same
+   size in both languages — the body line-height differs between them. */
 .nav-links a {
   position: relative;
-  padding: 7px 13px;
+  display: inline-flex;
+  align-items: center;
+  height: var(--ctl-nav);
+  padding: 0 13px;
   border-radius: 999px;
   font-size: 14px;
   font-weight: 500;
+  line-height: 1;
   color: var(--body);
   transition: color 0.18s, background 0.18s;
   white-space: nowrap;
@@ -172,13 +186,20 @@ svg .stroke {
   border-radius: 999px;
 }
 .lang-switch button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* 3px track padding plus a 1px track border on each side, so the whole
+     group ends up exactly --ctl-nav tall like the nav pills beside it */
+  height: calc(var(--ctl-nav) - 8px);
   border: 0;
   background: transparent;
   font-family: inherit;
   font-size: 12.5px;
   font-weight: 600;
+  line-height: 1;
   color: var(--muted);
-  padding: 4px 11px;
+  padding: 0 11px;
   border-radius: 999px;
   cursor: pointer;
   transition: color 0.18s, background 0.18s, box-shadow 0.18s;
@@ -192,8 +213,8 @@ svg .stroke {
 
 .nav-burger {
   display: none;
-  width: 36px;
-  height: 36px;
+  width: var(--ctl-nav);
+  height: var(--ctl-nav);
   padding: 9px 8px;
   border: 1px solid var(--line);
   border-radius: 10px;
@@ -209,9 +230,11 @@ svg .stroke {
   border-radius: 2px;
   transition: transform 0.22s, opacity 0.22s;
 }
-.nav-burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+/* 7.25px is the exact distance from an outer bar's centre to the middle bar
+   at this height and padding, so the two strokes cross cleanly. */
+.nav-burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7.25px) rotate(45deg); }
 .nav-burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
-.nav-burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+.nav-burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7.25px) rotate(-45deg); }
 
 /* ============================================================
    HERO
@@ -326,13 +349,14 @@ html[lang="zh"] .hero-badge-txt { text-transform: none; letter-spacing: 0.06em; 
   display: inline-flex;
   align-items: center;
   gap: 9px;
-  height: 44px;
+  height: var(--ctl-lg);
   padding: 0 20px;
   border-radius: 999px;
   border: 1px solid var(--line);
   background: #fff;
   font-size: 14.5px;
   font-weight: 600;
+  line-height: 1;
   color: var(--ink-2);
   box-shadow: var(--shadow-s);
   transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s, background 0.18s;
@@ -349,10 +373,14 @@ html[lang="zh"] .hero-badge-txt { text-transform: none; letter-spacing: 0.06em; 
 .btn-primary:hover { box-shadow: 0 14px 38px rgba(0, 82, 217, 0.34); }
 .btn-primary svg { color: #fff; }
 .btn-tag {
+  display: inline-flex;
+  align-items: center;
+  height: 20px;
   font-family: var(--mono);
   font-size: 11px;
   font-weight: 600;
-  padding: 2px 6px;
+  line-height: 1;
+  padding: 0 6px;
   border-radius: 5px;
   background: var(--tint);
   border: 1px solid var(--line);
@@ -719,14 +747,22 @@ html[lang="zh"] .sec-kicker { text-transform: none; letter-spacing: 0.08em; }
   gap: 20px;
   margin-top: 40px;
 }
+/* The accent bar is a pseudo-element rather than a gradient border, because
+   border-image makes the browser drop border-radius and square the corners. */
 .take {
-  padding: 24px 24px 26px;
+  position: relative;
+  overflow: hidden;
+  padding: 27px 24px 26px;
   background: #fff;
   border: 1px solid var(--line);
   border-radius: var(--r);
-  border-top: 3px solid;
-  border-image: var(--grad) 1;
-  border-bottom-left-radius: var(--r);
+}
+.take::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: var(--grad);
 }
 .take h4 { font-size: 16px; }
 .take p { margin-top: 9px; font-size: 14.5px; color: var(--body); }
@@ -741,13 +777,17 @@ html[lang="zh"] .sec-kicker { text-transform: none; letter-spacing: 0.08em; }
   margin-bottom: 24px;
 }
 .demo-tab {
+  display: inline-flex;
+  align-items: center;
+  height: var(--ctl-md);
   border: 1px solid var(--line);
   background: #fff;
   border-radius: 999px;
-  padding: 9px 17px;
+  padding: 0 18px;
   font-family: inherit;
   font-size: 14px;
-  font-weight: 550;
+  font-weight: 600;
+  line-height: 1;
   color: var(--body);
   cursor: pointer;
   transition: all 0.18s;
@@ -885,7 +925,7 @@ html[lang="zh"] .demo-facts dt { text-transform: none; letter-spacing: 0.04em; f
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  height: 32px;
+  height: var(--ctl-sm);
   padding: 0 14px;
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.16);
@@ -893,6 +933,7 @@ html[lang="zh"] .demo-facts dt { text-transform: none; letter-spacing: 0.04em; f
   font-family: inherit;
   font-size: 12.5px;
   font-weight: 600;
+  line-height: 1;
   color: #fff;
   cursor: pointer;
   transition: background 0.18s, border-color 0.18s;
@@ -974,7 +1015,7 @@ html[lang="zh"] .demo-facts dt { text-transform: none; letter-spacing: 0.04em; f
 @media (max-width: 860px) {
   .nav-links {
     position: fixed;
-    inset: var(--nav-h) 0 auto;
+    inset: calc(var(--nav-h) + 1px) 0 auto;
     flex-direction: column;
     align-items: stretch;
     gap: 2px;
@@ -989,7 +1030,7 @@ html[lang="zh"] .demo-facts dt { text-transform: none; letter-spacing: 0.04em; f
     transition: opacity 0.2s, transform 0.2s;
   }
   .nav-links.is-open { opacity: 1; transform: none; pointer-events: auto; }
-  .nav-links a { padding: 12px 14px; font-size: 15px; border-radius: 12px; }
+  .nav-links a { height: 44px; padding: 0 14px; font-size: 15px; border-radius: 12px; }
   .nav-burger { display: flex; }
   .nav-actions { margin-left: auto; }
 
