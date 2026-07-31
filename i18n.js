@@ -1,0 +1,380 @@
+/* ============================================================
+   UI-Mate project page — bilingual copy + page data
+   Edit copy here; index.html only carries data-i18n keys.
+   ============================================================ */
+
+window.UIMATE_I18N = {
+  en: {
+    "skip": "Skip to content",
+
+    "nav.overview": "Overview",
+    "nav.capabilities": "Capabilities",
+    "nav.method": "Method",
+    "nav.results": "Results",
+    "nav.demos": "Demos",
+    "nav.citation": "Citation",
+
+    "hero.badge": "Technical Report",
+    "hero.title": "Advancing Foundation GUI Agents with In-Context Demonstrations",
+    "hero.tagline": "Show it once. It works on your software — not by replaying your clicks, but by reasoning from your demonstration.",
+    "hero.team": "Tencent HY Frontier &middot; Multimodal Agent Team",
+    "hero.teamNote": "Full author list available in the technical report.",
+    "hero.fineprint": "Links marked with a dashed border are not public yet.",
+
+    "link.paper": "Technical Report",
+    "link.arxiv": "Preprint",
+    "link.code": "Code",
+    "link.model": "Model Weights",
+    "link.video": "Watch Demos",
+
+    "kicker.overview": "01 — Overview",
+    "overview.title": "Abstract",
+    "overview.p1": "Foundation GUI agents can already operate mainstream consumer software, yet they fail on exactly the workflows that matter most to real users: internal enterprise tools, niche professional software, and long multi-step procedures that carry implicit conventions no pretraining corpus contains.",
+    "overview.p2": "We present <strong>UI-Mate</strong>, a foundation GUI agent that closes this gap with <em>in-context demonstrations</em>. A user records a single screen demonstration of an unfamiliar task; UI-Mate segments it into captioned subtasks and injects that structure into the agent's observation as <em>guidance</em>, not as a script. The agent still perceives the live screen and decides each action itself, so it tolerates changed parameters, different file paths, and shifted layouts that break frame-by-frame replay.",
+    "overview.p3": "On <strong>DemoCUA</strong>, our 50-task benchmark for demonstration-conditioned computer use, UI-Mate reaches <strong>34.57</strong> with in-context demonstrations versus 31.83 without, and more than doubles the score of a strong general-purpose VLM baseline. Gains concentrate where they should: on long repetitive procedures, the number of tasks passing the completion threshold rises from 15/25 to 22/25.",
+    "overview.p4": "UI-Mate ships as a local desktop agent for macOS and Windows that drives the real mouse and keyboard, runs fully offline on a single Apple-silicon Mac with 9B 4-bit weights, and scales to a shared 27B vLLM deployment for team use and evaluation.",
+
+    "hl.score": "DemoCUA score with in-context demos",
+    "hl.long": "Gain on long repetitive procedures",
+    "hl.baseline": "Over a general-purpose VLM baseline",
+    "hl.local": "Runs fully offline on one Mac",
+
+    "kicker.capabilities": "02 — Capabilities",
+    "cap.title": "What UI-Mate can do",
+    "cap.lede": "A single instruction in natural language, executed on your own machine with your own applications — observable step by step, interruptible at any moment.",
+    "cap.1.h": "Native desktop control",
+    "cap.1.p": "Real clicks and keystrokes through platform-native backends — <code>mac_native</code> on macOS, <code>win_native</code> on Windows — with no silent fallbacks. The agent sees your actual screen and operates your actual apps, not a sandboxed replica.",
+    "cap.2.h": "Teach by recording",
+    "cap.2.p": "When the agent meets software it has never seen, record the workflow once. A native recorder captures the screen together with your input events, a VLM captions and segments it, and the result becomes a reusable skill in your library.",
+    "cap.3.h": "Demo-in-the-loop",
+    "cap.3.p": "Attach a demonstration and the agent treats it as reference, deciding from the live screen at every step. Similar past demonstrations are retrieved automatically with a visible similarity score, and you can stop following one mid-run.",
+    "cap.4.h": "Step-level observability",
+    "cap.4.p": "Every step records before/after screenshots, the model's reasoning, the executed action, and a latency split between model wait and app overhead. Filter a run by actions, memory writes, approval gates, or errors, and export the whole trajectory.",
+    "cap.5.h": "Human in the loop",
+    "cap.5.p": "Pause, resume, or stop at any point and the screen returns to you. Send a follow-up instruction into a running task without interrupting it, answer the agent's questions, and approve or deny high-risk actions such as payments and deletions before they execute.",
+    "cap.6.h": "Deploy where you need it",
+    "cap.6.p": "One OpenAI-compatible client, four deployment paths: a shared 27B vLLM service for teams, a hosted endpoint, 9B 4-bit MLX weights for fully offline use on a single Mac, or a third-party model while you evaluate. Screenshot resolution, history length, and thinking are all tunable.",
+
+    "kicker.method": "03 — Method",
+    "method.title": "Demonstrations as context, not as a script",
+    "method.lede": "The central design choice: a recorded demonstration never drives execution. It is compiled into structured guidance and placed in the agent's context, leaving every decision to the policy.",
+    "method.s1.h": "Record",
+    "method.s1.p": "A native recorder captures the screen and the raw input event stream while the user performs the task once.",
+    "method.s2.h": "Caption &amp; segment",
+    "method.s2.p": "A VLM converts the recording into captioned subtasks, yielding a compact symbolic summary of intent rather than pixels.",
+    "method.s3.h": "Retrieve",
+    "method.s3.p": "For a new instruction, the closest demonstration is matched by trajectory embedding, with keyword matching as fallback.",
+    "method.s4.h": "Inject",
+    "method.s4.p": "A workflow hook adds the subtask structure to each observation; the agent consumes it as guidance beside the live screenshot.",
+    "method.s5.h": "Decide",
+    "method.s5.p": "The policy emits the next action from what is actually on screen — so changed parameters and layouts do not break the run.",
+    "method.loop.h": "Perception–reasoning–action loop",
+    "method.loop.p": "Each step captures a screenshot at a configurable resolution, carries a bounded window of recent frames and textual history, and asks the model for a single action, which the native bridge maps onto the operating system. Keeping the image window bounded is what makes long tasks affordable: context stays flat while the episode grows.",
+    "method.why.h": "Why guidance beats replay",
+    "method.why.p": "Frame-level replay assumes the screen you recorded is the screen you will see. It is not: dialogs move, records differ, file paths change. By reducing a demonstration to subtask-level intent, UI-Mate keeps the part that generalises — the procedure — and discards the part that does not — the exact coordinates. When the live screen diverges from the demonstration, the agent simply keeps going.",
+    "method.safe.h": "Fail-open by construction",
+    "method.safe.p": "Demonstration loading is a strictly optional stage. A missing, malformed, or disabled demonstration returns nothing and the run proceeds as an ordinary GUI task, so the in-context path can never take down a task that would otherwise have succeeded.",
+    "method.arch.h": "System architecture",
+    "method.arch.note": "Five layers, strictly one-directional dependencies, with a single source of truth for the agent loop.",
+    "method.arch.1": "Renderer — task input, run visualisation, approvals, demo library",
+    "method.arch.2": "Main process — process lifecycle, streaming events, persistence",
+    "method.arch.3": "Agent entry — engine routing and model configuration assembly",
+    "method.arch.4": "Harness — agent, model, and episode loop; the single source of truth",
+    "method.arch.5": "Native bridge — actions mapped to macOS, Windows, or Linux",
+    "method.arch.seams": "Three narrow seams separate the harness from the application: an environment protocol for where actions land, a runner hook for events and safety, and a one-way action adapter used only for visualisation.",
+
+    "kicker.results": "04 — Results",
+    "res.title": "DemoCUA benchmark",
+    "res.lede": "Existing computer-use benchmarks assume the agent already knows the software. DemoCUA asks the opposite question: given one human demonstration, how well can an agent generalise from it?",
+    "res.sub1.h": "Variants",
+    "res.sub1.p": "Same procedure, different parameters, paths, or content than the demonstration.",
+    "res.sub2.h": "LongRepeat",
+    "res.sub2.p": "Long procedures that repeat a demonstrated pattern many times without drifting.",
+    "res.sub3.h": "MultiApps",
+    "res.sub3.p": "Workflows crossing several applications and carrying state between them.",
+    "res.sub4.h": "Condition",
+    "res.sub4.p": "Branching procedures whose correct path depends on what the screen shows.",
+    "res.table.h": "Main results",
+    "res.table.note": "Score is the sum of per-task scores. Subset totals are fixed at 15 / 25 / 6 / 4.",
+    "res.th.model": "Model",
+    "res.th.score": "Score",
+    "res.th.var": "Variants<small>/15</small>",
+    "res.th.long": "LongRepeat<small>/25</small>",
+    "res.th.multi": "MultiApps<small>/6</small>",
+    "res.th.cond": "Condition<small>/4</small>",
+    "res.row.baseline": "General VLM baseline",
+    "res.row.baselineDemo": "General VLM baseline + demo",
+    "res.row.uimate": "UI-Mate",
+    "res.row.uimateDemo": "UI-Mate + in-context demo",
+    "res.table.foot": "Parenthesised values count tasks above the subset's completion threshold, separating partial progress from no progress at all. UI-Mate rows cover 49 of 50 tasks. Demonstrations are supplied in textual subtask form.",
+    "res.chart.h": "Effect of in-context demonstrations",
+    "res.chart.note": "Per-subset score, normalised to the subset total.",
+    "res.chart.wo": "Without demo",
+    "res.chart.w": "With in-context demo",
+    "res.take1.h": "Long procedures benefit most",
+    "res.take1.p": "On LongRepeat, in-context demonstrations lift the score from 14.20 to 19.00 and raise the number of tasks making real progress from 15/25 to 22/25. Knowing the intended procedure is precisely what stops an agent from drifting after a dozen repetitions.",
+    "res.take2.h": "The effect is not model-specific",
+    "res.take2.p": "The same textual demonstrations lift the general-purpose VLM baseline from 15.10 to 19.57, so the mechanism transfers across policies. UI-Mate simply starts from a much stronger base, more than doubling that baseline before any demonstration is attached.",
+    "res.take3.h": "Where it does not help yet",
+    "res.take3.p": "MultiApps stays near zero for every configuration: no model crosses the threshold on any of its six tasks. Condition and Variants trade slightly against the no-demo runs, indicating that guidance can also over-constrain branching decisions. Cross-application state and conditional control are the open problems.",
+
+    "kicker.demos": "05 — Demos",
+    "demo.title": "See it run",
+    "demo.lede": "Unedited screen captures at native speed. Every run is driven by a single natural-language instruction on a real desktop.",
+    "demo.empty": "Drop the recording into <code>assets/demos/</code> to replace this placeholder.",
+    "demo.f.mode": "Mode",
+    "demo.f.platform": "Platform",
+    "demo.f.instr": "Instruction",
+
+    "kicker.citation": "06 — Citation",
+    "cite.title": "Cite this work",
+    "cite.lede": "If UI-Mate or DemoCUA is useful in your research, please cite the technical report.",
+    "cite.copy": "Copy",
+    "cite.copied": "Copied",
+    "cite.note": "Update the entry with the arXiv identifier and full author list once the report is public.",
+
+    "foot.team": "Tencent HY Frontier &middot; Multimodal Agent Team",
+    "foot.legal": "&copy; 2026 Tencent. Page template released for research communication."
+  },
+
+  zh: {
+    "skip": "跳到正文",
+
+    "nav.overview": "概览",
+    "nav.capabilities": "能力",
+    "nav.method": "方法",
+    "nav.results": "性能",
+    "nav.demos": "演示",
+    "nav.citation": "引用",
+
+    "hero.badge": "技术报告",
+    "hero.title": "以上下文演示推进通用 GUI 智能体",
+    "hero.tagline": "演示一次，它就能上手你的软件——不是复刻你的鼠标轨迹，而是从演示中理解流程本身。",
+    "hero.team": "腾讯混元前沿研究 &middot; 多模态智能体团队",
+    "hero.teamNote": "完整作者名单见技术报告。",
+    "hero.fineprint": "虚线边框的链接尚未公开。",
+
+    "link.paper": "技术报告",
+    "link.arxiv": "预印本",
+    "link.code": "代码",
+    "link.model": "模型权重",
+    "link.video": "观看演示",
+
+    "kicker.overview": "01 — 概览",
+    "overview.title": "摘要",
+    "overview.p1": "通用 GUI 智能体已经能操作主流消费级软件，却恰恰在真实用户最看重的场景上失手：企业内部系统、冷门专业软件，以及那些携带大量隐性约定、任何预训练语料都不包含的长流程操作。",
+    "overview.p2": "我们提出 <strong>UI-Mate</strong>，一个用<em>上下文演示</em>来弥合这道鸿沟的通用 GUI 智能体。用户只需把陌生任务录制一遍，UI-Mate 会将录屏切分为带说明的子任务，并把这套结构作为<em>参考</em>而非脚本注入智能体的观测中。智能体依然实时观察屏幕、自行决定每一步动作，因此参数变化、路径不同、界面布局位移这些会让逐帧回放彻底失效的情况，它都能扛住。",
+    "overview.p3": "在我们面向演示条件下计算机使用能力构建的 50 项基准 <strong>DemoCUA</strong> 上，UI-Mate 在引入上下文演示后取得 <strong>34.57</strong> 分，无演示为 31.83 分，并将一个强通用视觉语言模型基线的成绩提升到两倍以上。收益集中在最该出现的地方：在长重复流程子集上，跨过完成阈值的任务数从 15/25 升至 22/25。",
+    "overview.p4": "UI-Mate 以本地桌面智能体形态交付，支持 macOS 与 Windows，直接驱动真实鼠标键盘；既可在单台 Apple 芯片 Mac 上用 9B 4bit 权重完全离线运行，也可扩展为团队共用的 27B vLLM 服务用于日常使用与正式评测。",
+
+    "hl.score": "引入上下文演示后的 DemoCUA 得分",
+    "hl.long": "长重复流程子集上的提升幅度",
+    "hl.baseline": "相对通用视觉语言模型基线",
+    "hl.local": "单台 Mac 完全离线运行",
+
+    "kicker.capabilities": "02 — 能力",
+    "cap.title": "UI-Mate 能做什么",
+    "cap.lede": "一句自然语言指令，在你自己的机器上操作你自己的软件——每一步都可回看，任何时刻都能接管。",
+    "cap.1.h": "原生桌面操控",
+    "cap.1.p": "通过各平台原生后端下发真实的点击与按键——macOS 走 <code>mac_native</code>，Windows 走 <code>win_native</code>，不做静默降级。智能体看到的是你真实的屏幕，操作的是你真实的应用，而非沙箱里的副本。",
+    "cap.2.h": "录一遍就能教会",
+    "cap.2.p": "遇到从未见过的软件，把流程录一遍即可。原生录制器同时采集屏幕画面与你的输入事件，再由视觉语言模型生成说明并切分子步骤，产出的结果会作为可复用技能存入演示库。",
+    "cap.3.h": "Demo-in-the-loop",
+    "cap.3.p": "关联一段演示后，智能体只将其视作参考，每一步仍从当前屏幕出发做决策。与当前任务高度相似的历史演示会被自动检索并显示相似度，你也可以在运行中随时中止跟随。",
+    "cap.4.h": "步级可观测",
+    "cap.4.p": "每一步都记录动作前后截图、模型推理过程、实际执行的动作，以及模型等待与应用开销的耗时拆分。可按动作、记忆写入、审批拦截、报错筛选整条轨迹，也可整体导出。",
+    "cap.5.h": "人始终在环内",
+    "cap.5.p": "随时暂停、继续或停止，屏幕立即交还给你。运行中可以追加指令而不打断任务，可以回答智能体的提问；涉及支付、删除等高风险动作时，执行前一定先弹审批由你放行或拒绝。",
+    "cap.6.h": "按需部署",
+    "cap.6.p": "一套 OpenAI 兼容客户端，四条部署路线：团队共用的 27B vLLM 服务、云端托管端点、单台 Mac 完全离线的 9B 4bit MLX 权重，或在评估阶段先接第三方模型。截图精度、历史长度、是否开启思考都可调。",
+
+    "kicker.method": "03 — 方法",
+    "method.title": "演示是上下文，不是脚本",
+    "method.lede": "最核心的设计取舍：录制的演示从不驱动执行。它被编译成结构化的参考信息放进智能体的上下文，每一个决策仍然交给策略本身。",
+    "method.s1.h": "录制",
+    "method.s1.p": "用户把任务完整做一遍，原生录制器同步采集屏幕画面与底层输入事件流。",
+    "method.s2.h": "生成说明与切分",
+    "method.s2.p": "视觉语言模型把录屏转成带说明的子任务序列，得到的是对意图的紧凑符号化描述，而不是像素。",
+    "method.s3.h": "检索",
+    "method.s3.p": "面对新指令时，通过轨迹向量匹配最接近的演示，向量服务不可用时退化为关键词匹配。",
+    "method.s4.h": "注入",
+    "method.s4.p": "工作流钩子把子任务结构加入每一步观测，智能体在实时截图之外把它当作参考一并消费。",
+    "method.s5.h": "决策",
+    "method.s5.p": "策略依据屏幕上真实呈现的内容给出下一个动作——所以参数与布局的变化不会让任务中断。",
+    "method.loop.h": "感知—推理—执行循环",
+    "method.loop.p": "每一步以可配置的分辨率截图，携带有界的近期画面窗口与文本历史，向模型请求单个动作，再由原生桥接层映射到操作系统。把图像窗口限定在固定数量，是长任务成本可控的关键：回合在增长，上下文却保持平稳。",
+    "method.why.h": "为什么参考优于回放",
+    "method.why.p": "逐帧回放的前提是「你录制时的屏幕就是你将要看到的屏幕」，而现实并非如此：弹窗会移动，记录内容会不同，文件路径会变化。UI-Mate 把演示归约到子任务级的意图，保留了真正可迁移的部分——流程，丢弃了不可迁移的部分——精确坐标。当实时屏幕与演示出现分歧时，智能体照样能继续往下做。",
+    "method.safe.h": "结构上就不会拖垮任务",
+    "method.safe.p": "演示加载是一个严格可选的环节。演示缺失、格式损坏或功能关闭时都直接返回空，任务按普通 GUI 流程继续执行，因此上下文演示这条链路永远不会把一个本来能成功的任务拖失败。",
+    "method.arch.h": "系统架构",
+    "method.arch.note": "五层结构，依赖严格单向，智能体循环只有唯一真源。",
+    "method.arch.1": "渲染层 —— 任务输入、执行可视化、审批弹窗、演示库",
+    "method.arch.2": "主进程 —— 子进程生命周期、事件流式推送、状态持久化",
+    "method.arch.3": "智能体入口 —— 引擎路由与模型配置装配",
+    "method.arch.4": "Harness —— 智能体、模型与回合循环，唯一逻辑真源",
+    "method.arch.5": "原生桥接 —— 将动作映射到 macOS、Windows 或 Linux",
+    "method.arch.seams": "三道窄接缝把 harness 与应用隔开：决定动作落在哪里的环境协议、负责事件与安全的运行钩子，以及仅用于可视化的单向动作适配器。",
+
+    "kicker.results": "04 — 性能",
+    "res.title": "DemoCUA 基准",
+    "res.lede": "现有的计算机使用基准默认智能体已经熟悉软件，DemoCUA 问的是相反的问题：只给一段人类演示，智能体能从中泛化到什么程度？",
+    "res.sub1.h": "Variants 变体",
+    "res.sub1.p": "流程与演示相同，但参数、路径或内容不同。",
+    "res.sub2.h": "LongRepeat 长重复",
+    "res.sub2.p": "把演示过的模式重复很多次的长流程，考察会不会跑偏。",
+    "res.sub3.h": "MultiApps 多应用",
+    "res.sub3.p": "跨多个应用、并需要在它们之间传递状态的流程。",
+    "res.sub4.h": "Condition 条件分支",
+    "res.sub4.p": "正确路径取决于屏幕当前状态的分支流程。",
+    "res.table.h": "主要结果",
+    "res.table.note": "得分为各任务得分之和，子集总数固定为 15 / 25 / 6 / 4。",
+    "res.th.model": "模型",
+    "res.th.score": "总分",
+    "res.th.var": "Variants<small>/15</small>",
+    "res.th.long": "LongRepeat<small>/25</small>",
+    "res.th.multi": "MultiApps<small>/6</small>",
+    "res.th.cond": "Condition<small>/4</small>",
+    "res.row.baseline": "通用视觉语言模型基线",
+    "res.row.baselineDemo": "通用视觉语言模型基线 + 演示",
+    "res.row.uimate": "UI-Mate",
+    "res.row.uimateDemo": "UI-Mate + 上下文演示",
+    "res.table.foot": "括号内为该子集中超过完成阈值的任务数，用来区分「做了一半」与「完全没做」。UI-Mate 两行覆盖 50 项中的 49 项。演示以文本子任务形式提供。",
+    "res.chart.h": "上下文演示带来的变化",
+    "res.chart.note": "各子集得分，按该子集满分归一化。",
+    "res.chart.wo": "无演示",
+    "res.chart.w": "有上下文演示",
+    "res.take1.h": "长流程受益最明显",
+    "res.take1.p": "在 LongRepeat 上，上下文演示把得分从 14.20 提到 19.00，取得实质进展的任务数从 15/25 升到 22/25。知道流程本该怎么走，正是智能体在重复十几遍之后不跑偏的关键。",
+    "res.take2.h": "这不是某个模型的特例",
+    "res.take2.p": "同一批文本演示把通用视觉语言模型基线从 15.10 提到 19.57，说明这套机制可以跨策略迁移。UI-Mate 的区别只在于起点高得多——在关联任何演示之前，它就已经是该基线的两倍以上。",
+    "res.take3.h": "目前还没解决的部分",
+    "res.take3.p": "MultiApps 在所有配置下都贴近零：六项任务中没有任何模型跨过阈值。Condition 与 Variants 相比无演示略有回落，说明参考信息也可能过度约束分支判断。跨应用状态传递与条件控制，是仍然敞开的问题。",
+
+    "kicker.demos": "05 — 演示",
+    "demo.title": "实际运行效果",
+    "demo.lede": "未剪辑的原速录屏。每一段都由一句自然语言指令在真实桌面上驱动完成。",
+    "demo.empty": "把录屏文件放进 <code>assets/demos/</code> 即可替换这个占位。",
+    "demo.f.mode": "模式",
+    "demo.f.platform": "平台",
+    "demo.f.instr": "指令",
+
+    "kicker.citation": "06 — 引用",
+    "cite.title": "引用本工作",
+    "cite.lede": "如果 UI-Mate 或 DemoCUA 对你的研究有帮助，欢迎引用这份技术报告。",
+    "cite.copy": "复制",
+    "cite.copied": "已复制",
+    "cite.note": "技术报告公开后，请补上 arXiv 编号与完整作者名单。",
+
+    "foot.team": "腾讯混元前沿研究 &middot; 多模态智能体团队",
+    "foot.legal": "&copy; 2026 Tencent. 本页模板用于研究成果传播。"
+  }
+};
+
+/* ------------------------------------------------------------
+   Results chart — UI-Mate without vs. with in-context demos.
+   `max` is the subset total, used to normalise bar widths.
+   ------------------------------------------------------------ */
+window.UIMATE_CHART = [
+  { key: "res.sub1.h", max: 15, wo: 14.00, w: 13.00 },
+  { key: "res.sub2.h", max: 25, wo: 14.20, w: 19.00 },
+  { key: "res.sub3.h", max: 6,  wo: 0.47,  w: 0.40  },
+  { key: "res.sub4.h", max: 4,  wo: 3.17,  w: 2.17  },
+  { key: "res.th.score", max: 50, wo: 31.83, w: 34.57 }
+];
+
+/* ------------------------------------------------------------
+   Demo reel. Drop files into assets/demos/ using these names,
+   then flip `ready` to true — the tab shows a placeholder until
+   then, and nothing is requested, so the console stays clean.
+   ------------------------------------------------------------ */
+window.UIMATE_DEMOS = [
+  {
+    id: "internal-tool",
+    ready: false,
+    src: "assets/demos/internal-tool.mp4",
+    poster: "assets/demos/internal-tool.jpg",
+    en: {
+      tab: "Internal tool",
+      title: "An enterprise tool it has never seen",
+      desc: "A single demonstration is enough for UI-Mate to complete the same procedure on a different record, in software absent from any pretraining corpus.",
+      mode: "Demo-in-the-loop",
+      platform: "macOS · Apple silicon",
+      instr: "Submit this month's reimbursement in the internal portal and attach the receipt."
+    },
+    zh: {
+      tab: "内部系统",
+      title: "一个从未见过的企业系统",
+      desc: "只需一段演示，UI-Mate 就能在预训练语料里根本不存在的软件上，对另一条记录完成同一套流程。",
+      mode: "Demo-in-the-loop",
+      platform: "macOS · Apple 芯片",
+      instr: "在内部门户提交本月报销并附上发票。"
+    }
+  },
+  {
+    id: "long-repeat",
+    ready: false,
+    src: "assets/demos/long-repeat.mp4",
+    poster: "assets/demos/long-repeat.jpg",
+    en: {
+      tab: "Long procedure",
+      title: "Forty steps without drifting",
+      desc: "The LongRepeat setting: apply a demonstrated pattern to every row in a list. Subtask structure from the demonstration is what keeps the agent on track deep into the sequence.",
+      mode: "Demo-in-the-loop",
+      platform: "macOS · Apple silicon",
+      instr: "Rename every file in this folder to the convention I just showed you."
+    },
+    zh: {
+      tab: "长流程",
+      title: "四十步不跑偏",
+      desc: "LongRepeat 场景：把演示过的模式套用到列表里的每一行。演示提供的子任务结构，正是智能体在长序列后段依然不偏航的原因。",
+      mode: "Demo-in-the-loop",
+      platform: "macOS · Apple 芯片",
+      instr: "按我刚演示的命名规范，重命名这个文件夹里的所有文件。"
+    }
+  },
+  {
+    id: "general-gui",
+    ready: false,
+    src: "assets/demos/general-gui.mp4",
+    poster: "assets/demos/general-gui.jpg",
+    en: {
+      tab: "General GUI",
+      title: "No demonstration needed",
+      desc: "On mainstream software UI-Mate runs as an ordinary foundation GUI agent, planning and acting from the screen alone.",
+      mode: "General GUI",
+      platform: "macOS · Apple silicon",
+      instr: "Open Safari, search today's weather, and screenshot the result."
+    },
+    zh: {
+      tab: "通用 GUI",
+      title: "不需要演示的情况",
+      desc: "面对主流软件，UI-Mate 就是一个普通的通用 GUI 智能体，仅凭屏幕内容完成规划与执行。",
+      mode: "通用 GUI",
+      platform: "macOS · Apple 芯片",
+      instr: "打开 Safari 搜索今天的天气，并把结果截图。"
+    }
+  },
+  {
+    id: "recording",
+    ready: false,
+    src: "assets/demos/recording.mp4",
+    poster: "assets/demos/recording.jpg",
+    en: {
+      tab: "Recording a demo",
+      title: "How a demonstration is made",
+      desc: "Record, then process: the recorder captures screen and input events, and a VLM turns them into captioned subtasks that become a reusable skill.",
+      mode: "Recorder",
+      platform: "macOS · Apple silicon",
+      instr: "Record Demo → Process → Reusable"
+    },
+    zh: {
+      tab: "录制演示",
+      title: "一段演示是怎么产生的",
+      desc: "先录制、再处理：录制器采集屏幕与输入事件，视觉语言模型将其转成带说明的子任务，最终沉淀为可复用技能。",
+      mode: "录制器",
+      platform: "macOS · Apple 芯片",
+      instr: "Record Demo → Process → Reusable"
+    }
+  }
+];
