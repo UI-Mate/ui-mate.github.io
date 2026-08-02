@@ -81,6 +81,12 @@ missing from `zh` silently falls back to English rather than rendering blank.
 
 ## Before publishing
 
+**Remove the `noindex` tag first.** `index.html` carries
+`<meta name="robots" content="noindex, nofollow">` so the page stays out of search
+results while the report is unannounced. The site is live and anyone with the URL can
+read it — that tag only keeps it from being indexed. Leave it in at launch and the page
+stays invisible to search.
+
 1. **Link targets.** Five hero buttons point at `#` and carry a `data-todo` attribute; they
    render with a dashed border and a dot so nothing looks broken while unresolved. Replace
    the `href` values and delete `class="... is-pending"` plus `data-todo` on each. Then
