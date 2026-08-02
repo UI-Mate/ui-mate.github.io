@@ -87,5 +87,21 @@ missing from `zh` silently falls back to English rather than rendering blank.
 
 ## Deploying
 
-Any static host works. For GitHub Pages, push to a repository and point Pages at the
-default branch root — there is nothing to build.
+Any static host works; this one goes to GitHub Pages at <https://ui-mate.github.io>.
+
+That hostname is not a domain anyone registered — GitHub derives it from the account
+name. It requires an account (user or organisation) named `ui-mate` owning a repository
+named `ui-mate.github.io`; renaming either changes the URL. Here the owner is a free
+organisation, so the page is not tied to one person's account.
+
+Pages serves the root of `main`, so a push is the whole deploy — there is nothing to
+build, and the first build after a push takes about a minute. The repository has to stay
+public: on free plans Pages only serves public repositories.
+
+`.nojekyll` disables Jekyll. Nothing here needs it, and left on it would silently drop
+any path beginning with an underscore.
+
+To move to a registered domain later, add a `CNAME` file holding the hostname and point
+a DNS `CNAME` record at `ui-mate.github.io`. Keep every asset reference relative, as
+they are now, and the page will also work unchanged under a subpath such as
+`https://<org>.github.io/UI-Mate/`.
