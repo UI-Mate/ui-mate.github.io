@@ -1,9 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 170 170">
   <rect x="0" y="0" width="170" height="170" rx="38" fill="#FFFFFF" stroke="#D3D1C7" stroke-width="1"/>
-  <g id="glyph" transform="translate(42.426,23.8) scale(1.717)">
-    <g transform="scale(3.1)">
-      <path d="M0 0 L0 20.5 L5.6 15.6 L9.2 23 L13.2 21.1 L9.6 13.9 L16 13.2 Z" fill="#2B5CE0" stroke="#2B5CE0" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
-      <path d="M0 0 L0 20.5 L5.6 15.6 Z" fill="#101E56" stroke="#101E56" stroke-width="2.6" stroke-linejoin="round"/>
-    </g>
+  <g id="glyph" transform="translate(23.768,22.000) scale(1.7684)">
+  <g opacity="0.16" transform="rotate(-32) scale(3.3,2.9)">
+    <path d="M0 0 L0 20.5 L5.6 15.6 L9.2 23 L13.2 21.1 L9.6 13.9 L16 13.2 Z" fill="#101E56" stroke="#101E56" stroke-width="3"
+          stroke-linejoin="round" stroke-linecap="round"/>
+  </g>
+  <g transform="scale(3.1)">
+    <path d="M0 0 L0 20.5 L5.6 15.6 L9.2 23 L13.2 21.1 L9.6 13.9 L16 13.2 Z" fill="#2B5CE0" stroke="#2B5CE0" stroke-width="3"
+          stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M0 0 L0 20.5 L5.6 15.6 Z" fill="#101E56" stroke="#101E56" stroke-width="2.6"
+          stroke-linejoin="round"/>
+  </g>
   </g>
 </svg>

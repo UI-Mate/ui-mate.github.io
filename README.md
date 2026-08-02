@@ -36,23 +36,34 @@ citation.
 
 ## Icons
 
-The tab and home-screen icons come from the desktop app's own cursor mark, not
-the Hunyuan logo. Colours and path data are copied from
+The tab and home-screen icons are the desktop app's own cursor mark, not the
+Hunyuan logo: the blue cursor with its navy facet and the 16%-opacity navy ghost
+behind it. Colours and path data are copied from
 `GUI-Agent-App/scripts/render_app_icon.py`, which authors the artwork on a
-170×170 tile, with two changes for this use:
+170×170 tile.
 
-- The glyph fills roughly 72% of the frame. That script insets it heavily because
-  macOS app icons are meant to sit inside their tile, which leaves the mark
-  unreadable at 16px.
-- The 16%-opacity motion ghost is dropped. It pulls the composition's centre away
-  from the blue cursor, and below about 100px it reads as a smudge rather than a
-  trail.
+`scripts/build_icons.py` is the source of truth. Run it to rebuild every icon:
 
-`assets/favicon.svg` is the source of truth and is what modern browsers use; the
-PNGs are rasterised fallbacks. To regenerate after an artwork change, edit the
-SVG and re-export at 16, 32, and 192, plus a 180 for `apple-touch-icon.png` —
-that one is a full-bleed white square with no rounded corners of its own, since
-iOS applies its own corner mask.
+```bash
+python3 scripts/build_icons.py    # needs cairosvg and pillow
+```
+
+Both `assets/favicon.svg` and the PNGs are generated, so edits to them are lost on
+the next run — change the script instead. Sizes are 16, 32 and 192, plus a 180
+`apple-touch-icon.png`; that last one is a full-bleed white square with no corner
+radius of its own, because iOS applies its own mask.
+
+The one departure from the app icon is placement. That script insets the mark, as
+macOS icons are meant to sit inside their tile, which leaves it small for a favicon.
+Here it is scaled to `FILL` (0.84) of the tile and centred — worth knowing that the
+ghost is rotated, so it reaches above and left of the drawing origin, and centring
+has to work from the rendered ink bounds of ghost and cursor **together**. Centring
+on the cursor, or on the path coordinates, visibly misplaces the mark.
+
+The ghost costs legibility at the smallest size: at 16px it adds grey mass that
+blurs the cursor's outline. It survives at 32px, which is what retina screens use
+for a tab, and modern browsers take the SVG anyway. If the 16px fallback matters,
+the fix is to build that one size with the ghost stripped.
 
 ## Editing copy
 
