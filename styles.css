@@ -365,7 +365,11 @@ html[lang="zh"] .hero-badge-txt { text-transform: none; letter-spacing: 0.06em; 
 .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-m); border-color: #d5dcea; }
 .btn svg { width: 17px; height: 17px; flex: none; color: var(--hy-blue); }
 .btn-primary {
-  background: var(--grad);
+  /* A gradient is sized to the padding box but painted across the border box, so
+     under a border the tile wraps and lays a 1px ring of the gradient's opposite
+     end around the shape. The trailing border-box sizes it to the painted area.
+     Every gradient that sits under a border needs it. */
+  background: var(--grad) border-box;
   border-color: transparent;
   color: #fff;
   box-shadow: var(--shadow-blue);
@@ -510,7 +514,7 @@ html[lang="zh"] .sec-kicker { text-transform: none; letter-spacing: 0.08em; }
 }
 .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-m); border-color: #dbe3f0; }
 .card:hover::before { opacity: 1; }
-.card-accent { border-color: rgba(0, 82, 217, 0.22); background: linear-gradient(180deg, rgba(0, 82, 217, 0.035), #fff 44%); }
+.card-accent { border-color: rgba(0, 82, 217, 0.22); background: linear-gradient(180deg, rgba(0, 82, 217, 0.035), #fff 44%) border-box; }
 .card-accent::before { opacity: 1; }
 
 .card-ico {
@@ -605,7 +609,7 @@ html[lang="zh"] .sec-kicker { text-transform: none; letter-spacing: 0.08em; }
 }
 .stack-t { font-size: 13.5px; color: var(--ink-2); line-height: 1.5; }
 .stack-hi {
-  background: linear-gradient(120deg, rgba(0, 82, 217, 0.07), rgba(78, 203, 255, 0.09));
+  background: linear-gradient(120deg, rgba(0, 82, 217, 0.07), rgba(78, 203, 255, 0.09)) border-box;
   border-color: rgba(0, 82, 217, 0.22);
 }
 .stack-hi .stack-n { color: var(--hy-blue); }
@@ -794,7 +798,7 @@ html[lang="zh"] .sec-kicker { text-transform: none; letter-spacing: 0.08em; }
 }
 .demo-tab:hover { border-color: #d3dbea; color: var(--ink); }
 .demo-tab.is-active {
-  background: var(--grad);
+  background: var(--grad) border-box;
   border-color: transparent;
   color: #fff;
   box-shadow: var(--shadow-blue);
