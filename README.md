@@ -104,7 +104,23 @@ stays invisible to search.
 
 ## Deploying
 
-Any static host works; this one goes to GitHub Pages at <https://ui-mate.github.io>.
+**The site is currently unpublished.** `UI-Mate/ui-mate.github.io` is private, which on a
+free plan takes the Pages site down with it, so <https://ui-mate.github.io> returns 404.
+Pushing to `main` is safe and publishes nothing while that holds.
+
+To go live, work through *Before publishing* above, then make the repository public:
+
+```bash
+gh repo edit UI-Mate/ui-mate.github.io --visibility public \
+  --accept-visibility-change-consequences
+gh api repos/UI-Mate/ui-mate.github.io/pages \
+  -X POST -f 'source[branch]=main' -f 'source[path]=/'   # skip if already enabled
+```
+
+Going private deleted the Pages configuration rather than pausing it, so it may need
+recreating — the second command does that, and fails harmlessly if GitHub already
+re-enabled it. Pages auto-enables for `<account>.github.io` repositories, so check
+before assuming it is needed. A build takes about a minute.
 
 That hostname is not a domain anyone registered — GitHub derives it from the account
 name. It requires an account (user or organisation) named `ui-mate` owning a repository
@@ -112,8 +128,9 @@ named `ui-mate.github.io`; renaming either changes the URL. Here the owner is a 
 organisation, so the page is not tied to one person's account.
 
 Pages serves the root of `main`, so a push is the whole deploy — there is nothing to
-build, and the first build after a push takes about a minute. The repository has to stay
-public: on free plans Pages only serves public repositories.
+build. Note that a published Pages site has no access control on any plan below
+Enterprise Cloud: public repository means a world-readable site, and `noindex` only
+keeps it out of search results.
 
 `.nojekyll` disables Jekyll. Nothing here needs it, and left on it would silently drop
 any path beginning with an underscore.
