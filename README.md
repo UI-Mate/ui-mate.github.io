@@ -1,6 +1,6 @@
 # UI-Mate project page
 
-Project homepage for **UI-Mate Technical Report: Advancing Foundation GUI Agents with
+Project homepage for **UI-Mate Technical Report: Advancing Open-Weight Foundation GUI Agents with
 In-Context Demonstrations** — Tencent HY Frontier, Multimodal Agent Team.
 
 A dependency-free static page: three files, no build step, no framework. Bilingual
@@ -30,9 +30,11 @@ forces one for sharing a specific version.
 | `assets/hy_logo.png` | Tencent Hunyuan mark, used in the nav, hero badge, and footer |
 | `assets/favicon.*`, `assets/apple-touch-icon.png` | Tab and home-screen icons, built from the desktop app's own icon |
 | `assets/demos/` | Demo videos and posters — see the README in that folder |
+| `assets/figures/` | Paper figures converted to PNG for the page |
+| `UI_Mate/` | Paper source (LaTeX + figures) |
+| `Demos/` | Raw demo recordings (General CUA / DemoCUA) |
 
-Sections, in order: title and team, overview, capabilities, method, results, demos,
-citation.
+Sections, in order: title and team, overview, approach, results, demos, citation.
 
 ## Icons
 
@@ -96,9 +98,9 @@ stays invisible to search.
 3. **BibTeX.** Fill in the arXiv identifier and the real citation key.
 4. **Demo clips.** See `assets/demos/README.md`. Each entry stays a placeholder until you
    set `ready: true` in `i18n.js`.
-5. **Results.** The numbers in the table and in `window.UIMATE_CHART` come from internal
-   DemoCUA runs. Reconcile them with the final report before publishing, and replace
-   "General VLM baseline" with the actual model name and version you want to disclose.
+5. **Results.** The headline numbers and `window.UIMATE_CHART` come from the technical
+   report (OSWorld-Verified, WindowsAgentArena, OSWorkerBench, paired demo lifts).
+   Reconcile them with the final report before publishing.
 6. **Social preview.** `index.html` has Open Graph title and description but no
    `og:image`; add a 1200×630 card if the page will be shared.
 

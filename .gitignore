@@ -4,3 +4,7 @@ Thumbs.db
 node_modules/
 .vscode/
 .idea/
+
+# Paper LaTeX source — keep local until the report is public
+UI_Mate/
+.DS_Store

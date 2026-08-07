@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>UI-Mate: Advancing Foundation GUI Agents with In-Context Demonstrations</title>
-<meta name="description" content="UI-Mate Technical Report — Advancing Foundation GUI Agents with In-Context Demonstrations. Tencent HY Frontier, Multimodal Agent Team." />
+<title>UI-Mate: Advancing Open-Weight Foundation GUI Agents with In-Context Demonstrations</title>
+<meta name="description" content="UI-Mate Technical Report — Advancing Open-Weight Foundation GUI Agents with In-Context Demonstrations. Tencent HY Frontier, Multimodal Agent Team." />
 <!-- Keeps the page out of search results while the report is unannounced. Delete
      at launch, or the page stays invisible to search. There is deliberately no
      robots.txt blocking crawlers: a crawler that is not allowed to fetch the page
      cannot read this tag, and could still list the bare URL if anyone links to it. -->
 <meta name="robots" content="noindex, nofollow" />
-<meta property="og:title" content="UI-Mate: Advancing Foundation GUI Agents with In-Context Demonstrations" />
-<meta property="og:description" content="A foundation GUI agent that learns unfamiliar software from a single human demonstration." />
+<meta property="og:title" content="UI-Mate: Advancing Open-Weight Foundation GUI Agents with In-Context Demonstrations" />
+<meta property="og:description" content="An open-weight foundation GUI agent with environment-grounded training and in-context demonstration learning." />
 <meta property="og:type" content="website" />
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
 <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png" />
@@ -38,8 +38,7 @@
 
     <nav class="nav-links" id="navLinks">
       <a href="#overview" data-i18n="nav.overview">Overview</a>
-      <a href="#capabilities" data-i18n="nav.capabilities">Capabilities</a>
-      <a href="#method" data-i18n="nav.method">Method</a>
+      <a href="#approach" data-i18n="nav.approach">Approach</a>
       <a href="#results" data-i18n="nav.results">Results</a>
       <a href="#demos" data-i18n="nav.demos">Demos</a>
       <a href="#citation" data-i18n="nav.citation">Citation</a>
@@ -57,7 +56,7 @@
   </div>
 </header>
 
-<!-- ============ HERO / TITLE & TEAM ============ -->
+<!-- ============ HERO ============ -->
 <main id="top">
 <section class="hero">
   <div class="hero-bg" aria-hidden="true">
@@ -75,16 +74,15 @@
 
     <h1 class="hero-title">
       <span class="hero-name">UI-Mate</span>
-      <span class="hero-sub" data-i18n="hero.title">Advancing Foundation GUI Agents with In-Context Demonstrations</span>
+      <span class="hero-sub" data-i18n="hero.title">Advancing Open-Weight Foundation GUI Agents<br>with In-Context Demonstrations</span>
     </h1>
 
     <p class="hero-tagline" data-i18n="hero.tagline">
-      Show it once. It works on your software — not by replaying your clicks, but by reasoning from your demonstration.
+      Strong general computer use — plus one demonstration when the instruction alone is not enough.
     </p>
 
     <div class="hero-team">
       <p class="team-name" data-i18n="hero.team">Tencent HY Frontier &middot; Multimodal Agent Team</p>
-      <p class="team-note" data-i18n="hero.teamNote">Full author list available in the technical report.</p>
     </div>
 
     <div class="hero-links">
@@ -116,398 +114,290 @@
   </div>
 </section>
 
-<!-- ============ OVERVIEW / ABSTRACT ============ -->
+<!-- ============ OVERVIEW ============ -->
 <section id="overview" class="section">
   <div class="wrap">
     <div class="sec-head">
       <span class="sec-kicker" data-i18n="kicker.overview">01 — Overview</span>
-      <h2 class="sec-title" data-i18n="overview.title">Abstract</h2>
-    </div>
-
-    <div class="abstract">
-      <p data-i18n="overview.p1">
-        Foundation GUI agents can already operate mainstream consumer software, yet they fail on exactly the
-        workflows that matter most to real users: internal enterprise tools, niche professional software, and
-        long multi-step procedures that carry implicit conventions no pretraining corpus contains.
-      </p>
-      <p data-i18n="overview.p2">
-        We present <strong>UI-Mate</strong>, a foundation GUI agent that closes this gap with <em>in-context
-        demonstrations</em>. A user records a single screen demonstration of an unfamiliar task; UI-Mate segments it
-        into captioned subtasks and injects that structure into the agent's observation as <em>guidance</em>, not as a
-        script. The agent still perceives the live screen and decides each action itself, so it tolerates changed
-        parameters, different file paths, and shifted layouts that break frame-by-frame replay.
-      </p>
-      <p data-i18n="overview.p3">
-        On <strong>DemoCUA</strong>, our 50-task benchmark for demonstration-conditioned computer use, UI-Mate reaches
-        <strong>34.57</strong> with in-context demonstrations versus 31.83 without, and more than doubles the score of a
-        strong general-purpose VLM baseline. Gains concentrate where they should: on long repetitive procedures, the
-        number of tasks passing the completion threshold rises from 15/25 to 22/25.
-      </p>
-      <p data-i18n="overview.p4">
-        UI-Mate ships as a local desktop agent for macOS and Windows that drives the real mouse and keyboard, runs
-        fully offline on a single Apple-silicon Mac with 9B 4-bit weights, and scales to a shared 27B vLLM deployment
-        for team use and evaluation.
+      <h2 class="sec-title" data-i18n="overview.title">What UI-Mate is</h2>
+      <p class="sec-lede" data-i18n="overview.lede">
+        An open-weight foundation GUI agent that pairs environment-grounded training with in-context demonstration learning — so users can show a procedure once instead of spelling every convention out in a prompt.
       </p>
     </div>
 
     <ul class="highlight-row">
       <li>
-        <span class="hl-num">34.57<small>/49</small></span>
-        <span class="hl-label" data-i18n="hl.score">DemoCUA score with in-context demos</span>
+        <span class="hl-num">77.0<small>%</small></span>
+        <span class="hl-label" data-i18n="hl.osworld">OSWorld-Verified · UI-Mate-27B</span>
       </li>
       <li>
-        <span class="hl-num">+33.8<small>%</small></span>
-        <span class="hl-label" data-i18n="hl.long">Gain on long repetitive procedures</span>
+        <span class="hl-num">66.2<small>%</small></span>
+        <span class="hl-label" data-i18n="hl.waa">WindowsAgentArena · open-weight SOTA</span>
       </li>
       <li>
-        <span class="hl-num">2.1<small>&times;</small></span>
-        <span class="hl-label" data-i18n="hl.baseline">Over a general-purpose VLM baseline</span>
+        <span class="hl-num">41.0<small>%</small></span>
+        <span class="hl-label" data-i18n="hl.worker">OSWorkerBench strict success</span>
       </li>
       <li>
-        <span class="hl-num">9<small>B&nbsp;4bit</small></span>
-        <span class="hl-label" data-i18n="hl.local">Runs fully offline on one Mac</span>
+        <span class="hl-num">2.7<small>&times;</small></span>
+        <span class="hl-label" data-i18n="hl.demo">Strict success with one demo</span>
       </li>
     </ul>
+
+    <figure class="fig fig-teaser">
+      <img src="assets/figures/teaser.png" alt="UI-Mate teaser: demo-guided execution and benchmark results" loading="lazy" />
+      <figcaption data-i18n="overview.fig">
+        General computer use plus demo-guided execution. One demonstration lifts long-horizon task scores without turning the agent into a replay script.
+      </figcaption>
+    </figure>
   </div>
 </section>
 
-<!-- ============ CAPABILITIES ============ -->
-<section id="capabilities" class="section section-tint">
+<!-- ============ APPROACH ============ -->
+<section id="approach" class="section section-tint">
   <div class="wrap">
     <div class="sec-head">
-      <span class="sec-kicker" data-i18n="kicker.capabilities">02 — Capabilities</span>
-      <h2 class="sec-title" data-i18n="cap.title">What UI-Mate can do</h2>
-      <p class="sec-lede" data-i18n="cap.lede">
-        A single instruction in natural language, executed on your own machine with your own applications —
-        observable step by step, interruptible at any moment.
+      <span class="sec-kicker" data-i18n="kicker.approach">02 — Approach</span>
+      <h2 class="sec-title" data-i18n="approach.title">Three pieces</h2>
+      <p class="sec-lede" data-i18n="approach.lede">
+        A closed-loop data and training stack, demonstration-guided execution, and an office benchmark that isolates what a demo adds.
       </p>
     </div>
 
-    <div class="cards">
-      <article class="card">
-        <div class="card-ico">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="14" rx="2" class="stroke"/><path d="M8 21h8M12 18v3" class="stroke"/></svg>
-        </div>
-        <h3 data-i18n="cap.1.h">Native desktop control</h3>
-        <p data-i18n="cap.1.p">
-          Real clicks and keystrokes through platform-native backends — <code>mac_native</code> on macOS,
-          <code>win_native</code> on Windows — with no silent fallbacks. The agent sees your actual screen and
-          operates your actual apps, not a sandboxed replica.
+    <div class="pillars">
+      <article class="pillar">
+        <span class="pillar-idx">01</span>
+        <h3 data-i18n="approach.1.h">Environment-grounded training</h3>
+        <p data-i18n="approach.1.p">
+          Closed-loop data flywheel: task &amp; environment construction, filtered rollouts, capability-tree rebalancing, then SFT + online RL.
         </p>
+        <figure class="fig">
+          <img src="assets/figures/data-pipeline.png" alt="UI-Mate data flywheel" loading="lazy" />
+        </figure>
       </article>
 
-      <article class="card">
-        <div class="card-ico">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" class="stroke"/><circle cx="12" cy="12" r="3.5"/></svg>
-        </div>
-        <h3 data-i18n="cap.2.h">Teach by recording</h3>
-        <p data-i18n="cap.2.p">
-          When the agent meets software it has never seen, record the workflow once. A native recorder captures the
-          screen together with your input events, a VLM captions and segments it, and the result becomes a reusable
-          skill in your library.
+      <article class="pillar">
+        <span class="pillar-idx">02</span>
+        <h3 data-i18n="approach.2.h">In-context demonstrations</h3>
+        <p data-i18n="approach.2.p">
+          Record once → captioned subtask workflow. At run time the live screenshot stays authoritative; the demo is guidance, not a script.
         </p>
+
+        <div class="flow" id="demoFlow" aria-label="DemoCUA workflow">
+          <!-- OFFLINE -->
+          <div class="flow-phase">
+            <div class="flow-phase-head">
+              <span class="flow-badge" data-i18n="flow.off.badge">Offline</span>
+              <span class="flow-phase-title" data-i18n="flow.off.title">Capture and structure a demonstration</span>
+            </div>
+
+            <div class="flow-offline" data-flow="offline">
+              <article class="flow-card" data-step="0">
+                <span class="flow-card-n">1</span>
+                <h4 data-i18n="flow.off.1.h">Record demo</h4>
+                <p data-i18n="flow.off.1.p">Native recorder · before/after screen for every action</p>
+                <div class="flow-chiprow" aria-hidden="true">
+                  <span class="flow-chip flow-chip-rec">REC</span>
+                  <span class="flow-chip">82s</span>
+                  <span class="flow-chip">71 events</span>
+                </div>
+              </article>
+              <span class="flow-arrow" aria-hidden="true"></span>
+              <article class="flow-card" data-step="1">
+                <span class="flow-card-n">2</span>
+                <h4 data-i18n="flow.off.2.h">Pair evidence</h4>
+                <p data-i18n="flow.off.2.p">Before / after screens + raw clicks, keys, text</p>
+                <div class="flow-mini-pair" aria-hidden="true">
+                  <span>Before</span><span>After</span>
+                </div>
+              </article>
+              <span class="flow-arrow" aria-hidden="true"></span>
+              <article class="flow-card" data-step="2">
+                <span class="flow-card-n">3</span>
+                <h4 data-i18n="flow.off.3.h">Caption each step</h4>
+                <p data-i18n="flow.off.3.p">VLM: observation · intent · action · verify</p>
+                <ul class="flow-mini-list" aria-hidden="true">
+                  <li>Obs</li><li>Intent</li><li>Action</li><li>Result</li>
+                </ul>
+              </article>
+              <span class="flow-arrow" aria-hidden="true"></span>
+              <article class="flow-card" data-step="3">
+                <span class="flow-card-n">4</span>
+                <h4 data-i18n="flow.off.4.h">Group subtasks</h4>
+                <p data-i18n="flow.off.4.p">71 events → 6 subtasks with completion criteria</p>
+                <div class="flow-chiprow" aria-hidden="true">
+                  <span class="flow-chip">S1</span>
+                  <span class="flow-chip">S2</span>
+                  <span class="flow-chip">…</span>
+                  <span class="flow-chip">S6</span>
+                </div>
+              </article>
+              <span class="flow-arrow" aria-hidden="true"></span>
+              <article class="flow-card flow-card-out" data-step="4">
+                <span class="flow-card-n">5</span>
+                <h4 data-i18n="flow.off.5.h">Review &amp; save</h4>
+                <p data-i18n="flow.off.5.p">Human edit → reusable demo in the library</p>
+                <div class="flow-chiprow" aria-hidden="true">
+                  <span class="flow-chip flow-chip-ok" data-i18n="flow.off.5.tag">Reusable</span>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <div class="flow-bridge">
+            <span class="flow-bridge-line" aria-hidden="true"></span>
+            <span class="flow-bridge-label" data-i18n="flow.bridge">parsed into a subtask plan</span>
+          </div>
+
+          <!-- ONLINE -->
+          <div class="flow-phase">
+            <div class="flow-phase-head">
+              <span class="flow-badge flow-badge-on" data-i18n="flow.on.badge">Online</span>
+              <span class="flow-phase-title" data-i18n="flow.on.title">Demo-in-the-loop at every step</span>
+            </div>
+
+            <div class="flow-online" data-flow="online">
+              <article class="flow-node flow-node-shot" data-role="shot">
+                <h4 data-i18n="flow.on.shot.h">Live screenshot</h4>
+                <p data-i18n="flow.on.shot.p">Authoritative live pixels</p>
+                <div class="flow-screen" aria-hidden="true">
+                  <div class="flow-screen-bar">
+                    <span class="dot dot-r"></span>
+                    <span class="dot dot-y"></span>
+                    <span class="dot dot-g"></span>
+                  </div>
+                  <div class="flow-screen-body">
+                    <div class="flow-screen-side"></div>
+                    <div class="flow-screen-main">
+                      <i></i><i></i><i></i>
+                    </div>
+                  </div>
+                </div>
+              </article>
+
+              <div class="flow-link" data-edge="obs" aria-hidden="true">
+                <span data-i18n="flow.edge.obs">live pixels</span>
+              </div>
+
+              <article class="flow-node flow-node-harness" data-role="harness">
+                <h4 data-i18n="flow.on.harness.h">Harness workflow hook</h4>
+                <p data-i18n="flow.on.harness.p">Holds the plan; exposes only the active subtask</p>
+                <ol class="flow-check" id="flowCheck" aria-hidden="true">
+                  <li data-i="0" class="is-done"><span></span><em data-i18n="flow.on.s1">Navigate</em></li>
+                  <li data-i="1" class="is-done"><span></span><em data-i18n="flow.on.s2">Filter</em></li>
+                  <li data-i="2" class="is-done"><span></span><em data-i18n="flow.on.s3">Extract</em></li>
+                  <li data-i="3" class="is-current"><span></span><em data-i18n="flow.on.s4">Write sheet</em></li>
+                  <li data-i="4"><span></span><em data-i18n="flow.on.s5">Export</em></li>
+                  <li data-i="5"><span></span><em data-i18n="flow.on.s6">Done</em></li>
+                </ol>
+                <p class="flow-status" id="flowStatus" data-i18n="flow.on.status.write">Current: Write sheet</p>
+              </article>
+
+              <div class="flow-link" data-edge="guide" aria-hidden="true">
+                <span data-i18n="flow.edge.guide">guidance</span>
+              </div>
+
+              <article class="flow-node flow-node-agent" data-role="agent">
+                <h4 data-i18n="flow.on.agent.h">Agent</h4>
+                <p data-i18n="flow.on.agent.p">Decides from screen + guidance</p>
+              </article>
+
+              <div class="flow-link" data-edge="act" aria-hidden="true">
+                <span data-i18n="flow.edge.act">action</span>
+              </div>
+
+              <article class="flow-node flow-node-desk" data-role="desk">
+                <h4 data-i18n="flow.on.desk.h">Desktop</h4>
+                <p data-i18n="flow.on.desk.p">Real mouse &amp; keyboard</p>
+              </article>
+
+              <div class="flow-feedback" aria-hidden="true">
+                <span class="flow-link flow-link-back" data-edge="done">
+                  <span data-i18n="flow.edge.done">subtask_complete</span>
+                </span>
+                <span class="flow-link flow-link-back" data-edge="next">
+                  <span data-i18n="flow.edge.next">next observation</span>
+                </span>
+              </div>
+            </div>
+
+            <p class="flow-note" data-i18n="flow.on.note">
+              Harness keeps the checklist; after one or two subtasks finish, the agent emits completion and the run ends.
+            </p>
+          </div>
+        </div>
       </article>
 
-      <article class="card card-accent">
-        <div class="card-ico">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l3-7 4 14 3-7h4" class="stroke"/></svg>
-        </div>
-        <h3 data-i18n="cap.3.h">Demo-in-the-loop</h3>
-        <p data-i18n="cap.3.p">
-          Attach a demonstration and the agent treats it as reference, deciding from the live screen at every step.
-          Similar past demonstrations are retrieved automatically with a visible similarity score, and you can stop
-          following one mid-run.
+      <article class="pillar">
+        <span class="pillar-idx">03</span>
+        <h3 data-i18n="approach.3.h">OSWorkerBench</h3>
+        <p data-i18n="approach.3.p">
+          100 long-horizon office tasks across 41 apps. Paired demos isolate what one demonstration adds beyond baseline skill.
         </p>
+        <figure class="fig">
+          <img src="assets/figures/benchmark.png" alt="OSWorkerBench construction pipeline" loading="lazy" />
+        </figure>
       </article>
-
-      <article class="card">
-        <div class="card-ico">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V8M10 20V4M16 20v-9M22 20v-5" class="stroke"/></svg>
-        </div>
-        <h3 data-i18n="cap.4.h">Step-level observability</h3>
-        <p data-i18n="cap.4.p">
-          Every step records before/after screenshots, the model's reasoning, the executed action, and a latency split
-          between model wait and app overhead. Filter a run by actions, memory writes, approval gates, or errors, and
-          export the whole trajectory.
-        </p>
-      </article>
-
-      <article class="card">
-        <div class="card-ico">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 4v6c0 5-3.5 7.5-8 8-4.5-.5-8-3-8-8V7z" class="stroke"/><path d="M9 12l2 2 4-4" class="stroke"/></svg>
-        </div>
-        <h3 data-i18n="cap.5.h">Human in the loop</h3>
-        <p data-i18n="cap.5.p">
-          Pause, resume, or stop at any point and the screen returns to you. Send a follow-up instruction into a
-          running task without interrupting it, answer the agent's questions, and approve or deny high-risk actions
-          such as payments and deletions before they execute.
-        </p>
-      </article>
-
-      <article class="card">
-        <div class="card-ico">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="2" class="stroke"/><rect x="13" y="3" width="8" height="8" rx="2" class="stroke"/><rect x="3" y="13" width="8" height="8" rx="2" class="stroke"/><rect x="13" y="13" width="8" height="8" rx="2" class="stroke"/></svg>
-        </div>
-        <h3 data-i18n="cap.6.h">Deploy where you need it</h3>
-        <p data-i18n="cap.6.p">
-          One OpenAI-compatible client, four deployment paths: a shared 27B vLLM service for teams, a hosted
-          endpoint, 9B 4-bit MLX weights for fully offline use on a single Mac, or a third-party model while you
-          evaluate. Screenshot resolution, history length, and thinking are all tunable.
-        </p>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- ============ METHOD ============ -->
-<section id="method" class="section">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="sec-kicker" data-i18n="kicker.method">03 — Method</span>
-      <h2 class="sec-title" data-i18n="method.title">Demonstrations as context, not as a script</h2>
-      <p class="sec-lede" data-i18n="method.lede">
-        The central design choice: a recorded demonstration never drives execution. It is compiled into structured
-        guidance and placed in the agent's context, leaving every decision to the policy.
-      </p>
-    </div>
-
-    <!-- pipeline -->
-    <div class="pipeline">
-      <div class="pipe-step">
-        <span class="pipe-idx">1</span>
-        <h4 data-i18n="method.s1.h">Record</h4>
-        <p data-i18n="method.s1.p">A native recorder captures the screen and the raw input event stream while the user performs the task once.</p>
-      </div>
-      <div class="pipe-arrow" aria-hidden="true"></div>
-      <div class="pipe-step">
-        <span class="pipe-idx">2</span>
-        <h4 data-i18n="method.s2.h">Caption &amp; segment</h4>
-        <p data-i18n="method.s2.p">A VLM converts the recording into captioned subtasks, yielding a compact symbolic summary of intent rather than pixels.</p>
-      </div>
-      <div class="pipe-arrow" aria-hidden="true"></div>
-      <div class="pipe-step">
-        <span class="pipe-idx">3</span>
-        <h4 data-i18n="method.s3.h">Retrieve</h4>
-        <p data-i18n="method.s3.p">For a new instruction, the closest demonstration is matched by trajectory embedding, with keyword matching as fallback.</p>
-      </div>
-      <div class="pipe-arrow" aria-hidden="true"></div>
-      <div class="pipe-step">
-        <span class="pipe-idx">4</span>
-        <h4 data-i18n="method.s4.h">Inject</h4>
-        <p data-i18n="method.s4.p">A workflow hook adds the subtask structure to each observation; the agent consumes it as guidance beside the live screenshot.</p>
-      </div>
-      <div class="pipe-arrow" aria-hidden="true"></div>
-      <div class="pipe-step pipe-step-final">
-        <span class="pipe-idx">5</span>
-        <h4 data-i18n="method.s5.h">Decide</h4>
-        <p data-i18n="method.s5.p">The policy emits the next action from what is actually on screen — so changed parameters and layouts do not break the run.</p>
-      </div>
-    </div>
-
-    <div class="split">
-      <div class="split-main">
-        <h3 class="mini-title" data-i18n="method.loop.h">Perception–reasoning–action loop</h3>
-        <p class="prose" data-i18n="method.loop.p">
-          Each step captures a screenshot at a configurable resolution, carries a bounded window of recent frames and
-          textual history, and asks the model for a single action, which the native bridge maps onto the operating
-          system. Keeping the image window bounded is what makes long tasks affordable: context stays flat while the
-          episode grows.
-        </p>
-
-        <h3 class="mini-title" data-i18n="method.why.h">Why guidance beats replay</h3>
-        <p class="prose" data-i18n="method.why.p">
-          Frame-level replay assumes the screen you recorded is the screen you will see. It is not: dialogs move,
-          records differ, file paths change. By reducing a demonstration to subtask-level intent, UI-Mate keeps the
-          part that generalises — the procedure — and discards the part that does not — the exact coordinates. When the
-          live screen diverges from the demonstration, the agent simply keeps going.
-        </p>
-
-        <h3 class="mini-title" data-i18n="method.safe.h">Fail-open by construction</h3>
-        <p class="prose" data-i18n="method.safe.p">
-          Demonstration loading is a strictly optional stage. A missing, malformed, or disabled demonstration returns
-          nothing and the run proceeds as an ordinary GUI task, so the in-context path can never take down a task that
-          would otherwise have succeeded.
-        </p>
-      </div>
-
-      <aside class="split-side">
-        <h3 class="mini-title" data-i18n="method.arch.h">System architecture</h3>
-        <p class="side-note" data-i18n="method.arch.note">Five layers, strictly one-directional dependencies, with a single source of truth for the agent loop.</p>
-        <ol class="stack">
-          <li>
-            <span class="stack-n">UI</span>
-            <span class="stack-t" data-i18n="method.arch.1">Renderer — task input, run visualisation, approvals, demo library</span>
-          </li>
-          <li>
-            <span class="stack-n">IPC</span>
-            <span class="stack-t" data-i18n="method.arch.2">Main process — process lifecycle, streaming events, persistence</span>
-          </li>
-          <li>
-            <span class="stack-n">API</span>
-            <span class="stack-t" data-i18n="method.arch.3">Agent entry — engine routing and model configuration assembly</span>
-          </li>
-          <li class="stack-hi">
-            <span class="stack-n">CORE</span>
-            <span class="stack-t" data-i18n="method.arch.4">Harness — agent, model, and episode loop; the single source of truth</span>
-          </li>
-          <li>
-            <span class="stack-n">OS</span>
-            <span class="stack-t" data-i18n="method.arch.5">Native bridge — actions mapped to macOS, Windows, or Linux</span>
-          </li>
-        </ol>
-        <p class="side-note side-note-b" data-i18n="method.arch.seams">
-          Three narrow seams separate the harness from the application: an environment protocol for where actions
-          land, a runner hook for events and safety, and a one-way action adapter used only for visualisation.
-        </p>
-      </aside>
     </div>
   </div>
 </section>
 
 <!-- ============ RESULTS ============ -->
-<section id="results" class="section section-tint">
+<section id="results" class="section">
   <div class="wrap">
     <div class="sec-head">
-      <span class="sec-kicker" data-i18n="kicker.results">04 — Results</span>
-      <h2 class="sec-title" data-i18n="res.title">DemoCUA benchmark</h2>
+      <span class="sec-kicker" data-i18n="kicker.results">03 — Results</span>
+      <h2 class="sec-title" data-i18n="res.title">Open-weight CUA — and more reliable with one demo</h2>
       <p class="sec-lede" data-i18n="res.lede">
-        Existing computer-use benchmarks assume the agent already knows the software. DemoCUA asks the opposite
-        question: given one human demonstration, how well can an agent generalise from it?
+        77.0% on OSWorld-Verified and 66.2% on WindowsAgentArena among open-weight models. On the OSWorkerBench paired subset, progress rises from 64.1% to 74.9% with one demonstration.
       </p>
     </div>
 
-    <div class="subsets">
-      <div class="subset">
-        <span class="subset-n">15</span>
-        <h4 data-i18n="res.sub1.h">Variants</h4>
-        <p data-i18n="res.sub1.p">Same procedure, different parameters, paths, or content than the demonstration.</p>
+    <div class="metric-grid">
+      <div class="metric">
+        <span class="metric-k" data-i18n="res.m1.k">OSWorld-Verified</span>
+        <span class="metric-v">77.0%</span>
+        <span class="metric-n" data-i18n="res.m1.n">Open-weight SOTA</span>
       </div>
-      <div class="subset">
-        <span class="subset-n">25</span>
-        <h4 data-i18n="res.sub2.h">LongRepeat</h4>
-        <p data-i18n="res.sub2.p">Long procedures that repeat a demonstrated pattern many times without drifting.</p>
+      <div class="metric">
+        <span class="metric-k" data-i18n="res.m2.k">WindowsAgentArena</span>
+        <span class="metric-v">66.2%</span>
+        <span class="metric-n" data-i18n="res.m2.n">Open-weight SOTA</span>
       </div>
-      <div class="subset">
-        <span class="subset-n">6</span>
-        <h4 data-i18n="res.sub3.h">MultiApps</h4>
-        <p data-i18n="res.sub3.p">Workflows crossing several applications and carrying state between them.</p>
+      <div class="metric">
+        <span class="metric-k" data-i18n="res.m3.k">OSWorkerBench</span>
+        <span class="metric-v">41.0% <small>/ 76.9%</small></span>
+        <span class="metric-n" data-i18n="res.m3.n">Strict / progress · +17.7 / +24.5 vs base</span>
       </div>
-      <div class="subset">
-        <span class="subset-n">4</span>
-        <h4 data-i18n="res.sub4.h">Condition</h4>
-        <p data-i18n="res.sub4.p">Branching procedures whose correct path depends on what the screen shows.</p>
+      <div class="metric metric-hi">
+        <span class="metric-k" data-i18n="res.m4.k">+ one demo</span>
+        <span class="metric-v">15.2% → 40.4%</span>
+        <span class="metric-n" data-i18n="res.m4.n">Paired OSWorker subset · strict success</span>
       </div>
-    </div>
-
-    <div class="table-card">
-      <div class="table-head">
-        <h3 class="mini-title" data-i18n="res.table.h">Main results</h3>
-        <p class="side-note" data-i18n="res.table.note">Score is the sum of per-task scores. Subset totals are fixed at 15 / 25 / 6 / 4.</p>
-      </div>
-      <div class="table-scroll">
-        <table class="rtable">
-          <thead>
-            <tr>
-              <th data-i18n="res.th.model">Model</th>
-              <th class="num" data-i18n="res.th.score">Score</th>
-              <th class="num" data-i18n="res.th.var">Variants<small>/15</small></th>
-              <th class="num" data-i18n="res.th.long">LongRepeat<small>/25</small></th>
-              <th class="num" data-i18n="res.th.multi">MultiApps<small>/6</small></th>
-              <th class="num" data-i18n="res.th.cond">Condition<small>/4</small></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row"><span class="mtag mtag-base" data-i18n="res.row.baseline">General VLM baseline</span></th>
-              <td class="num">15.10 <small>/50</small></td>
-              <td class="num">7.00</td>
-              <td class="num">6.40 <small>(10/25)</small></td>
-              <td class="num">0.20 <small>(0/6)</small></td>
-              <td class="num">1.50</td>
-            </tr>
-            <tr>
-              <th scope="row"><span class="mtag mtag-base" data-i18n="res.row.baselineDemo">General VLM baseline + demo</span></th>
-              <td class="num">19.57 <small>/50</small></td>
-              <td class="num">8.00</td>
-              <td class="num">9.20 <small>(11/25)</small></td>
-              <td class="num">0.20 <small>(0/6)</small></td>
-              <td class="num">2.17</td>
-            </tr>
-            <tr>
-              <th scope="row"><span class="mtag" data-i18n="res.row.uimate">UI-Mate</span></th>
-              <td class="num">31.83 <small>/49</small></td>
-              <td class="num strong">14.00</td>
-              <td class="num">14.20 <small>(15/25)</small></td>
-              <td class="num strong">0.47 <small>(0/6)</small></td>
-              <td class="num strong">3.17</td>
-            </tr>
-            <tr class="row-best">
-              <th scope="row"><span class="mtag mtag-hi" data-i18n="res.row.uimateDemo">UI-Mate + in-context demo</span></th>
-              <td class="num strong">34.57 <small>/49</small></td>
-              <td class="num">13.00</td>
-              <td class="num strong">19.00 <small>(22/25)</small></td>
-              <td class="num">0.40 <small>(0/6)</small></td>
-              <td class="num">2.17</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <p class="table-foot" data-i18n="res.table.foot">
-        Parenthesised values count tasks above the subset's completion threshold, separating partial progress from no
-        progress at all. UI-Mate rows cover 49 of 50 tasks. Demonstrations are supplied in textual subtask form.
-      </p>
     </div>
 
     <div class="chart-card">
       <div class="table-head">
-        <h3 class="mini-title" data-i18n="res.chart.h">Effect of in-context demonstrations</h3>
-        <p class="side-note" data-i18n="res.chart.note">Per-subset score, normalised to the subset total.</p>
+        <h3 class="mini-title" data-i18n="res.chart.h">Effect of one demonstration</h3>
+        <p class="side-note" data-i18n="res.chart.note">Average task score, without vs. with demo.</p>
       </div>
       <div class="legend">
         <span class="lg"><i class="sw sw-a"></i><span data-i18n="res.chart.wo">Without demo</span></span>
-        <span class="lg"><i class="sw sw-b"></i><span data-i18n="res.chart.w">With in-context demo</span></span>
+        <span class="lg"><i class="sw sw-b"></i><span data-i18n="res.chart.w">With one demo</span></span>
       </div>
       <div class="chart" id="chart"></div>
-    </div>
-
-    <div class="takeaways">
-      <div class="take">
-        <h4 data-i18n="res.take1.h">Long procedures benefit most</h4>
-        <p data-i18n="res.take1.p">
-          On LongRepeat, in-context demonstrations lift the score from 14.20 to 19.00 and raise the number of tasks
-          making real progress from 15/25 to 22/25. Knowing the intended procedure is precisely what stops an agent
-          from drifting after a dozen repetitions.
-        </p>
-      </div>
-      <div class="take">
-        <h4 data-i18n="res.take2.h">The effect is not model-specific</h4>
-        <p data-i18n="res.take2.p">
-          The same textual demonstrations lift the general-purpose VLM baseline from 15.10 to 19.57, so the mechanism
-          transfers across policies. UI-Mate simply starts from a much stronger base, more than doubling that
-          baseline before any demonstration is attached.
-        </p>
-      </div>
-      <div class="take">
-        <h4 data-i18n="res.take3.h">Where it does not help yet</h4>
-        <p data-i18n="res.take3.p">
-          MultiApps stays near zero for every configuration: no model crosses the threshold on any of its six tasks.
-          Condition and Variants trade slightly against the no-demo runs, indicating that guidance can also over-constrain
-          branching decisions. Cross-application state and conditional control are the open problems.
-        </p>
-      </div>
     </div>
   </div>
 </section>
 
 <!-- ============ DEMOS ============ -->
-<section id="demos" class="section">
+<section id="demos" class="section section-tint">
   <div class="wrap">
     <div class="sec-head">
-      <span class="sec-kicker" data-i18n="kicker.demos">05 — Demos</span>
+      <span class="sec-kicker" data-i18n="kicker.demos">04 — Demos</span>
       <h2 class="sec-title" data-i18n="demo.title">See it run</h2>
       <p class="sec-lede" data-i18n="demo.lede">
-        Unedited screen captures at native speed. Every run is driven by a single natural-language instruction on a
-        real desktop.
+        General CUA on a real macOS desktop. DemoCUA clips coming next.
       </p>
     </div>
 
@@ -545,9 +435,9 @@
 <section id="citation" class="section section-dark">
   <div class="wrap">
     <div class="sec-head sec-head-dark">
-      <span class="sec-kicker" data-i18n="kicker.citation">06 — Citation</span>
+      <span class="sec-kicker" data-i18n="kicker.citation">05 — Citation</span>
       <h2 class="sec-title" data-i18n="cite.title">Cite this work</h2>
-      <p class="sec-lede" data-i18n="cite.lede">If UI-Mate or DemoCUA is useful in your research, please cite the technical report.</p>
+      <p class="sec-lede" data-i18n="cite.lede">If UI-Mate, DemoCUA, or OSWorkerBench is useful in your research, please cite the technical report.</p>
     </div>
 
     <div class="cite-card">
@@ -559,7 +449,7 @@
         </button>
       </div>
 <pre class="bib" id="bibtex">@article{uimate2026,
-  title   = {UI-Mate Technical Report: Advancing Foundation GUI Agents
+  title   = {UI-Mate Technical Report: Advancing Open-Weight Foundation GUI Agents
              with In-Context Demonstrations},
   author  = {Multimodal Agent Team, Tencent HY Frontier},
   journal = {arXiv preprint},
@@ -583,8 +473,7 @@
     </div>
     <nav class="foot-links">
       <a href="#overview" data-i18n="nav.overview">Overview</a>
-      <a href="#capabilities" data-i18n="nav.capabilities">Capabilities</a>
-      <a href="#method" data-i18n="nav.method">Method</a>
+      <a href="#approach" data-i18n="nav.approach">Approach</a>
       <a href="#results" data-i18n="nav.results">Results</a>
       <a href="#demos" data-i18n="nav.demos">Demos</a>
       <a href="#citation" data-i18n="nav.citation">Citation</a>

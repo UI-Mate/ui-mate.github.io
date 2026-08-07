@@ -10,8 +10,8 @@
   var STORE_KEY = "uimate.lang";
 
   var TITLES = {
-    en: "UI-Mate: Advancing Foundation GUI Agents with In-Context Demonstrations",
-    zh: "UI-Mate：以上下文演示推进通用 GUI 智能体"
+    en: "UI-Mate: Advancing Open-Weight Foundation GUI Agents with In-Context Demonstrations",
+    zh: "UI-Mate：以上下文演示推进开源权重通用 GUI 智能体"
   };
 
   var lang = resolveInitialLang();
@@ -90,7 +90,7 @@
     }
   });
 
-  var sections = ["overview", "capabilities", "method", "results", "demos", "citation"]
+  var sections = ["overview", "approach", "results", "demos", "citation"]
     .map(function (id) { return document.getElementById(id); })
     .filter(Boolean);
 
@@ -116,18 +116,20 @@
 
     CHART.forEach(function (row) {
       var label = t(row.key).replace(/<[^>]*>/g, "");
+      var unit = row.max === 100 ? "%" : "";
+      var denom = row.max === 100 ? "" : "<small>/" + row.max + "</small>";
       var wrap = document.createElement("div");
       wrap.className = "crow";
       wrap.innerHTML =
-        '<div class="crow-label">' + label + "<small>/" + row.max + "</small></div>" +
+        '<div class="crow-label">' + label + denom + "</div>" +
         '<div class="cbars">' +
           '<div class="cbar cbar-a">' +
             '<span class="cbar-track"><span class="cbar-fill" data-pct="' + pct(row.wo, row.max) + '"></span></span>' +
-            '<span class="cbar-val">' + row.wo.toFixed(2) + "</span>" +
+            '<span class="cbar-val">' + row.wo.toFixed(1) + unit + "</span>" +
           "</div>" +
           '<div class="cbar cbar-b">' +
             '<span class="cbar-track"><span class="cbar-fill" data-pct="' + pct(row.w, row.max) + '"></span></span>' +
-            '<span class="cbar-val">' + row.w.toFixed(2) + "</span>" +
+            '<span class="cbar-val">' + row.w.toFixed(1) + unit + "</span>" +
           "</div>" +
         "</div>";
       chartEl.appendChild(wrap);
@@ -204,18 +206,20 @@
 
     if (!video || !demo) return;
 
-    // Overlay stays until the browser confirms the file actually loaded.
-    emptyEl.classList.remove("is-hidden");
     video.pause();
     video.removeAttribute("poster");
 
     // Requesting a not-yet-added clip would only produce console 404s.
     if (!demo.ready || !demo.src) {
+      emptyEl.classList.remove("is-hidden");
       video.removeAttribute("src");
       video.load();
       return;
     }
 
+    // Ready demos: hide the placeholder as soon as a poster/src is wired.
+    // loadeddata can take a while on large mp4s; error brings the overlay back.
+    emptyEl.classList.add("is-hidden");
     if (demo.poster) video.poster = demo.poster;
     video.src = demo.src;
     video.load();
@@ -259,11 +263,144 @@
     });
   }
 
+  /* ---------- demo flow animation --------------------------- */
+
+  var flowEl = document.getElementById("demoFlow");
+  var FLOW_TICK_MS = 900;
+  var flowTimer = null;
+  var flowPhase = -1;
+  var flowActive = false;
+  var flowSubtask = 3; // Write sheet
+
+  // Offline once, then finish 2 subtasks and end the task.
+  var FLOW_BEATS = [
+    { offline: 0 },
+    { offline: 1 },
+    { offline: 2 },
+    { offline: 3 },
+    { offline: 4 },
+    { bridge: true },
+    { online: ["shot", "harness"], edges: ["obs"], keepOffline: true, status: "flow.on.status.write", subtask: 3 },
+    { online: ["harness", "agent"], edges: ["guide"], keepOffline: true, status: "flow.on.status.write", subtask: 3 },
+    { online: ["agent", "desk"], edges: ["act"], keepOffline: true, status: "flow.on.status.write", subtask: 3 },
+    { online: ["desk", "shot"], edges: ["next"], keepOffline: true, status: "flow.on.status.write", subtask: 3 },
+    { online: ["agent", "harness"], edges: ["done"], keepOffline: true, status: "flow.on.status.write", subtask: 3, advance: true },
+    { online: ["shot", "harness"], edges: ["obs"], keepOffline: true, status: "flow.on.status.export", subtask: 4 },
+    { online: ["harness", "agent"], edges: ["guide"], keepOffline: true, status: "flow.on.status.export", subtask: 4 },
+    { online: ["agent", "desk"], edges: ["act"], keepOffline: true, status: "flow.on.status.export", subtask: 4 },
+    { online: ["agent", "harness"], edges: ["done"], keepOffline: true, status: "flow.on.status.export", subtask: 4, advance: true },
+    { online: ["harness", "agent", "desk", "shot"], edges: [], keepOffline: true, status: "flow.on.status.done", subtask: 6, finished: true },
+    { online: ["harness", "agent", "desk", "shot"], edges: [], keepOffline: true, status: "flow.on.status.done", subtask: 6, finished: true },
+    { online: ["harness", "agent", "desk", "shot"], edges: [], keepOffline: true, status: "flow.on.status.done", subtask: 6, finished: true }
+  ];
+
+  function setChecklist(current) {
+    var items = flowEl.querySelectorAll("#flowCheck li");
+    var finished = current >= items.length;
+    items.forEach(function (li, i) {
+      li.classList.toggle("is-done", finished || i < current);
+      li.classList.toggle("is-current", !finished && i === current);
+    });
+  }
+
+  function setStatus(key) {
+    var el = document.getElementById("flowStatus");
+    if (!el || !key) return;
+    el.setAttribute("data-i18n", key);
+    el.textContent = t(key);
+  }
+
+  function applyBeat(beat) {
+    if (!flowEl || !beat) return;
+
+    flowEl.classList.toggle("is-bridging", !!beat.bridge);
+
+    var cards = flowEl.querySelectorAll(".flow-card");
+    var arrows = flowEl.querySelectorAll(".flow-offline .flow-arrow");
+    var offlineIdx = beat.offline != null ? beat.offline : -1;
+    var offlineDone = !!beat.keepOffline || !!beat.bridge;
+
+    cards.forEach(function (el) {
+      var n = Number(el.getAttribute("data-step"));
+      var active = offlineIdx === n;
+      var done = offlineDone ? true : (offlineIdx >= 0 && n < offlineIdx);
+      el.classList.toggle("is-active", active);
+      el.classList.toggle("is-done", done && !active);
+    });
+    arrows.forEach(function (el, i) {
+      el.classList.toggle("is-lit", offlineDone || offlineIdx > i);
+    });
+
+    var roles = beat.online || [];
+    flowEl.querySelectorAll(".flow-node").forEach(function (el) {
+      var role = el.getAttribute("data-role");
+      var on = roles.indexOf(role) !== -1;
+      el.classList.toggle("is-active", on && !beat.finished);
+      el.classList.toggle("is-finished", !!beat.finished && on);
+    });
+
+    var litEdges = beat.edges || [];
+    flowEl.querySelectorAll(".flow-link").forEach(function (el) {
+      el.classList.toggle("is-lit", litEdges.indexOf(el.getAttribute("data-edge")) !== -1);
+    });
+
+    if (beat.subtask != null) flowSubtask = beat.subtask;
+    if (beat.advance) flowSubtask = Math.min(flowSubtask + 1, 6);
+    setChecklist(flowSubtask);
+    if (beat.status) setStatus(beat.status);
+  }
+
+  function tickFlow() {
+    var next = flowPhase + 1;
+    if (next >= FLOW_BEATS.length) next = 0;
+    flowPhase = next;
+    applyBeat(FLOW_BEATS[flowPhase]);
+  }
+
+  function startFlow() {
+    if (!flowEl || flowActive) return;
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      flowEl.querySelectorAll(".flow-card, .flow-node").forEach(function (el) {
+        el.classList.add("is-finished");
+      });
+      flowEl.querySelectorAll(".flow-link, .flow-arrow").forEach(function (el) {
+        el.classList.add("is-lit");
+      });
+      setChecklist(6);
+      setStatus("flow.on.status.done");
+      return;
+    }
+    flowActive = true;
+    flowPhase = -1;
+    flowSubtask = 3;
+    tickFlow();
+    flowTimer = setInterval(tickFlow, FLOW_TICK_MS);
+  }
+
+  function stopFlow() {
+    flowActive = false;
+    if (flowTimer) {
+      clearInterval(flowTimer);
+      flowTimer = null;
+    }
+  }
+
+  if (flowEl && "IntersectionObserver" in window) {
+    new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) startFlow();
+        else stopFlow();
+      });
+    }, { threshold: 0.15, rootMargin: "0px 0px -10% 0px" }).observe(flowEl);
+  } else if (flowEl) {
+    startFlow();
+  }
+
   /* ---------- scroll reveal ---------------------------------- */
 
   var revealTargets = document.querySelectorAll(
-    ".sec-head, .abstract, .highlight-row, .card, .pipeline, .split-main, .split-side, " +
-    ".subset, .table-card, .chart-card, .take, .demo-tabs, .demo-stage, .cite-card"
+    ".sec-head, .highlight-row, .fig, .pillar, .metric, .chart-card, " +
+    ".demo-tabs, .demo-stage, .cite-card, .flow"
   );
 
   if ("IntersectionObserver" in window) {

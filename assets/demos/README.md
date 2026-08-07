@@ -1,25 +1,22 @@
 # Demo media
 
 The demo reel on the page reads its entries from `window.UIMATE_DEMOS` in `i18n.js`.
-Each entry expects two files here:
+Each ready entry expects:
 
 | File | Purpose |
 |---|---|
-| `<id>.mp4` | The screen recording (H.264 MP4 plays everywhere) |
+| `<id>.mp4` | Screen recording (H.264 MP4) |
 | `<id>.jpg` | Poster frame shown before playback |
 
-Expected ids, in the order they appear as tabs:
+Current ids:
 
-- `internal-tool` — enterprise tool the agent has never seen
-- `long-repeat` — long repetitive procedure
-- `general-gui` — no demonstration attached
-- `recording` — how a demonstration is recorded and processed
+- `general-1` — General CUA · 2048 (ready) → `Demos/Genral/demo1.mp4`
+- `general-2` — General CUA · Finder / Desktop (ready) → `Demos/Genral/demo2.mp4`
 
-Each entry starts with `ready: false`, which makes the tab show a placeholder and skips the
-request entirely. After adding the files, flip that entry to `ready: true`.
+Posters live here; mp4s stay under `Demos/` so the repo does not duplicate large files.
+DemoCUA clips will land under `Demos/DemoCUA/` and get wired the same way.
 
-To add, remove, or rename a demo, edit the `UIMATE_DEMOS` array in `i18n.js` — both the
-English and Chinese copy live in the same entry.
+To add a demo: drop the files here, append an entry in `UIMATE_DEMOS` with `ready: true`.
 
 ## Preparing a recording
 
@@ -27,11 +24,9 @@ Keep clips short and at native speed. A reasonable transcode:
 
 ```bash
 ffmpeg -i raw.mov -vf "scale=1600:-2" -c:v libx264 -crf 24 -preset slow \
-  -pix_fmt yuv420p -movflags +faststart -an internal-tool.mp4
+  -pix_fmt yuv420p -movflags +faststart -an general-1.mp4
 
-ffmpeg -i internal-tool.mp4 -ss 00:00:01 -frames:v 1 -q:v 3 internal-tool.jpg
+ffmpeg -i general-1.mp4 -ss 00:00:01 -frames:v 1 -q:v 3 general-1.jpg
 ```
 
-Dropping `-an` removes the audio track, which also strips anything captured by the
-microphone. Check each clip for visible credentials, customer data, or internal
-hostnames before committing it.
+Check each clip for visible credentials, customer data, or internal hostnames before committing.
