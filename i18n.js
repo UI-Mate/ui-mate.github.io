@@ -38,7 +38,7 @@ window.UIMATE_I18N = {
     "hl.waa.n": "Open-weight SOTA",
     "hl.worker.k": "OSWorkerBench",
     "hl.worker.n": "Strict / progress · +17.7 / +24.5 vs base",
-    "hl.demo.k": "+ one demo",
+    "hl.demo.k": "+ ONE DEMO",
     "hl.demo.n": "OSWorker paired · strict success",
 
     "kicker.approach": "02 — Approach",
@@ -265,7 +265,7 @@ window.UIMATE_I18N = {
     "hl.waa.n": "Open-weight SOTA",
     "hl.worker.k": "OSWorkerBench",
     "hl.worker.n": "Strict / progress · +17.7 / +24.5 vs base",
-    "hl.demo.k": "+ one demo",
+    "hl.demo.k": "+ ONE DEMO",
     "hl.demo.n": "OSWorker paired · strict success",
 
     "kicker.approach": "02 — 方法",
