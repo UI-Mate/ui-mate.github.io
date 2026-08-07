@@ -90,7 +90,7 @@
     }
   });
 
-  var sections = ["overview", "approach", "results", "demos", "citation"]
+  var sections = ["overview", "approach", "results", "demos", "app", "citation"]
     .map(function (id) { return document.getElementById(id); })
     .filter(Boolean);
 
@@ -396,11 +396,44 @@
     startFlow();
   }
 
+  /* ---------- app docs tabs --------------------------------- */
+
+  var appTabs = document.querySelectorAll("[data-app-tab]");
+  var appPanels = document.querySelectorAll("[data-app-panel]");
+
+  function setAppTab(name) {
+    appTabs.forEach(function (btn) {
+      var on = btn.getAttribute("data-app-tab") === name;
+      btn.classList.toggle("is-active", on);
+      btn.setAttribute("aria-selected", String(on));
+    });
+    appPanels.forEach(function (panel) {
+      var on = panel.getAttribute("data-app-panel") === name;
+      panel.classList.toggle("is-active", on);
+      if (on) panel.removeAttribute("hidden");
+      else panel.setAttribute("hidden", "");
+    });
+  }
+
+  appTabs.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      setAppTab(btn.getAttribute("data-app-tab"));
+    });
+  });
+
+  /* ---------- pending links --------------------------------- */
+
+  document.querySelectorAll("a.is-pending").forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      e.preventDefault();
+    });
+  });
+
   /* ---------- scroll reveal ---------------------------------- */
 
   var revealTargets = document.querySelectorAll(
-    ".sec-head, .highlight-row, .fig, .pillar, .metric, .chart-card, " +
-    ".demo-tabs, .demo-stage, .cite-card, .flow"
+    ".sec-head, .highlight-row, .fig, .pillar, .metric, .table-card, .chart-card, " +
+    ".demo-tabs, .demo-stage, .cite-card, .flow, .app-links, .app-block, .app-route"
   );
 
   if ("IntersectionObserver" in window) {

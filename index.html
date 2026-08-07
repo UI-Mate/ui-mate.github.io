@@ -41,6 +41,7 @@
       <a href="#approach" data-i18n="nav.approach">Approach</a>
       <a href="#results" data-i18n="nav.results">Results</a>
       <a href="#demos" data-i18n="nav.demos">Demos</a>
+      <a href="#app" data-i18n="nav.app">App</a>
       <a href="#citation" data-i18n="nav.citation">Citation</a>
     </nav>
 
@@ -101,6 +102,12 @@
       <a class="btn is-pending" href="#" data-todo="model">
         <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" class="stroke"/><path d="M12 3v18M3 12h18" class="stroke"/></svg>
         <span data-i18n="link.model">Model Weights</span>
+      </a>
+      <a class="btn" href="#app">
+        <svg viewBox="0 0 16 24" aria-hidden="true">
+          <path d="M0 0 L0 20.5 L5.6 15.6 L9.2 23 L13.2 21.1 L9.6 13.9 L16 13.2 Z" fill="currentColor"/>
+        </svg>
+        <span data-i18n="link.app">Try App</span>
       </a>
       <a class="btn" href="#demos">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l12 7-12 7z"/></svg>
@@ -353,8 +360,65 @@
       <span class="sec-kicker" data-i18n="kicker.results">03 — Results</span>
       <h2 class="sec-title" data-i18n="res.title">Open-weight CUA — and more reliable with one demo</h2>
       <p class="sec-lede" data-i18n="res.lede">
-        One demonstration lifts scores on GameDev, OSWorld, and OSWorker paired subsets.
+        General computer use on public benches, then the lift from one demonstration.
       </p>
+    </div>
+
+    <div class="table-card">
+      <div class="table-head">
+        <h3 class="mini-title" data-i18n="res.gen.h">General CUA · instruction only</h3>
+        <p class="side-note" data-i18n="res.gen.note">Open-weight comparison. OSWorkerBench reports strict success / progress.</p>
+      </div>
+      <div class="table-scroll">
+        <table class="rtable">
+          <thead>
+            <tr>
+              <th data-i18n="res.th.model">Model</th>
+              <th class="num" data-i18n="res.th.size">Size</th>
+              <th class="num">OSWorld-Verified</th>
+              <th class="num">WindowsAgentArena</th>
+              <th class="num">OSWorkerBench</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>UI-Mate-27B</th>
+              <td class="num">27B</td>
+              <td class="num strong">77.0%</td>
+              <td class="num strong">66.2%</td>
+              <td class="num strong">41.0% <small>/ 76.9%</small></td>
+            </tr>
+            <tr>
+              <th>UI-Mate-9B</th>
+              <td class="num">9B</td>
+              <td class="num">66.2%</td>
+              <td class="num">61.7%</td>
+              <td class="num">34.0% <small>/ 66.6%</small></td>
+            </tr>
+            <tr>
+              <th>Kimi-2.6</th>
+              <td class="num">1T-A32B</td>
+              <td class="num">73.1%</td>
+              <td class="num">63.3%</td>
+              <td class="num">40.7% <small>/ 72.4%</small></td>
+            </tr>
+            <tr>
+              <th>Qwen3.6-27B</th>
+              <td class="num">27B</td>
+              <td class="num">—</td>
+              <td class="num">47.1%</td>
+              <td class="num">23.3% <small>/ 52.4%</small></td>
+            </tr>
+            <tr>
+              <th>ScaleCUA-Qwen3.5</th>
+              <td class="num">9B</td>
+              <td class="num">68.7%</td>
+              <td class="num">38.1%</td>
+              <td class="num">16.3% <small>/ 38.3%</small></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <div class="chart-card">
@@ -412,11 +476,36 @@
   </div>
 </section>
 
+<!-- ============ APP ============ -->
+<section id="app" class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-kicker" data-i18n="kicker.app">05 — App</span>
+      <h2 class="sec-title" data-i18n="app.title">Run UI-Mate on your Mac</h2>
+      <p class="sec-lede" data-i18n="app.lede">
+        Apple Silicon macOS app. Download the DMG, then follow the usage guide for permissions, model setup, and demos.
+      </p>
+    </div>
+
+    <div class="app-links">
+      <a class="btn btn-primary" href="https://github.com/UI-Mate/ui-mate.github.io/releases/download/v0.2.4/UI-Mate-0.2.4-mac-arm64.dmg">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M8 11l4 4 4-4" class="stroke"/><path d="M5 19h14" class="stroke"/></svg>
+        <span data-i18n="app.dl.btn">Download DMG · 0.2.4</span>
+      </a>
+      <a class="btn" href="usage.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h12v16H6z" class="stroke"/><path d="M9 8h6M9 12h6M9 16h4" class="stroke"/></svg>
+        <span data-i18n="app.guide.btn">Usage &amp; deploy guide</span>
+      </a>
+      <p class="app-dl-note" data-i18n="app.dl.note">App requires Apple Silicon Mac · Intel Macs cannot run the client</p>
+    </div>
+  </div>
+</section>
+
 <!-- ============ CITATION ============ -->
 <section id="citation" class="section section-dark">
   <div class="wrap">
     <div class="sec-head sec-head-dark">
-      <span class="sec-kicker" data-i18n="kicker.citation">05 — Citation</span>
+      <span class="sec-kicker" data-i18n="kicker.citation">06 — Citation</span>
       <h2 class="sec-title" data-i18n="cite.title">Cite this work</h2>
       <p class="sec-lede" data-i18n="cite.lede">If UI-Mate is useful in your research, please cite the technical report.</p>
     </div>
@@ -457,6 +546,7 @@
       <a href="#approach" data-i18n="nav.approach">Approach</a>
       <a href="#results" data-i18n="nav.results">Results</a>
       <a href="#demos" data-i18n="nav.demos">Demos</a>
+      <a href="#app" data-i18n="nav.app">App</a>
       <a href="#citation" data-i18n="nav.citation">Citation</a>
     </nav>
     <p class="foot-legal" data-i18n="foot.legal">&copy; 2026 Tencent. Page template released for research communication.</p>

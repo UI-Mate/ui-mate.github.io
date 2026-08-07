@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>UI-Mate — Usage &amp; Deploy</title>
+<meta name="robots" content="noindex, nofollow" />
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">
+      <img src="assets/hy_logo.png" alt="Tencent Hunyuan" />
+      <span class="nav-divider"></span>
+      <span class="nav-product">UI-Mate</span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html#overview" data-i18n="nav.overview">Overview</a>
+      <a href="index.html#app" data-i18n="nav.app">App</a>
+      <a href="usage.html" class="is-active" data-i18n="app.guide.btn">Usage &amp; deploy guide</a>
+    </nav>
+    <div class="nav-actions">
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button type="button" data-lang="en" class="is-active">EN</button>
+        <button type="button" data-lang="zh">中文</button>
+      </div>
+      <button type="button" class="nav-burger" id="navBurger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-kicker" data-i18n="kicker.app">05 — App</span>
+      <h1 class="sec-title" data-i18n="app.guide.title">Usage &amp; deploy</h1>
+      <p class="sec-lede" data-i18n="app.guide.lede">
+        Install the macOS app, grant permissions, connect a model endpoint, then run tasks or record a demo.
+      </p>
+      <div class="app-links" style="margin-top:22px">
+        <a class="btn btn-primary" href="https://github.com/UI-Mate/ui-mate.github.io/releases/download/v0.2.4/UI-Mate-0.2.4-mac-arm64.dmg">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M8 11l4 4 4-4" class="stroke"/><path d="M5 19h14" class="stroke"/></svg>
+          <span data-i18n="app.dl.btn">Download DMG · 0.2.4</span>
+        </a>
+        <a class="btn" href="index.html#app" data-i18n="app.guide.back">← Back to homepage</a>
+      </div>
+    </div>
+
+    <div class="app-tabs" role="tablist" aria-label="App docs">
+      <button type="button" class="app-tab is-active" role="tab" aria-selected="true" data-app-tab="usage" data-i18n="app.tab.usage">Usage</button>
+      <button type="button" class="app-tab" role="tab" aria-selected="false" data-app-tab="deploy" data-i18n="app.tab.deploy">Deploy model</button>
+    </div>
+
+    <div class="app-panel is-active" id="appPanelUsage" data-app-panel="usage" role="tabpanel">
+      <article class="app-block">
+        <h3 data-i18n="app.u1.h">1. Before you start</h3>
+        <div class="table-scroll">
+          <table class="rtable app-table">
+            <tbody>
+              <tr><th data-i18n="app.u1.r1.k">Machine</th><td data-i18n="app.u1.r1.v">Apple Silicon Mac (M1/M2/M3/M4) for the desktop app. Intel Macs cannot run the client.</td></tr>
+              <tr><th data-i18n="app.u1.r2.k">System</th><td data-i18n="app.u1.r2.v">macOS 13 Ventura or later</td></tr>
+              <tr><th data-i18n="app.u1.r3.k">Disk</th><td data-i18n="app.u1.r3.v">About 2 GB free</td></tr>
+              <tr><th data-i18n="app.u1.r4.k">Model service</th><td data-i18n="app.u1.r4.v">Required — the app has no built-in model. See Deploy.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="app-block">
+        <h3 data-i18n="app.dl.h">Download for macOS</h3>
+        <ol class="app-steps">
+          <li data-i18n="app.dl.s1">Open the DMG and drag <strong>UI-Mate.app</strong> into Applications.</li>
+          <li data-i18n="app.dl.s2">Launch from Applications — do not run from inside the DMG.</li>
+        </ol>
+      </article>
+
+      <article class="app-block">
+        <h3 data-i18n="app.u2.h">2. Grant macOS permissions</h3>
+        <p data-i18n="app.u2.p">Screen Recording and Accessibility are required. Use the in-app buttons — do not add the app manually in System Settings.</p>
+        <div class="table-scroll">
+          <table class="rtable app-table">
+            <thead>
+              <tr>
+                <th data-i18n="app.u2.th1">Permission</th>
+                <th data-i18n="app.u2.th2">UI label</th>
+                <th data-i18n="app.u2.th3">Why</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><th data-i18n="app.u2.r1.k">Screen Recording</th><td><strong>Screen Recording</strong></td><td data-i18n="app.u2.r1.v">See the screen; record demos</td></tr>
+              <tr><th data-i18n="app.u2.r2.k">Accessibility</th><td><strong>Accessibility</strong></td><td data-i18n="app.u2.r2.v">Click and type; capture your demo actions</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <ol class="app-steps">
+          <li data-i18n="app.u2.s1">Tap <strong>Open Screen Recording</strong> → Allow.</li>
+          <li data-i18n="app.u2.s2">Tap <strong>Open Accessibility</strong> → enable UI-Mate.</li>
+          <li data-i18n="app.u2.s3">Fully quit with ⌘Q and reopen so the banner clears.</li>
+        </ol>
+        <figure class="fig app-fig">
+          <img src="assets/app/permissions-banner.png" alt="Permissions banner" loading="lazy" />
+          <figcaption data-i18n="app.u2.cap1">Red banner when permissions still need review.</figcaption>
+        </figure>
+        <figure class="fig app-fig">
+          <img src="assets/app/permissions-grant-1.png" alt="Screen Recording permission" loading="lazy" />
+          <figcaption data-i18n="app.u2.cap2">Enable Screen Recording from the in-app prompt.</figcaption>
+        </figure>
+      </article>
+
+      <article class="app-block">
+        <h3 data-i18n="app.u3.h">3. Connect a model service</h3>
+        <p data-i18n="app.u3.p">Open <strong>Settings</strong> (gear). Changes save automatically. Fill <strong>Model Configuration</strong>, then <strong>Test Connection</strong>.</p>
+        <div class="table-scroll">
+          <table class="rtable app-table">
+            <thead>
+              <tr><th data-i18n="app.u3.th1">Field</th><th data-i18n="app.u3.th2">What to enter</th></tr>
+            </thead>
+            <tbody>
+              <tr><th><strong>Agent type</strong></th><td data-i18n="app.u3.r1">UI-Mate (default, for our trained models)</td></tr>
+              <tr><th><strong>Endpoint</strong></th><td data-i18n="app.u3.r2">Service URL, usually ending in <code>/v1</code></td></tr>
+              <tr><th><strong>Model</strong></th><td data-i18n="app.u3.r3">Served model name — must match the server exactly</td></tr>
+              <tr><th><strong>API Key</strong></th><td data-i18n="app.u3.r4">Leave blank if unused</td></tr>
+              <tr><th>Provider</th><td><code>openai_compatible</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="app-callout" data-i18n="app.u3.note">No endpoint yet? Ask whoever runs the model service, or follow Deploy. For a quick dry-run only: OpenRouter + Agent type <strong>Kimi</strong> — not the project model.</p>
+        <figure class="fig app-fig">
+          <img src="assets/app/model-configuration.png" alt="Model Configuration" loading="lazy" />
+          <figcaption data-i18n="app.u3.cap">Model Configuration — Agent type UI-Mate or Kimi.</figcaption>
+        </figure>
+      </article>
+
+      <article class="app-block">
+        <h3 data-i18n="app.u4.h">4. Run a task &amp; record a demo</h3>
+        <div class="app-two">
+          <div>
+            <h4 data-i18n="app.u4.a.h">First task</h4>
+            <ol class="app-steps">
+              <li data-i18n="app.u4.a.s1"><strong>New Conversation</strong></li>
+              <li data-i18n="app.u4.a.s2">Describe the outcome in the input box.</li>
+              <li data-i18n="app.u4.a.s3">Press Enter. Avoid fighting the mouse; <strong>Stop</strong> / Esc to cancel.</li>
+            </ol>
+          </div>
+          <div>
+            <h4 data-i18n="app.u4.b.h">Teach with a demo</h4>
+            <ol class="app-steps">
+              <li data-i18n="app.u4.b.s1"><strong>Demo Library → Record Demo</strong>, perform the flow, then <strong>Stop Recording</strong> (⌘⇧S).</li>
+              <li data-i18n="app.u4.b.s2"><strong>Process</strong> until status is <strong>Reusable</strong>.</li>
+              <li data-i18n="app.u4.b.s3"><strong>Apply</strong> (or <code>/demo</code>) → mode becomes <strong>demo-in-the-loop</strong>, then send the task.</li>
+            </ol>
+          </div>
+        </div>
+        <p data-i18n="app.u4.note">The demo is guidance, not a frame replay — the live screen stays authoritative.</p>
+        <figure class="fig app-fig">
+          <img src="assets/app/main-tabs.png" alt="Main tabs" loading="lazy" />
+          <figcaption data-i18n="app.u4.cap1">Conversation · Previous Tasks · Demo Library</figcaption>
+        </figure>
+        <figure class="fig app-fig">
+          <img src="assets/app/demo-in-the-loop.png" alt="demo-in-the-loop" loading="lazy" />
+          <figcaption data-i18n="app.u4.cap2">Input mode after applying a reusable demo.</figcaption>
+        </figure>
+        <figure class="fig app-fig">
+          <img src="assets/app/demo-recording.png" alt="Demo recording" loading="lazy" />
+          <figcaption data-i18n="app.u4.cap3">Demo Library and recording flow.</figcaption>
+        </figure>
+      </article>
+
+      <article class="app-block">
+        <h3 data-i18n="app.u5.h">5. Quick FAQ</h3>
+        <div class="table-scroll">
+          <table class="rtable app-table">
+            <thead>
+              <tr><th data-i18n="app.u5.th1">Symptom</th><th data-i18n="app.u5.th2">Fix</th></tr>
+            </thead>
+            <tbody>
+              <tr><th data-i18n="app.u5.r1.k">Permissions banner stuck</th><td data-i18n="app.u5.r1.v">⌘Q and reopen; remove old app copies from Applications, then re-grant.</td></tr>
+              <tr><th data-i18n="app.u5.r2.k">Test Connection 404 model not found</th><td data-i18n="app.u5.r2.v">Model name must match the server exactly.</td></tr>
+              <tr><th data-i18n="app.u5.r3.k">404 with correct model</th><td data-i18n="app.u5.r3.v">Endpoint must end with <code>/v1</code> for UI-Mate.</td></tr>
+              <tr><th data-i18n="app.u5.r4.k">Cannot start a new task</th><td data-i18n="app.u5.r4.v">Only one run at a time — <strong>Stop</strong> first.</td></tr>
+              <tr><th data-i18n="app.u5.r5.k">Apply does nothing</th><td data-i18n="app.u5.r5.v">Process the recording until it is <strong>Reusable</strong>.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+    </div>
+
+    <div class="app-panel" id="appPanelDeploy" data-app-panel="deploy" role="tabpanel" hidden>
+      <article class="app-block">
+        <h3 data-i18n="app.d0.h">What “deploy” means</h3>
+        <p data-i18n="app.d0.p">The app is an OpenAI-compatible HTTP client. Deploy = run a VLM service, then fill three fields in Settings.</p>
+        <div class="table-scroll">
+          <table class="rtable app-table">
+            <thead>
+              <tr><th data-i18n="app.d0.th1">Field</th><th data-i18n="app.d0.th2">Notes</th></tr>
+            </thead>
+            <tbody>
+              <tr><th><strong>Endpoint</strong></th><td data-i18n="app.d0.r1">Base URL, usually ending in <code>/v1</code></td></tr>
+              <tr><th><strong>Model</strong></th><td data-i18n="app.d0.r2">Served model name — exact match</td></tr>
+              <tr><th><strong>Agent type</strong></th><td data-i18n="app.d0.r3">UI-Mate for our trained models · Kimi for Kimi-family endpoints</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <div class="app-routes">
+        <article class="app-route">
+          <span class="app-route-k">A</span>
+          <h3 data-i18n="app.da.h">OpenRouter Kimi — zero deploy</h3>
+          <p data-i18n="app.da.p">Fastest path to try the UI. Not the project model.</p>
+          <div class="table-scroll">
+            <table class="rtable app-table">
+              <tbody>
+                <tr><th>Agent type</th><td><strong>Kimi</strong></td></tr>
+                <tr><th>Endpoint</th><td><code>https://openrouter.ai/api/v1</code></td></tr>
+                <tr><th>Model</th><td><code>moonshotai/kimi-k2.6</code></td></tr>
+                <tr><th>API Key</th><td data-i18n="app.da.key">Your OpenRouter key</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="app-route">
+          <span class="app-route-k">B</span>
+          <h3 data-i18n="app.db.h">GPU 27B — vLLM service</h3>
+          <p data-i18n="app.db.p">Team / eval setup on a multi-GPU box. Example launch:</p>
+<pre class="app-code">vllm serve "$MODEL_PATH" \
+  --served-model-name gui-agent-27b \
+  --trust-remote-code \
+  --chat-template-content-format openai \
+  --limit-mm-per-prompt '{"image":10,"video":0}' \
+  --tensor-parallel-size 2 \
+  --data-parallel-size 4 \
+  --max-model-len 32768 \
+  --host 0.0.0.0 --port 8080</pre>
+          <ul class="app-bullets">
+            <li data-i18n="app.db.b1"><code>--limit-mm-per-prompt image=10</code> must cover history screenshots.</li>
+            <li data-i18n="app.db.b2">App Endpoint: <code>http://&lt;GPU_IP&gt;:8080/v1</code> · Model = served name · Agent <strong>UI-Mate</strong>.</li>
+            <li data-i18n="app.db.b3">Do not expose unauthenticated vLLM to the public internet.</li>
+          </ul>
+        </article>
+
+        <article class="app-route">
+          <span class="app-route-k">C</span>
+          <h3 data-i18n="app.dc.h">Local Mac 9B — MLX 4bit</h3>
+          <p data-i18n="app.dc.p">Offline on Apple Silicon. Convert, serve, then point the app at localhost.</p>
+<pre class="app-code">python -m mlx_vlm.convert \
+  --hf-path /path/to/9b-checkpoint \
+  --mlx-path ~/models/gui-agent-9b-mlx-4bit \
+  -q --q-bits 4 --q-group-size 64
+
+KV_BITS=4 PREFILL_STEP_SIZE=1024 \
+python -m mlx_vlm.server \
+  --model ~/models/gui-agent-9b-mlx-4bit \
+  --port 8080</pre>
+          <div class="table-scroll">
+            <table class="rtable app-table">
+              <tbody>
+                <tr><th>Endpoint</th><td><code>http://127.0.0.1:8080/v1</code></td></tr>
+                <tr><th>Model</th><td><code>~/models/gui-agent-9b-mlx-4bit</code></td></tr>
+                <tr><th>Agent type</th><td><strong>UI-Mate</strong></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p data-i18n="app.dc.tune">Local must-tunes: image detail <strong>balanced_1280</strong>, keep 1–2 screenshots.</p>
+          <h4 data-i18n="app.dc.patch.h">Optional · MLX prefix-cache patch</h4>
+          <p data-i18n="app.dc.patch.p">Stock mlx-vlm barely hits prefix cache on multi-turn agent loads. Download the patch pack, unzip, apply — about 3× prefill and ~2× end-to-end step time.</p>
+          <p>
+            <a class="btn" href="assets/app/mlx-vlm-gui-agent-cache.zip" download>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M8 11l4 4 4-4" class="stroke"/><path d="M5 19h14" class="stroke"/></svg>
+              <span data-i18n="app.dc.patch.dl">Download patch zip</span>
+            </a>
+          </p>
+<pre class="app-code">pip install mlx-vlm==0.6.8
+unzip mlx-vlm-gui-agent-cache.zip
+cd mlx-vlm-gui-agent-cache && ./apply.sh
+
+export APC_ENABLED=1
+export APC_GROWING_IMAGES=1
+export MLX_INLINE_IMAGE_POSITIONS=1
+export MLX_VLM_PER_IMAGE_VISION_CACHE=1
+export MLX_VLM_VISION_CACHE_SIZE=20
+export APC_EXACT_CACHE_ENTRIES=8
+export APC_EXACT_PREFIX_GUARD_TOKENS=64</pre>
+          <ul class="app-bullets">
+            <li data-i18n="app.dc.patch.b1">Patch targets mlx-vlm 0.6.8; features stay off until those env vars are set when starting the server.</li>
+            <li data-i18n="app.dc.patch.b2">After patching you can keep more screenshots; still prefer <strong>balanced_1280</strong>. Prefer 6-bit quant when memory allows.</li>
+            <li data-i18n="app.dc.patch.b3">Confirm in server logs: <code>Prefill completed</code> shows <code>cached_tokens &gt; 0</code>.</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-inner">
+    <div class="foot-brand">
+      <img src="assets/hy_logo.png" alt="Tencent Hunyuan" />
+      <p data-i18n="foot.team">Tencent HY Frontier &middot; Multimodal Agent Team</p>
+    </div>
+    <p class="foot-legal" data-i18n="foot.legal">&copy; 2026 Tencent. Page template released for research communication.</p>
+  </div>
+</footer>
+
+<script src="i18n.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
