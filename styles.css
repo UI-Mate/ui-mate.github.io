@@ -1075,8 +1075,8 @@ html[lang="zh"] .flow-badge { text-transform: none; letter-spacing: 0.04em; }
   margin-bottom: 28px;
 }
 .metric {
-  background: #fff;
-  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(0, 82, 217, 0.035), #fff 62%);
+  border: 1px solid rgba(0, 82, 217, 0.12);
   border-radius: var(--r);
   padding: 22px 20px 24px;
   display: flex;
@@ -1087,15 +1087,15 @@ html[lang="zh"] .flow-badge { text-transform: none; letter-spacing: 0.04em; }
   overflow: hidden;
 }
 .metric-hi {
-  border-color: rgba(0, 82, 217, 0.28);
-  box-shadow: 0 0 0 1px rgba(0, 82, 217, 0.08), var(--shadow-s);
-  background: linear-gradient(180deg, rgba(0, 82, 217, 0.05), #fff 58%);
+  border-color: rgba(0, 82, 217, 0.32);
+  box-shadow: 0 0 0 1px rgba(0, 82, 217, 0.1), 0 10px 28px rgba(0, 82, 217, 0.1);
+  background: linear-gradient(155deg, rgba(78, 203, 255, 0.16) 0%, rgba(0, 82, 217, 0.08) 42%, #fff 78%);
 }
 .metric-k {
   font-size: 11.5px;
   font-weight: 600;
   letter-spacing: 0.01em;
-  color: var(--muted);
+  color: var(--hy-blue);
   overflow-wrap: anywhere;
 }
 .metric-n {
@@ -1109,7 +1109,11 @@ html[lang="zh"] .flow-badge { text-transform: none; letter-spacing: 0.04em; }
   font-size: 28px;
   font-weight: 700;
   letter-spacing: -0.03em;
-  color: var(--ink);
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
   font-variant-numeric: tabular-nums;
   line-height: 1.15;
   white-space: nowrap;
@@ -1121,6 +1125,8 @@ html[lang="zh"] .flow-badge { text-transform: none; letter-spacing: 0.04em; }
   font-size: 0.72em;
   font-weight: 600;
   color: var(--muted);
+  -webkit-text-fill-color: var(--muted);
+  background: none;
 }
 
 /* ============================================================
