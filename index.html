@@ -121,28 +121,32 @@
       <span class="sec-kicker" data-i18n="kicker.overview">01 — Overview</span>
       <h2 class="sec-title" data-i18n="overview.title">What UI-Mate is</h2>
       <p class="sec-lede" data-i18n="overview.lede">
-        An open-weight foundation GUI agent that pairs environment-grounded training with in-context demonstration learning — so users can show a procedure once instead of spelling every convention out in a prompt.
+        An open-weight foundation GUI agent: environment-grounded training plus in-context demonstration learning — show a procedure once instead of spelling every convention in a prompt.
       </p>
     </div>
 
-    <ul class="highlight-row">
-      <li>
-        <span class="hl-num">77.0<small>%</small></span>
-        <span class="hl-label" data-i18n="hl.osworld">OSWorld-Verified · UI-Mate-27B</span>
-      </li>
-      <li>
-        <span class="hl-num">66.2<small>%</small></span>
-        <span class="hl-label" data-i18n="hl.waa">WindowsAgentArena · open-weight SOTA</span>
-      </li>
-      <li>
-        <span class="hl-num">41.0<small>%</small></span>
-        <span class="hl-label" data-i18n="hl.worker">OSWorkerBench strict success</span>
-      </li>
-      <li>
-        <span class="hl-num">2.7<small>&times;</small></span>
-        <span class="hl-label" data-i18n="hl.demo">Strict success with one demo</span>
-      </li>
-    </ul>
+    <div class="metric-grid">
+      <div class="metric">
+        <span class="metric-k" data-i18n="hl.osworld.k">OSWorld-Verified</span>
+        <span class="metric-v">77.0%</span>
+        <span class="metric-n" data-i18n="hl.osworld.n">Open-weight SOTA</span>
+      </div>
+      <div class="metric">
+        <span class="metric-k" data-i18n="hl.waa.k">WindowsAgentArena</span>
+        <span class="metric-v">66.2%</span>
+        <span class="metric-n" data-i18n="hl.waa.n">Open-weight SOTA</span>
+      </div>
+      <div class="metric">
+        <span class="metric-k" data-i18n="hl.worker.k">OSWorkerBench</span>
+        <span class="metric-v">41.0% <span class="metric-dim">/ 76.9%</span></span>
+        <span class="metric-n" data-i18n="hl.worker.n">Strict / progress · +17.7 / +24.5 vs base</span>
+      </div>
+      <div class="metric metric-hi">
+        <span class="metric-k" data-i18n="hl.demo.k">+ one demo</span>
+        <span class="metric-v">15.2% → 40.4%</span>
+        <span class="metric-n" data-i18n="hl.demo.n">OSWorker paired · strict success</span>
+      </div>
+    </div>
 
     <figure class="fig fig-teaser">
       <img src="assets/figures/teaser.png" alt="UI-Mate teaser: demo-guided execution and benchmark results" loading="lazy" />
@@ -180,7 +184,7 @@
         <span class="pillar-idx">02</span>
         <h3 data-i18n="approach.2.h">In-context demonstrations</h3>
         <p data-i18n="approach.2.p">
-          Record once → captioned subtask workflow. At run time the live screenshot stays authoritative; the demo is guidance, not a script.
+          Record once, then turn it into a captioned subtask workflow. The live screenshot stays authoritative — the demo is guidance, not a script.
         </p>
 
         <div class="flow" id="demoFlow" aria-label="DemoCUA workflow">
@@ -280,8 +284,8 @@
               </div>
 
               <article class="flow-node flow-node-harness" data-role="harness">
-                <h4 data-i18n="flow.on.harness.h">Harness workflow hook</h4>
-                <p data-i18n="flow.on.harness.p">Holds the plan; exposes only the active subtask</p>
+                <h4 data-i18n="flow.on.harness.h">Harness Workflow Hook</h4>
+                <p data-i18n="flow.on.harness.p">Exposes only the active subtask</p>
                 <ol class="flow-check" id="flowCheck" aria-hidden="true">
                   <li data-i="0" class="is-done"><span></span><em data-i18n="flow.on.s1">Navigate</em></li>
                   <li data-i="1" class="is-done"><span></span><em data-i18n="flow.on.s2">Filter</em></li>
@@ -322,7 +326,7 @@
             </div>
 
             <p class="flow-note" data-i18n="flow.on.note">
-              Harness keeps the checklist; after one or two subtasks finish, the agent emits completion and the run ends.
+              Harness keeps the checklist; the run ends after one or two subtasks complete.
             </p>
           </div>
         </div>
@@ -334,7 +338,7 @@
         <p data-i18n="approach.3.p">
           100 long-horizon office tasks across 41 apps. Paired demos isolate what one demonstration adds beyond baseline skill.
         </p>
-        <figure class="fig">
+        <figure class="fig fig-sm">
           <img src="assets/figures/benchmark.png" alt="OSWorkerBench construction pipeline" loading="lazy" />
         </figure>
       </article>
@@ -349,31 +353,8 @@
       <span class="sec-kicker" data-i18n="kicker.results">03 — Results</span>
       <h2 class="sec-title" data-i18n="res.title">Open-weight CUA — and more reliable with one demo</h2>
       <p class="sec-lede" data-i18n="res.lede">
-        77.0% on OSWorld-Verified and 66.2% on WindowsAgentArena among open-weight models. On the OSWorkerBench paired subset, progress rises from 64.1% to 74.9% with one demonstration.
+        One demonstration lifts scores on GameDev, OSWorld, and OSWorker paired subsets.
       </p>
-    </div>
-
-    <div class="metric-grid">
-      <div class="metric">
-        <span class="metric-k" data-i18n="res.m1.k">OSWorld-Verified</span>
-        <span class="metric-v">77.0%</span>
-        <span class="metric-n" data-i18n="res.m1.n">Open-weight SOTA</span>
-      </div>
-      <div class="metric">
-        <span class="metric-k" data-i18n="res.m2.k">WindowsAgentArena</span>
-        <span class="metric-v">66.2%</span>
-        <span class="metric-n" data-i18n="res.m2.n">Open-weight SOTA</span>
-      </div>
-      <div class="metric">
-        <span class="metric-k" data-i18n="res.m3.k">OSWorkerBench</span>
-        <span class="metric-v">41.0% <small>/ 76.9%</small></span>
-        <span class="metric-n" data-i18n="res.m3.n">Strict / progress · +17.7 / +24.5 vs base</span>
-      </div>
-      <div class="metric metric-hi">
-        <span class="metric-k" data-i18n="res.m4.k">+ one demo</span>
-        <span class="metric-v">15.2% → 40.4%</span>
-        <span class="metric-n" data-i18n="res.m4.n">Paired OSWorker subset · strict success</span>
-      </div>
     </div>
 
     <div class="chart-card">
@@ -437,7 +418,7 @@
     <div class="sec-head sec-head-dark">
       <span class="sec-kicker" data-i18n="kicker.citation">05 — Citation</span>
       <h2 class="sec-title" data-i18n="cite.title">Cite this work</h2>
-      <p class="sec-lede" data-i18n="cite.lede">If UI-Mate, DemoCUA, or OSWorkerBench is useful in your research, please cite the technical report.</p>
+      <p class="sec-lede" data-i18n="cite.lede">If UI-Mate is useful in your research, please cite the technical report.</p>
     </div>
 
     <div class="cite-card">

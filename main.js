@@ -11,7 +11,7 @@
 
   var TITLES = {
     en: "UI-Mate: Advancing Open-Weight Foundation GUI Agents with In-Context Demonstrations",
-    zh: "UI-Mate：以上下文演示推进开源权重通用 GUI 智能体"
+    zh: "UI-Mate: Advancing Open-Weight Foundation GUI Agents with In-Context Demonstrations"
   };
 
   var lang = resolveInitialLang();

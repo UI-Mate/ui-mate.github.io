@@ -409,7 +409,7 @@ html[lang="zh"] .hero-badge-txt { text-transform: none; letter-spacing: 0.06em; 
 .section-tint { background: var(--tint); border-block: 1px solid var(--line); }
 .section-dark { background: var(--dark); }
 
-.sec-head { max-width: 820px; margin-bottom: 48px; }
+.sec-head { max-width: none; margin-bottom: 48px; }
 .sec-kicker {
   display: inline-block;
   font-family: var(--mono);
@@ -425,13 +425,12 @@ html[lang="zh"] .sec-kicker { text-transform: none; letter-spacing: 0.08em; }
   font-size: clamp(30px, 4.2vw, 44px);
   letter-spacing: -0.028em;
   line-height: 1.14;
-  text-wrap: balance;
 }
 .sec-lede {
   margin-top: 18px;
   font-size: 17px;
   color: var(--body);
-  text-wrap: pretty;
+  max-width: 54rem;
   hyphens: none;
   -webkit-hyphens: none;
 }
@@ -491,12 +490,23 @@ html[lang="zh"] .hero-tagline {
   font-weight: 600;
   letter-spacing: -0.03em;
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
   background: var(--grad);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 .hl-num small { font-size: 0.5em; font-weight: 500; }
+.hl-num-pair {
+  font-size: 26px;
+  letter-spacing: -0.04em;
+}
+.hl-arrow {
+  display: inline-block;
+  margin: 0 0.18em;
+  font-weight: 500;
+  opacity: 0.85;
+}
 .hl-label { font-size: 13.5px; color: var(--muted); line-height: 1.5; }
 
 /* ============================================================
@@ -520,10 +530,13 @@ html[lang="zh"] .hero-tagline {
   font-size: 14px;
   color: var(--muted);
   line-height: 1.55;
-  max-width: 72ch;
 }
 .fig-teaser { margin-top: 40px; }
 .fig-wide { margin-top: 40px; }
+.fig-sm {
+  max-width: 920px;
+  margin-inline: auto;
+}
 .pillar .fig { margin-top: 20px; }
 .pillar .fig img { box-shadow: none; }
 
@@ -559,8 +572,7 @@ html[lang="zh"] .hero-tagline {
   margin-top: 8px;
   font-size: 15px;
   color: var(--body);
-  max-width: 820px;
-  text-wrap: pretty;
+  max-width: none;
   hyphens: none;
   -webkit-hyphens: none;
 }
@@ -572,12 +584,9 @@ html[lang="zh"] .hero-tagline {
   margin-top: 22px;
   display: grid;
   gap: 10px;
-  padding: 18px 18px 16px;
-  border-radius: var(--r);
-  border: 1px solid var(--line);
-  background:
-    radial-gradient(120% 80% at 100% 0%, rgba(78, 203, 255, 0.08), transparent 55%),
-    linear-gradient(180deg, #fbfdff, #fff);
+  padding: 18px 0 4px;
+  border-top: 1px solid var(--line);
+  background: transparent;
 }
 .flow-phase-head {
   display: flex;
@@ -1036,7 +1045,7 @@ html[lang="zh"] .flow-badge { text-transform: none; letter-spacing: 0.04em; }
   margin-top: 10px;
   font-size: 13px;
   color: var(--muted);
-  max-width: 72ch;
+  line-height: 1.5;
 }
 .flow-note code { font-size: 0.9em; }
 
@@ -1068,36 +1077,41 @@ html[lang="zh"] .flow-badge { text-transform: none; letter-spacing: 0.04em; }
   padding: 22px 20px 24px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
   box-shadow: var(--shadow-s);
 }
 .metric-hi {
   border-color: rgba(0, 82, 217, 0.28);
-  background: linear-gradient(180deg, rgba(0, 82, 217, 0.05), #fff 55%);
+  box-shadow: 0 0 0 1px rgba(0, 82, 217, 0.08), var(--shadow-s);
+  background: linear-gradient(180deg, rgba(0, 82, 217, 0.05), #fff 58%);
 }
 .metric-k {
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 600;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
   color: var(--muted);
 }
-html[lang="zh"] .metric-k { text-transform: none; letter-spacing: 0.04em; }
 .metric-v {
   font-family: var(--mono);
-  font-size: 26px;
-  font-weight: 600;
+  font-size: 28px;
+  font-weight: 700;
   letter-spacing: -0.03em;
   color: var(--ink);
   font-variant-numeric: tabular-nums;
-  line-height: 1.2;
+  line-height: 1.15;
+  white-space: nowrap;
 }
-.metric-v small {
-  font-size: 0.62em;
-  font-weight: 500;
+.metric-dim {
+  font-size: 0.72em;
+  font-weight: 600;
   color: var(--muted);
 }
-.metric-n { font-size: 13px; color: var(--muted); line-height: 1.45; }
+.metric-n {
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.4;
+}
 
 /* ============================================================
    CAPABILITY CARDS (legacy; unused on lean page)
@@ -1668,7 +1682,7 @@ html[lang="zh"] .demo-facts dt { text-transform: none; letter-spacing: 0.04em; f
   .crow-label small { display: inline; margin-left: 8px; }
   .abstract { font-size: 16px; padding-left: 18px; }
   .pillar { padding: 22px 20px 24px; }
-  .flow { padding: 14px 12px 12px; }
+  .flow { padding: 14px 0 4px; }
   .flow-offline { flex-wrap: wrap; gap: 8px; }
   .flow-arrow { display: none; }
   .flow-card { flex: 1 1 calc(50% - 8px); min-width: 140px; }
