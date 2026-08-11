@@ -109,8 +109,23 @@ window.UIMATE_I18N = {
 
     "kicker.demos": "04 — Demos",
     "demo.title": "See it run",
-    "demo.lede": "General CUA on a real macOS desktop. DemoCUA clips coming next.",
+    "demo.lede": "General CUA on a real macOS desktop — plus one DemoCUA walkthrough with the human demo and parsed subtasks.",
     "demo.empty": "Drop the recording into <code>assets/demos/</code> to replace this placeholder.",
+    "demo.run.label": "Agent run",
+    "demo.guide": "Guided by one demonstration.",
+    "demo.demo.label": "Demo",
+    "demo.demo.empty": "Demo video missing.",
+    "demo.subs.label": "Subtask",
+    "demo.step.label": "Step viewer",
+    "demo.step.open": "Open step viewer",
+    "demo.step.back": "← Back to demos",
+    "demo.step.hint": "Use ← → to step through the agent run.",
+    "demo.step.empty": "Step frames load with the agent-run video.",
+    "demo.step.missing": "Choose a DemoCUA example from the homepage demos section.",
+    "demo.step.noDetail": "No completion criterion provided.",
+    "demo.step.subtask": "Subtask",
+    "demo.step.thinking": "Thinking",
+    "demo.step.action": "Action",
     "demo.f.mode": "Mode",
     "demo.f.platform": "Platform",
     "demo.f.instr": "Instruction",
@@ -336,8 +351,23 @@ window.UIMATE_I18N = {
 
     "kicker.demos": "04 — 演示",
     "demo.title": "实际运行",
-    "demo.lede": "真实 macOS 桌面上的 General CUA。DemoCUA 片段后续补充。",
+    "demo.lede": "真实 macOS 桌面上的 General CUA，以及一段 DemoCUA：人类演示、解析后的子任务，与智能体执行。",
     "demo.empty": "把录屏文件放进 <code>assets/demos/</code> 即可替换这个占位。",
+    "demo.run.label": "实际执行",
+    "demo.guide": "由一段演示引导。",
+    "demo.demo.label": "Demo",
+    "demo.demo.empty": "缺少 Demo 视频。",
+    "demo.subs.label": "Subtask",
+    "demo.step.label": "逐步查看",
+    "demo.step.open": "打开逐步查看",
+    "demo.step.back": "← 返回演示",
+    "demo.step.hint": "用 ← → 逐步浏览 agent run。",
+    "demo.step.empty": "截帧随执行视频加载。",
+    "demo.step.missing": "请从主页演示区选择一个 DemoCUA 例子。",
+    "demo.step.noDetail": "暂无完成条件说明。",
+    "demo.step.subtask": "子任务",
+    "demo.step.thinking": "思考",
+    "demo.step.action": "动作",
     "demo.f.mode": "模式",
     "demo.f.platform": "平台",
     "demo.f.instr": "指令",
@@ -470,15 +500,18 @@ window.UIMATE_CHART = [
 ];
 
 /* ------------------------------------------------------------
-   Demo reel. General CUA clips are live; DemoCUA slots stay
-   placeholders until more recordings land in Demos/.
+   Demo reel. General CUA clips are live; DemoCUA entries use
+   kind: "democua" to show the human demo + subtask extras strip.
    ------------------------------------------------------------ */
 window.UIMATE_DEMOS = [
   {
     id: "general-1",
+    kind: "general",
     ready: true,
     src: "Demos/Genral/demo1.mp4",
+    runSrc: "Demos/General/2048/run.mp4?v=2",
     poster: "assets/demos/general-1.jpg",
+    stepsSrc: "Demos/General/2048/steps.json?v=6",
     en: {
       tab: "General · 2048",
       title: "Play 2048 from the screen alone",
@@ -498,9 +531,12 @@ window.UIMATE_DEMOS = [
   },
   {
     id: "general-2",
+    kind: "general",
     ready: true,
     src: "Demos/Genral/demo2.mp4",
+    runSrc: "Demos/General/books/run.mp4?v=2",
     poster: "assets/demos/general-2.jpg",
+    stepsSrc: "Demos/General/books/steps.json?v=6",
     en: {
       tab: "General · Books",
       title: "Fill authors from Safari into Excel",
@@ -516,6 +552,56 @@ window.UIMATE_DEMOS = [
       mode: "General CUA",
       platform: "macOS · Apple 芯片",
       instr: "桌面上有一个 books.csv,里面只有一列书名。请用 Excel 打开它,然后对每一本书,去 Safari 查出它的作者和首次出版年份,在表格里新增 Author 和 Year 两列并填上;填完后,把所有行按 Year 从早到晚排序;最后另存到桌面,文件名 books_filled.xlsx。"
+    }
+  },
+  {
+    id: "democua-greenhouse",
+    kind: "democua",
+    ready: true,
+    src: "Demos/DemoCUA/greenhouse/run.mp4?v=11",
+    demoSrc: "Demos/DemoCUA/greenhouse/demo.mp4?v=11",
+    poster: "assets/demos/democua-greenhouse.jpg",
+    stepsSrc: "Demos/DemoCUA/greenhouse/steps.json?v=12",
+    en: {
+      tab: "DemoCUA · Greenhouse",
+      title: "Schedule onsites w/ demo",
+      desc: "A human demo is parsed into subtasks. The agent then runs Greenhouse → Calendar → Gmail → Slack with demo-in-the-loop guidance — live screen stays authoritative.",
+      mode: "DemoCUA",
+      platform: "Linux",
+      instr: "Assume today is March 11, 2024. For every candidate currently in Greenhouse (first 5 candidates), run the full onsite-scheduling pipeline across Greenhouse, Google Calendar, Gmail, and Slack."
+    },
+    zh: {
+      tab: "DemoCUA · Greenhouse",
+      title: "完成 Onsite 排期 w/ demo",
+      desc: "人类演示解析成子任务后，智能体在 demo-in-the-loop 下跑通 Greenhouse → 日历 → Gmail → Slack；实时屏幕仍是权威依据。",
+      mode: "DemoCUA",
+      platform: "Linux",
+      instr: "假设今天是 2024-03-11。对 Greenhouse 中前 5 位候选人，跑完整的 Onsite 排期流程（Greenhouse、Google Calendar、Gmail、Slack）。"
+    }
+  },
+  {
+    id: "democua-visa",
+    kind: "democua",
+    ready: true,
+    src: "Demos/DemoCUA/visa/run.mp4?v=11",
+    demoSrc: "Demos/DemoCUA/visa/demo.mp4?v=11",
+    poster: "assets/demos/democua-visa.jpg",
+    stepsSrc: "Demos/DemoCUA/visa/steps.json?v=12",
+    en: {
+      tab: "DemoCUA · Visa",
+      title: "Fill a DS-2019 application w/ demo",
+      desc: "Documents on the Desktop plus one demonstration become a subtask plan. The agent completes the J-1 / DS-2019 request without turning the demo into a frame replay.",
+      mode: "DemoCUA",
+      platform: "Linux",
+      instr: "Help me fill out this DS-2019 application for my J-1 student visa. All required documents are on the desktop. I am a single bachelor student applying for a US visa for the first time."
+    },
+    zh: {
+      tab: "DemoCUA · Visa",
+      title: "填完 DS-2019 w/ demo",
+      desc: "桌面材料 + 一段演示变成子任务计划；智能体完成 J-1 / DS-2019 申请，而不是逐帧回放演示。",
+      mode: "DemoCUA",
+      platform: "Linux",
+      instr: "帮我填写 J-1 学生签证的 DS-2019 申请。所需材料都在桌面。我是未婚本科生，首次申请美国签证。"
     }
   }
 ];

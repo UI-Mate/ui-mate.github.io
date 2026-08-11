@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>UI-Mate — Step viewer</title>
+<meta name="robots" content="noindex, nofollow" />
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css?v=democua19" />
+</head>
+<body class="viewer-page">
+
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">
+      <img src="assets/hy_logo.png" alt="Tencent Hunyuan" />
+      <span class="nav-divider"></span>
+      <span class="nav-product">UI-Mate</span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html#demos" data-i18n="demo.step.back">← Back to demos</a>
+    </nav>
+    <div class="nav-actions">
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button type="button" data-lang="en" class="is-active">EN</button>
+        <button type="button" data-lang="zh">中文</button>
+      </div>
+      <button type="button" class="nav-burger" id="navBurger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="viewer-main">
+  <div class="wrap">
+    <div class="viewer-top">
+      <a class="btn" href="index.html#demos" data-i18n="demo.step.back">← Back to demos</a>
+      <div class="viewer-heading">
+        <h1 id="viewerTitle" class="viewer-title">Step viewer</h1>
+        <p id="viewerLede" class="viewer-lede">—</p>
+      </div>
+      <div class="demo-step-nav viewer-step-nav">
+        <button type="button" class="demo-step-btn" id="demoStepPrev" aria-label="Previous step">←</button>
+        <span class="demo-step-count" id="demoStepCount">—</span>
+        <button type="button" class="demo-step-btn" id="demoStepNext" aria-label="Next step">→</button>
+      </div>
+    </div>
+    <div class="demo-tabs viewer-demo-tabs" id="viewerDemoTabs" role="tablist" aria-label="DemoCUA tasks"></div>
+    <p class="demo-step-hint" data-i18n="demo.step.hint">Use ← → to step through the agent run.</p>
+
+    <div class="viewer-grid">
+      <section class="viewer-shot-wrap" aria-label="Step frame">
+        <div class="viewer-shot">
+          <img id="demoStepImage" class="viewer-shot-media" alt="" hidden />
+          <video id="demoStepVideo" class="viewer-shot-media" muted playsinline preload="auto" hidden></video>
+          <div class="demo-empty demo-empty-mini" id="demoStepEmpty">
+            <p data-i18n="demo.step.empty">Step frames load with the agent-run video.</p>
+          </div>
+        </div>
+      </section>
+
+      <aside class="viewer-fields" aria-label="Step details">
+        <div class="demo-step-field">
+          <span class="demo-step-k" data-i18n="demo.step.subtask">Subtask</span>
+          <div id="demoStepSubtask" class="demo-step-v">—</div>
+        </div>
+        <div class="demo-step-field">
+          <span class="demo-step-k" data-i18n="demo.step.thinking">Thinking</span>
+          <div id="demoStepThinking" class="demo-step-v demo-step-scroll">—</div>
+        </div>
+        <div class="demo-step-field">
+          <span class="demo-step-k" data-i18n="demo.step.action">Action</span>
+          <div id="demoStepAction" class="demo-step-v mono">—</div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<script src="i18n.js?v=democua19"></script>
+<script src="viewer.js?v=democua16"></script>
+</body>
+</html>

@@ -163,6 +163,169 @@
   var tabsEl = document.getElementById("demoTabs");
   var video = document.getElementById("demoVideo");
   var emptyEl = document.getElementById("demoEmpty");
+  var humanVideo = document.getElementById("demoHumanVideo");
+  var humanEmptyEl = document.getElementById("demoHumanEmpty");
+  var subtasksEl = document.getElementById("demoSubtasks");
+  var paneTabsEl = document.getElementById("demoPaneTabs");
+  var guideEl = document.getElementById("demoGuide");
+  var viewerLinkEl = document.getElementById("demoViewerLink");
+  var paneRunEl = document.getElementById("demoPaneRun");
+  var paneDemoEl = document.getElementById("demoPaneDemo");
+  var paneSubtaskEl = document.getElementById("demoPaneSubtask");
+
+  var stepsCache = {};
+  var activePane = "run";
+  var activeSubtasks = [];
+  var expandedSubtaskId = null;
+
+  function isDemoCua(demo) {
+    return !!(demo && demo.kind === "democua");
+  }
+
+  function hasStepViewer(demo) {
+    return !!(demo && demo.stepsSrc);
+  }
+
+  function demoSlug(demo) {
+    if (!demo) return "";
+    if (demo.viewer) return demo.viewer;
+    return String(demo.id || "").replace(/^democua-/, "");
+  }
+
+  function pauseOther(active) {
+    if (active !== video && video && !video.paused) video.pause();
+    if (active !== humanVideo && humanVideo && !humanVideo.paused) humanVideo.pause();
+  }
+
+  function wireVideoSrc(el, empty, src, poster, ready) {
+    if (!el) return;
+    el.pause();
+    el.removeAttribute("poster");
+
+    if (!ready || !src) {
+      if (empty) empty.classList.remove("is-hidden");
+      el.removeAttribute("src");
+      el.load();
+      return;
+    }
+
+    if (empty) empty.classList.add("is-hidden");
+    if (poster) el.poster = poster;
+    el.src = src;
+    el.load();
+  }
+
+  function setPane(pane) {
+    activePane = pane || "run";
+    if (paneTabsEl) {
+      paneTabsEl.querySelectorAll(".demo-pane-tab").forEach(function (btn) {
+        var on = btn.getAttribute("data-pane") === activePane;
+        btn.classList.toggle("is-active", on);
+        btn.setAttribute("aria-selected", String(on));
+      });
+    }
+    if (paneRunEl) {
+      paneRunEl.hidden = activePane !== "run";
+      paneRunEl.classList.toggle("is-active", activePane === "run");
+    }
+    if (paneDemoEl) {
+      paneDemoEl.hidden = activePane !== "demo";
+      paneDemoEl.classList.toggle("is-active", activePane === "demo");
+    }
+    if (paneSubtaskEl) {
+      paneSubtaskEl.hidden = activePane !== "subtask";
+      paneSubtaskEl.classList.toggle("is-active", activePane === "subtask");
+    }
+    if (activePane !== "run" && video && !video.paused) video.pause();
+    if (activePane !== "demo" && humanVideo && !humanVideo.paused) humanVideo.pause();
+  }
+
+  function renderSubtasks(subs) {
+    activeSubtasks = subs || [];
+    if (!subtasksEl) return;
+    subtasksEl.innerHTML = "";
+    activeSubtasks.forEach(function (item, i) {
+      var sid = item.id != null ? item.id : i + 1;
+      var index = i + 1;
+      var li = document.createElement("li");
+      li.setAttribute("data-subtask-id", String(sid));
+      if (expandedSubtaskId === sid) li.classList.add("is-open");
+
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "demo-subtask-jump";
+      btn.setAttribute("aria-expanded", String(expandedSubtaskId === sid));
+      btn.textContent = index + ". " + (item.title || ("Subtask " + index));
+      btn.addEventListener("click", function () {
+        expandedSubtaskId = expandedSubtaskId === sid ? null : sid;
+        renderSubtasks(activeSubtasks);
+      });
+
+      var detail = document.createElement("div");
+      detail.className = "demo-subtask-detail";
+      detail.hidden = expandedSubtaskId !== sid;
+      detail.textContent = item.criterion || t("demo.step.noDetail");
+
+      li.appendChild(btn);
+      li.appendChild(detail);
+      subtasksEl.appendChild(li);
+    });
+  }
+
+  function loadStepsForDemo(demo) {
+    if (!isDemoCua(demo) || !demo.stepsSrc) {
+      renderSubtasks([]);
+      return;
+    }
+    if (stepsCache[demo.stepsSrc]) {
+      renderSubtasks(stepsCache[demo.stepsSrc].subtasks || []);
+      return;
+    }
+    fetch(demo.stepsSrc)
+      .then(function (res) {
+        if (!res.ok) throw new Error("steps fetch failed");
+        return res.json();
+      })
+      .then(function (payload) {
+        stepsCache[demo.stepsSrc] = payload;
+        if (DEMOS[activeDemo] === demo) renderSubtasks(payload.subtasks || []);
+      })
+      .catch(function () {
+        if (DEMOS[activeDemo] === demo) {
+          var copy = demo[lang] || demo.en;
+          renderSubtasks((copy && copy.subtasks) || []);
+        }
+      });
+  }
+
+  function renderDemoExtras(demo) {
+    var democua = isDemoCua(demo);
+    if (paneTabsEl) paneTabsEl.hidden = !democua;
+    if (guideEl) guideEl.hidden = true;
+    if (viewerLinkEl) {
+      viewerLinkEl.hidden = !hasStepViewer(demo);
+      if (hasStepViewer(demo)) {
+        var slug = demoSlug(demo);
+        viewerLinkEl.href = "viewer.html?demo=" + encodeURIComponent(slug) + "&lang=" + lang;
+      }
+    }
+
+    if (!democua) {
+      setPane("run");
+      if (paneDemoEl) paneDemoEl.hidden = true;
+      if (paneSubtaskEl) paneSubtaskEl.hidden = true;
+      wireVideoSrc(humanVideo, humanEmptyEl, null, null, false);
+      if (subtasksEl) subtasksEl.innerHTML = "";
+      expandedSubtaskId = null;
+      return;
+    }
+
+    var copy = demo[lang] || demo.en;
+    if (!demo.stepsSrc) renderSubtasks((copy && copy.subtasks) || []);
+    wireVideoSrc(humanVideo, humanEmptyEl, demo.demoSrc, null, !!(demo.ready && demo.demoSrc));
+    setPane("run");
+    loadStepsForDemo(demo);
+  }
 
   function renderDemoTabs() {
     if (!tabsEl) return;
@@ -180,21 +343,42 @@
     });
   }
 
+  function setDemoTitle(el, title) {
+    if (!el) return;
+    var marker = "w/ demo";
+    var idx = title ? title.indexOf(marker) : -1;
+    if (idx < 0) {
+      el.textContent = title || "—";
+      return;
+    }
+    el.textContent = "";
+    if (idx > 0) el.appendChild(document.createTextNode(title.slice(0, idx)));
+    var accent = document.createElement("span");
+    accent.className = "demo-title-accent";
+    accent.textContent = marker;
+    el.appendChild(accent);
+    if (idx + marker.length < title.length) {
+      el.appendChild(document.createTextNode(title.slice(idx + marker.length)));
+    }
+  }
+
   function renderDemoMeta() {
     var demo = DEMOS[activeDemo];
-    if (!demo || !video) return;
+    if (!demo) return;
     var copy = demo[lang] || demo.en;
 
-    document.getElementById("demoTitle").textContent = copy.title;
+    setDemoTitle(document.getElementById("demoTitle"), copy.title);
     document.getElementById("demoDesc").textContent = copy.desc;
     document.getElementById("demoMode").textContent = copy.mode;
     document.getElementById("demoPlatform").textContent = copy.platform;
     document.getElementById("demoInstr").textContent = '"' + copy.instr + '"';
     document.getElementById("demoBarTitle").textContent = "UI-Mate — " + copy.tab;
+    renderDemoExtras(demo);
   }
 
   function selectDemo(index) {
     activeDemo = index;
+    expandedSubtaskId = null;
     var demo = DEMOS[index];
 
     tabsEl.querySelectorAll(".demo-tab").forEach(function (btn, i) {
@@ -206,28 +390,31 @@
 
     if (!video || !demo) return;
 
-    video.pause();
-    video.removeAttribute("poster");
+    pauseOther(null);
+    wireVideoSrc(video, emptyEl, demo.src, demo.poster, !!(demo.ready && demo.src));
+  }
 
-    // Requesting a not-yet-added clip would only produce console 404s.
-    if (!demo.ready || !demo.src) {
-      emptyEl.classList.remove("is-hidden");
-      video.removeAttribute("src");
-      video.load();
-      return;
-    }
-
-    // Ready demos: hide the placeholder as soon as a poster/src is wired.
-    // loadeddata can take a while on large mp4s; error brings the overlay back.
-    emptyEl.classList.add("is-hidden");
-    if (demo.poster) video.poster = demo.poster;
-    video.src = demo.src;
-    video.load();
+  if (paneTabsEl) {
+    paneTabsEl.addEventListener("click", function (e) {
+      var btn = e.target.closest(".demo-pane-tab");
+      if (!btn) return;
+      setPane(btn.getAttribute("data-pane"));
+    });
   }
 
   if (video) {
+    video.addEventListener("play", function () { pauseOther(video); });
     video.addEventListener("loadeddata", function () { emptyEl.classList.add("is-hidden"); });
     video.addEventListener("error", function () { emptyEl.classList.remove("is-hidden"); });
+  }
+  if (humanVideo) {
+    humanVideo.addEventListener("play", function () { pauseOther(humanVideo); });
+    humanVideo.addEventListener("loadeddata", function () {
+      if (humanEmptyEl) humanEmptyEl.classList.add("is-hidden");
+    });
+    humanVideo.addEventListener("error", function () {
+      if (humanEmptyEl) humanEmptyEl.classList.remove("is-hidden");
+    });
   }
 
   /* ---------- bibtex copy ------------------------------------ */
@@ -433,7 +620,7 @@
 
   var revealTargets = document.querySelectorAll(
     ".sec-head, .highlight-row, .fig, .pillar, .metric, .table-card, .chart-card, " +
-    ".demo-tabs, .demo-stage, .cite-card, .flow, .app-links, .app-block, .app-route"
+    ".demo-tabs, .demo-panel, .cite-card, .flow, .app-links, .app-block, .app-route"
   );
 
   if ("IntersectionObserver" in window) {

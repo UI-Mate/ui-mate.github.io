@@ -21,7 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css?v=9b666ab" />
+<link rel="stylesheet" href="styles.css?v=democua14" />
 </head>
 <body>
 
@@ -448,30 +448,55 @@
 
     <div class="demo-tabs" id="demoTabs" role="tablist"></div>
 
-    <div class="demo-stage">
-      <div class="demo-player">
-        <div class="browser-bar" aria-hidden="true">
-          <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
-          <span class="browser-title" id="demoBarTitle">UI-Mate</span>
-        </div>
-        <div class="demo-video-wrap">
-          <video id="demoVideo" controls playsinline preload="metadata" poster=""></video>
-          <div class="demo-empty" id="demoEmpty">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l12 7-12 7z"/></svg>
-            <p data-i18n="demo.empty">Drop the recording into <code>assets/demos/</code> to replace this placeholder.</p>
+    <div class="demo-panel">
+      <div class="demo-stage">
+        <div class="demo-player">
+          <div class="browser-bar">
+            <span class="dot dot-r" aria-hidden="true"></span>
+            <span class="dot dot-y" aria-hidden="true"></span>
+            <span class="dot dot-g" aria-hidden="true"></span>
+            <span class="browser-title" id="demoBarTitle">UI-Mate</span>
+            <div class="demo-pane-tabs" id="demoPaneTabs" hidden role="tablist" aria-label="DemoCUA panes">
+              <button type="button" class="demo-pane-tab is-active" data-pane="run" role="tab" aria-selected="true" data-i18n="demo.run.label">Agent run</button>
+              <button type="button" class="demo-pane-tab" data-pane="demo" role="tab" aria-selected="false" data-i18n="demo.demo.label">Demo</button>
+              <button type="button" class="demo-pane-tab" data-pane="subtask" role="tab" aria-selected="false" data-i18n="demo.subs.label">Subtask</button>
+            </div>
+          </div>
+          <div class="demo-video-wrap" id="demoStageWrap">
+            <div class="demo-pane is-active" data-pane="run" id="demoPaneRun">
+              <video id="demoVideo" controls playsinline preload="metadata" poster=""></video>
+              <div class="demo-empty" id="demoEmpty">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l12 7-12 7z"/></svg>
+                <p data-i18n="demo.empty">Drop the recording into <code>assets/demos/</code> to replace this placeholder.</p>
+              </div>
+            </div>
+            <div class="demo-pane" data-pane="demo" id="demoPaneDemo" hidden>
+              <video id="demoHumanVideo" controls playsinline preload="metadata"></video>
+              <div class="demo-empty" id="demoHumanEmpty">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l12 7-12 7z"/></svg>
+                <p data-i18n="demo.demo.empty">Demo video missing.</p>
+              </div>
+            </div>
+            <div class="demo-pane demo-pane-subtasks" data-pane="subtask" id="demoPaneSubtask" hidden>
+              <ol class="demo-subtasks" id="demoSubtasks"></ol>
+            </div>
           </div>
         </div>
-      </div>
 
-      <aside class="demo-meta">
-        <h3 id="demoTitle" class="demo-title">—</h3>
-        <p id="demoDesc" class="demo-desc">—</p>
-        <dl class="demo-facts">
-          <div><dt data-i18n="demo.f.mode">Mode</dt><dd id="demoMode">—</dd></div>
-          <div><dt data-i18n="demo.f.platform">Platform</dt><dd id="demoPlatform">—</dd></div>
-          <div><dt data-i18n="demo.f.instr">Instruction</dt><dd id="demoInstr" class="mono">—</dd></div>
-        </dl>
-      </aside>
+        <aside class="demo-meta">
+          <h3 id="demoTitle" class="demo-title">—</h3>
+          <p id="demoDesc" class="demo-desc">—</p>
+          <p class="demo-guide" id="demoGuide" hidden data-i18n="demo.guide">Guided by one demonstration.</p>
+          <dl class="demo-facts">
+            <div><dt data-i18n="demo.f.mode">Mode</dt><dd id="demoMode">—</dd></div>
+            <div><dt data-i18n="demo.f.platform">Platform</dt><dd id="demoPlatform">—</dd></div>
+            <div><dt data-i18n="demo.f.instr">Instruction</dt><dd id="demoInstr" class="mono">—</dd></div>
+          </dl>
+          <a class="btn demo-viewer-link" id="demoViewerLink" href="viewer.html" hidden>
+            <span data-i18n="demo.step.open">Open step viewer</span>
+          </a>
+        </aside>
+      </div>
     </div>
   </div>
 </section>
@@ -553,7 +578,7 @@
   </div>
 </footer>
 
-<script src="i18n.js?v=9b666ab"></script>
-<script src="main.js?v=9b666ab"></script>
+<script src="i18n.js?v=democua19"></script>
+<script src="main.js?v=democua14"></script>
 </body>
 </html>

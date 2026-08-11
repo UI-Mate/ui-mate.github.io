@@ -1,0 +1,507 @@
+{
+  "id": "general-2",
+  "title": "Fill authors from Safari into Excel",
+  "instruction": "桌面上有一个 books.csv,里面只有一列书名。请用 Excel 打开它,然后对每一本书,去 Safari 查出它的作者和首次出版年份,在表格里新增 Author 和 Year 两列并填上;填完后,把所有行按 Year 从早到晚排序;最后另存到桌面,文件名 books_filled.xlsx。",
+  "run_video": "Demos/General/books/run.mp4",
+  "poster": "assets/demos/general-2.jpg",
+  "subtasks": [],
+  "steps": [
+    {
+      "i": 0,
+      "step_num": 1,
+      "thinking": "I need to start working on the task. The task requires me to:\n1. Open books.csv from the desktop using Excel\n2. Look up each book's author and first publication year using Safari\n3. Add Author and Year columns to the spreadsheet\n4. Sort all rows by Year from earliest to latest\n5. Save the file to the desktop as books_filled.xlsx\n\nFirst, I need to access the books.csv file on the desktop. I should minimize or close Safari and open the file. Let me click on the desktop or use the file manager to locate the books.csv file.",
+      "action": "pyautogui.click(374, 608)",
+      "shot": "Demos/General/books/frames/0000.jpg"
+    },
+    {
+      "i": 1,
+      "step_num": 2,
+      "thinking": "I need to minimize Safari to see the desktop and find the books.csv file. Let me click the minimize button on Safari.",
+      "action": "pyautogui.click(61, 56)",
+      "shot": "Demos/General/books/frames/0001.jpg"
+    },
+    {
+      "i": 2,
+      "step_num": 3,
+      "thinking": "I need to minimize Safari to see the desktop. Let me click the minimize button (yellow button) on the Safari window.",
+      "action": "pyautogui.click(63, 56)",
+      "shot": "Demos/General/books/frames/0002.jpg"
+    },
+    {
+      "i": 3,
+      "step_num": 4,
+      "thinking": "I need to minimize the browser window to see the desktop. Let me click the yellow minimize button in the top-left corner of the Chrome window.",
+      "action": "pyautogui.click(61, 50)",
+      "shot": "Demos/General/books/frames/0003.jpg"
+    },
+    {
+      "i": 4,
+      "step_num": 5,
+      "thinking": "The minimize button didn't work as expected. Let me try a different approach - I'll use the keyboard shortcut to minimize the window, or I can click on the desktop area that's visible. Actually, let me try clicking on the yellow button again but with the correct coordinates. Looking at the screenshot, the yellow button appears to be at around x=0.028, y=0.046.\n\nWait, I see the issue - I need to look more carefully at the window controls. The yellow button should be the minimize button. Let me try clicking it again with slightly different coordinates.",
+      "action": "pyautogui.click(53, 48)",
+      "shot": "Demos/General/books/frames/0004.jpg"
+    },
+    {
+      "i": 5,
+      "step_num": 6,
+      "thinking": "I can see the desktop now. I need to find the books.csv file. I can see some files on the desktop but I don't see books.csv yet. Let me look more carefully - I can see files like \"notes.md\", \"item.csv\", \"hello.txt\", etc. I need to scroll or look for books.csv. Let me check if there's a books.csv file visible. I don't see it in the current view. Let me scroll down or look for it. Actually, I should use Finder to navigate to the desktop and find the file, or I can look more carefully at the desktop.\n\nLooking at the desktop, I can see various files but no books.csv visible. Let me scroll down on the desktop to see if there are more files, or I can open Finder to locate it.",
+      "action": "pyautogui.moveTo(1695, 600)\npyautogui.scroll(-3)",
+      "shot": "Demos/General/books/frames/0005.jpg"
+    },
+    {
+      "i": 6,
+      "step_num": 7,
+      "thinking": "I don't see books.csv on the desktop. Let me open Finder to navigate to the desktop folder and find the file. I'll click on the Finder icon in the dock.",
+      "action": "pyautogui.click(84, 1041)",
+      "shot": "Demos/General/books/frames/0006.jpg"
+    },
+    {
+      "i": 7,
+      "step_num": 8,
+      "thinking": "I can see Finder is open. I need to navigate to the Desktop folder to find books.csv. Let me click on \"Desktop\" in the left sidebar.",
+      "action": "pyautogui.click(536, 360)",
+      "shot": "Demos/General/books/frames/0007.jpg"
+    },
+    {
+      "i": 8,
+      "step_num": 9,
+      "thinking": "I found books.csv in the Desktop folder. Now I need to open it with Excel. I'll double-click on books.csv to open it. It should open with the default application, which might be Excel or Numbers. If it opens with Numbers, I'll need to convert it or open it with Excel specifically.",
+      "action": "pyautogui.click(803, 513)",
+      "shot": "Demos/General/books/frames/0008.jpg"
+    },
+    {
+      "i": 9,
+      "step_num": 10,
+      "thinking": "The file is selected but hasn't opened yet. I need to double-click on it to open it. Let me double-click on the books.csv file.",
+      "action": "pyautogui.click(801, 513)",
+      "shot": "Demos/General/books/frames/0009.jpg"
+    },
+    {
+      "i": 10,
+      "step_num": 11,
+      "thinking": "The books.csv file has been opened in Excel. I can see it contains:\n- Row 1: Title (header)\n- Row 2: 1984\n- Row 3: The Great Gatsby\n- Row 4: Brave New World\n- Row 5: Fahrenheit 451\n\nNow I need to:\n1. Add two new columns: Author and Year\n2. Look up each book's author and first publication year using Safari\n3. Fill in the data\n4. Sort by Year from earliest to latest\n5. Save as books_filled.xlsx on the desktop\n\nLet me first add the column headers. I'll click on cell B1 to add \"Author\" header, then C1 for \"Year\".",
+      "action": "pyautogui.click(313, 326)",
+      "shot": "Demos/General/books/frames/0010.jpg"
+    },
+    {
+      "i": 11,
+      "step_num": 12,
+      "thinking": "I'm now in cell B1. I need to type \"Author\" as the header for this column. Then I'll move to C1 and type \"Year\".",
+      "action": "pyautogui.write('Author')",
+      "shot": "Demos/General/books/frames/0011.jpg"
+    },
+    {
+      "i": 12,
+      "step_num": 13,
+      "thinking": "I've typed \"Author\" in B1. Now I need to press Tab to move to C1 and type \"Year\".",
+      "action": "pyautogui.press('tab')",
+      "shot": "Demos/General/books/frames/0012.jpg"
+    },
+    {
+      "i": 13,
+      "step_num": 14,
+      "thinking": "I'm now in cell C1. I need to type \"Year\" as the header for this column.",
+      "action": "pyautogui.write('Year')",
+      "shot": "Demos/General/books/frames/0013.jpg"
+    },
+    {
+      "i": 14,
+      "step_num": 15,
+      "thinking": "I've added both headers \"Author\" and \"Year\". Now I need to press Enter to confirm the entry and then start filling in the data. I need to look up each book's author and publication year using Safari. Let me press Enter first to confirm the \"Year\" header, then I'll need to open Safari to search for the book information.\n\nThe books I need to look up are:\n1. 1984\n2. The Great Gatsby\n3. Brave New World\n4. Fahrenheit 451\n\nLet me press Enter to confirm and then open Safari to search for the first book \"1984\".",
+      "action": "pyautogui.press('return')",
+      "shot": "Demos/General/books/frames/0014.jpg"
+    },
+    {
+      "i": 15,
+      "step_num": 16,
+      "thinking": "The cursor has moved to B2 after pressing Enter. Now I need to open Safari to search for the author and publication year of \"1984\". I'll click on the Safari icon in the dock to open Safari.",
+      "action": "pyautogui.click(1320, 1045)",
+      "shot": "Demos/General/books/frames/0015.jpg"
+    },
+    {
+      "i": 16,
+      "step_num": 17,
+      "thinking": "Safari is now open. I need to search for the first book \"1984\" to find its author and publication year. I'll click on the search bar and search for \"1984 novel author publication year\".",
+      "action": "pyautogui.click(960, 54)",
+      "shot": "Demos/General/books/frames/0016.jpg"
+    },
+    {
+      "i": 17,
+      "step_num": 18,
+      "thinking": "The search bar is now active. I'll type my search query for the first book \"1984\" to find its author and publication year.",
+      "action": "pyautogui.write('1984 novel author publication year')",
+      "shot": "Demos/General/books/frames/0017.jpg"
+    },
+    {
+      "i": 18,
+      "step_num": 19,
+      "thinking": "I can see the search suggestions. I'll press Enter to search for \"1984 novel author publication year\" to get the search results.",
+      "action": "pyautogui.press('return')",
+      "shot": "Demos/General/books/frames/0018.jpg"
+    },
+    {
+      "i": 19,
+      "step_num": 20,
+      "thinking": "I can see the search results for \"1984 novel\". From the Wikipedia result, I can see:\n- It was published on 8 June 1949 by Secker & Warburg as Orwell's ninth and final completed book.\n- The author is George Orwell (mentioned in \"How long did George Orwell take to write 1984?\")\n\nSo for \"1984\":\n- Author: George Orwell\n- Year: 1949\n\nNow I need to go back to Excel and fill in this information. Let me click on the Excel icon in the dock to switch back to Excel.",
+      "action": "pyautogui.click(1647, 1045)",
+      "shot": "Demos/General/books/frames/0019.jpg"
+    },
+    {
+      "i": 20,
+      "step_num": 21,
+      "thinking": "I'm back in Excel and I can see cell B2 is already selected. I need to type \"George Orwell\" for the author of \"1984\". Then I'll press Tab to move to C2 and type \"1949\".",
+      "action": "pyautogui.write('George Orwell')",
+      "shot": "Demos/General/books/frames/0020.jpg"
+    },
+    {
+      "i": 21,
+      "step_num": 22,
+      "thinking": "I've typed \"George Orwell\" in B2. Now I need to press Tab to move to C2 and enter the year \"1949\".",
+      "action": "pyautogui.press('tab')",
+      "shot": "Demos/General/books/frames/0021.jpg"
+    },
+    {
+      "i": 22,
+      "step_num": 23,
+      "thinking": "I'm now in cell C2. I need to type \"1949\" for the publication year of \"1984\".",
+      "action": "pyautogui.write('1949')",
+      "shot": "Demos/General/books/frames/0022.jpg"
+    },
+    {
+      "i": 23,
+      "step_num": 24,
+      "thinking": "I've entered \"1949\" in C2. Now I need to press Enter to confirm the entry and move to the next row. Then I'll need to search for the next book \"The Great Gatsby\" in Safari. Let me press Enter to confirm and move to the next row.",
+      "action": "pyautogui.press('return')",
+      "shot": "Demos/General/books/frames/0023.jpg"
+    },
+    {
+      "i": 24,
+      "step_num": 25,
+      "thinking": "The cursor has moved to B3, which is the Author column for \"The Great Gatsby\". Now I need to search for \"The Great Gatsby\" author and publication year in Safari. Let me switch to Safari to search for this information.",
+      "action": "pyautogui.click(1358, 1044)",
+      "shot": "Demos/General/books/frames/0024.jpg"
+    },
+    {
+      "i": 25,
+      "step_num": 26,
+      "thinking": "I'm in Safari. I need to search for \"The Great Gatsby author publication year\". Let me click on the search bar and clear it, then type the new search query.",
+      "action": "pyautogui.click(960, 128)",
+      "shot": "Demos/General/books/frames/0025.jpg"
+    },
+    {
+      "i": 26,
+      "step_num": 27,
+      "thinking": "The search bar text is selected. Now I'll type the new search query for \"The Great Gatsby author publication year\" which will replace the selected text.",
+      "action": "pyautogui.write('The Great Gatsby author publication year')",
+      "shot": "Demos/General/books/frames/0026.jpg"
+    },
+    {
+      "i": 27,
+      "step_num": 28,
+      "thinking": "I've typed the new search query. Now I need to press Enter to execute the search for \"The Great Gatsby author publication year\".",
+      "action": "pyautogui.press('return')",
+      "shot": "Demos/General/books/frames/0027.jpg"
+    },
+    {
+      "i": 28,
+      "step_num": 29,
+      "thinking": "I can see the search results for \"The Great Gatsby\". From the Wikipedia result, I can see:\n- Author: F. Scott Fitzgerald\n- Published: April 10, 1925\n\nSo for \"The Great Gatsby\":\n- Author: F. Scott Fitzgerald\n- Year: 1925\n\nNow I need to go back to Excel and fill in this information. Let me click on the Excel icon in the dock.",
+      "action": "pyautogui.click(1647, 1045)",
+      "shot": "Demos/General/books/frames/0028.jpg"
+    },
+    {
+      "i": 29,
+      "step_num": 30,
+      "thinking": "I'm back in Excel and cell B3 is already selected (for \"The Great Gatsby\" author). I need to type \"F. Scott Fitzgerald\" for the author. Then I'll press Tab to move to C3 and type \"1925\".",
+      "action": "pyautogui.write('F. Scott Fitzgerald')",
+      "shot": "Demos/General/books/frames/0029.jpg"
+    },
+    {
+      "i": 30,
+      "step_num": 31,
+      "thinking": "I've typed \"F. Scott Fitzgerald\" in B3. Now I need to press Tab to move to C3 and enter the year \"1925\".",
+      "action": "pyautogui.press('tab')",
+      "shot": "Demos/General/books/frames/0030.jpg"
+    },
+    {
+      "i": 31,
+      "step_num": 32,
+      "thinking": "I'm now in cell C3. I need to type \"1925\" for the publication year of \"The Great Gatsby\".",
+      "action": "pyautogui.write('1925')",
+      "shot": "Demos/General/books/frames/0031.jpg"
+    },
+    {
+      "i": 32,
+      "step_num": 33,
+      "thinking": "I've entered \"1925\" in C3. Now I need to press Enter to confirm the entry and move to the next row. Then I'll need to search for \"Brave New World\" author and publication year in Safari.",
+      "action": "pyautogui.press('return')",
+      "shot": "Demos/General/books/frames/0032.jpg"
+    },
+    {
+      "i": 33,
+      "step_num": 34,
+      "thinking": "The cursor has moved to B4, which is the Author column for \"Brave New World\". Now I need to search for \"Brave New World\" author and publication year in Safari. Let me switch to Safari to search for this information.",
+      "action": "pyautogui.click(1356, 1045)",
+      "shot": "Demos/General/books/frames/0033.jpg"
+    },
+    {
+      "i": 34,
+      "step_num": 35,
+      "thinking": "I'm in Safari. I need to search for \"Brave New World author publication year\". Let me click on the search bar and clear it, then type the new search query.",
+      "action": "pyautogui.click(960, 128)",
+      "shot": "Demos/General/books/frames/0034.jpg"
+    },
+    {
+      "i": 35,
+      "step_num": 36,
+      "thinking": "The search bar is active. I need to select all the text and replace it with the new search query for \"Brave New World author publication year\". Let me use Ctrl+A to select all text in the search bar, then type the new query.",
+      "action": "pyautogui.hotkey('ctrl', 'a')",
+      "shot": "Demos/General/books/frames/0035.jpg"
+    },
+    {
+      "i": 36,
+      "step_num": 37,
+      "thinking": "The text is selected. Now I'll type the new search query for \"Brave New World author publication year\" which will replace the selected text.",
+      "action": "pyautogui.write('Brave New World author publication year')",
+      "shot": "Demos/General/books/frames/0036.jpg"
+    },
+    {
+      "i": 37,
+      "step_num": 38,
+      "thinking": "I've typed the new search query. Now I need to press Enter to execute the search for \"Brave New World author publication year\".",
+      "action": "pyautogui.press('return')",
+      "shot": "Demos/General/books/frames/0037.jpg"
+    },
+    {
+      "i": 38,
+      "step_num": 39,
+      "thinking": "I can see the search results for \"Brave New World\". The first result shows \"4 February 1932\" for \"Brave New World\". This indicates the publication year is 1932. However, I need to find the author's name as well. Let me scroll down to see more information or look for the author's name in the current view.\n\nLooking at the page, I can see \"Brave New World > Authors > Books > Originally published\" at the top, but I don't see the author's name clearly yet. Let me scroll down to see if there's more information about the author.",
+      "action": "pyautogui.moveTo(960, 600)\npyautogui.scroll(-3)",
+      "shot": "Demos/General/books/frames/0038.jpg"
+    },
+    {
+      "i": 39,
+      "step_num": 40,
+      "thinking": "I found the information for \"Brave New World\":\n- Author: Aldous Huxley\n- Publication Year: 1932\n\nNow I need to go back to Excel and fill in this information. Let me click on the Excel icon in the dock.",
+      "action": "pyautogui.click(1647, 1045)",
+      "shot": "Demos/General/books/frames/0039.jpg"
+    },
+    {
+      "i": 40,
+      "step_num": 41,
+      "thinking": "I'm back in Excel and cell B4 is already selected (for \"Brave New World\" author). I need to type \"Aldous Huxley\" for the author. Then I'll press Tab to move to C4 and type \"1932\".",
+      "action": "pyautogui.write('Aldous Huxley')",
+      "shot": "Demos/General/books/frames/0040.jpg"
+    },
+    {
+      "i": 41,
+      "step_num": 42,
+      "thinking": "I've typed \"Aldous Huxley\" in B4. Now I need to press Tab to move to C4 and enter the year \"1932\".",
+      "action": "pyautogui.press('tab')",
+      "shot": "Demos/General/books/frames/0041.jpg"
+    },
+    {
+      "i": 42,
+      "step_num": 43,
+      "thinking": "I'm now in cell C4. I need to type \"1932\" for the publication year of \"Brave New World\".",
+      "action": "pyautogui.write('1932')",
+      "shot": "Demos/General/books/frames/0042.jpg"
+    },
+    {
+      "i": 43,
+      "step_num": 44,
+      "thinking": "I've entered \"1932\" in C4. Now I need to press Enter to confirm the entry and move to the next row. Then I'll need to search for \"Fahrenheit 451\" author and publication year in Safari.",
+      "action": "pyautogui.press('return')",
+      "shot": "Demos/General/books/frames/0043.jpg"
+    },
+    {
+      "i": 44,
+      "step_num": 45,
+      "thinking": "The cursor has moved to B5, which is the Author column for \"Fahrenheit 451\". Now I need to search for \"Fahrenheit 451\" author and publication year in Safari. Let me switch to Safari to search for this information.",
+      "action": "pyautogui.click(1356, 1045)",
+      "shot": "Demos/General/books/frames/0044.jpg"
+    },
+    {
+      "i": 45,
+      "step_num": 46,
+      "thinking": "I'm in Safari. I need to search for \"Fahrenheit 451 author publication year\". Let me click on the search bar and clear it, then type the new search query.",
+      "action": "pyautogui.click(960, 113)",
+      "shot": "Demos/General/books/frames/0045.jpg"
+    },
+    {
+      "i": 46,
+      "step_num": 47,
+      "thinking": "The search bar is active. I need to select all the text and replace it with the new search query for \"Fahrenheit 451 author publication year\". Let me use Ctrl+A to select all text in the search bar, then type the new query.",
+      "action": "pyautogui.hotkey('ctrl', 'a')",
+      "shot": "Demos/General/books/frames/0046.jpg"
+    },
+    {
+      "i": 47,
+      "step_num": 48,
+      "thinking": "The text is selected. Now I'll type the new search query for \"Fahrenheit 451 author publication year\" which will replace the selected text.",
+      "action": "pyautogui.write('Fahrenheit 451 author publication year')",
+      "shot": "Demos/General/books/frames/0047.jpg"
+    },
+    {
+      "i": 48,
+      "step_num": 49,
+      "thinking": "I've typed the new search query. Now I need to press Enter to execute the search for \"Fahrenheit 451 author publication year\".",
+      "action": "pyautogui.press('return')",
+      "shot": "Demos/General/books/frames/0048.jpg"
+    },
+    {
+      "i": 49,
+      "step_num": 50,
+      "thinking": "I can see the search results for \"Fahrenheit 451\". The first result shows \"19 October 1953\" for \"Fahrenheit 451\". This indicates the publication year is 1953. However, I need to find the author's name as well. Let me scroll down to see more information or look for the author's name in the current view.\n\nLooking at the page, I can see \"Fahrenheit 451 > Authors > Books > Originally published\" at the top, but I don't see the author's name clearly yet. Let me scroll down to see if there's more information about the author.",
+      "action": "pyautogui.moveTo(960, 600)\npyautogui.scroll(-3)",
+      "shot": "Demos/General/books/frames/0049.jpg"
+    },
+    {
+      "i": 50,
+      "step_num": 51,
+      "thinking": "I found the information for \"Fahrenheit 451\":\n- Author: Ray Bradbury\n- Publication Year: 1953\n\nNow I need to go back to Excel and fill in this information. Let me click on the Excel icon in the dock.",
+      "action": "pyautogui.click(1647, 1045)",
+      "shot": "Demos/General/books/frames/0050.jpg"
+    },
+    {
+      "i": 51,
+      "step_num": 52,
+      "thinking": "I'm back in Excel and cell B5 is already selected (for \"Fahrenheit 451\" author). I need to type \"Ray Bradbury\" for the author. Then I'll press Tab to move to C5 and type \"1953\".",
+      "action": "pyautogui.write('Ray Bradbury')",
+      "shot": "Demos/General/books/frames/0051.jpg"
+    },
+    {
+      "i": 52,
+      "step_num": 53,
+      "thinking": "I've typed \"Ray Bradbury\" in B5. Now I need to press Tab to move to C5 and enter the year \"1953\".",
+      "action": "pyautogui.press('tab')",
+      "shot": "Demos/General/books/frames/0052.jpg"
+    },
+    {
+      "i": 53,
+      "step_num": 54,
+      "thinking": "I'm now in cell C5. I need to type \"1953\" for the publication year of \"Fahrenheit 451\".",
+      "action": "pyautogui.write('1953')",
+      "shot": "Demos/General/books/frames/0053.jpg"
+    },
+    {
+      "i": 54,
+      "step_num": 55,
+      "thinking": "I've entered \"1953\" in C5. Now I need to press Enter to confirm the entry. After that, I need to:\n1. Sort all rows by Year from earliest to latest\n2. Save the file as books_filled.xlsx on the desktop\n\nLet me press Enter to confirm the entry first.",
+      "action": "pyautogui.press('return')",
+      "shot": "Demos/General/books/frames/0054.jpg"
+    },
+    {
+      "i": 55,
+      "step_num": 56,
+      "thinking": "All the data has been entered. Now I need to:\n1. Sort all rows by Year from earliest to latest\n2. Save the file as books_filled.xlsx on the desktop\n\nTo sort by Year, I need to:\n1. Select the data range (A1:C5)\n2. Go to Data menu > Sort\n3. Sort by Year column in ascending order\n\nLet me first select the data range. I'll click on cell A1 first.",
+      "action": "pyautogui.click(242, 326)",
+      "shot": "Demos/General/books/frames/0055.jpg"
+    },
+    {
+      "i": 56,
+      "step_num": 57,
+      "thinking": "I'm now in cell A1. I need to select the entire data range from A1 to C5. I'll click and drag from A1 to C5 to select all the data including headers. Then I'll go to Data > Sort to sort by Year.",
+      "action": "pyautogui.moveTo(240, 325)\npyautogui.dragTo(388, 393)",
+      "shot": "Demos/General/books/frames/0056.jpg"
+    },
+    {
+      "i": 57,
+      "step_num": 58,
+      "thinking": "I've selected the data range A1:C5. Now I need to go to the Data menu and click on Sort to sort the data by Year in ascending order. Let me click on the Data menu.",
+      "action": "pyautogui.click(611, 153)",
+      "shot": "Demos/General/books/frames/0057.jpg"
+    },
+    {
+      "i": 58,
+      "step_num": 59,
+      "thinking": "I can see the Data menu is open and there's a \"Sort\" button in the toolbar. I can see the Sort button with up/down arrows icon. Let me click on it to open the Sort dialog. But first, let me close this popup about \"New connectors are available\" by clicking \"Got it\" or clicking elsewhere.\n\nActually, looking more carefully, I can see the Sort button in the Data toolbar. Let me click on the Sort button directly.",
+      "action": "pyautogui.click(949, 202)",
+      "shot": "Demos/General/books/frames/0058.jpg"
+    },
+    {
+      "i": 59,
+      "step_num": 60,
+      "thinking": "The Sort dialog has opened. I can see:\n- \"My list has headers\" is checked (which is correct)\n- There's a \"Sort by\" dropdown currently showing \"Sort by\"\n- \"Values\" is selected in the \"Sort on\" dropdown\n- \"A to Z\" is selected in the \"Order\" dropdown\n\nI need to:\n1. Click on the \"Sort by\" dropdown and select \"Year\" column\n2. Make sure the order is \"A to Z\" (which means ascending order - earliest to latest)\n3. Click OK\n\nLet me click on the \"Sort by\" dropdown to select \"Year\".",
+      "action": "pyautogui.click(563, 256)",
+      "shot": "Demos/General/books/frames/0059.jpg"
+    },
+    {
+      "i": 60,
+      "step_num": 61,
+      "thinking": "The dropdown is showing the available columns: Title, Author, and Year. I need to select \"Year\" to sort by the Year column. Let me click on \"Year\".",
+      "action": "pyautogui.click(543, 302)",
+      "shot": "Demos/General/books/frames/0060.jpg"
+    },
+    {
+      "i": 61,
+      "step_num": 62,
+      "thinking": "The sort dialog now shows:\n- Sort by: Year\n- Sort on: Values\n- Order: Smallest to Largest\n\nThis is exactly what I need - sorting by Year in ascending order (from earliest to latest). Now I need to click the \"OK\" button to apply the sort.",
+      "action": "pyautogui.click(1093, 427)",
+      "shot": "Demos/General/books/frames/0061.jpg"
+    },
+    {
+      "i": 62,
+      "step_num": 63,
+      "thinking": "The data has been sorted by Year from earliest to latest:\n1. The Great Gatsby - F. Scott Fitzgerald - 1925\n2. Brave New World - Aldous Huxley - 1932\n3. 1984 - George Orwell - 1949\n4. Fahrenheit 451 - Ray Bradbury - 1953\n\nNow I need to save the file as \"books_filled.xlsx\" on the desktop. I'll use File > Save As to save the file with a new name and location. Let me click on the File menu.",
+      "action": "pyautogui.click(124, 11)",
+      "shot": "Demos/General/books/frames/0062.jpg"
+    },
+    {
+      "i": 63,
+      "step_num": 64,
+      "thinking": "The File menu is open. I can see \"Save As...\" option. Let me click on it to open the Save As dialog where I can specify the filename and location.",
+      "action": "pyautogui.click(172, 198)",
+      "shot": "Demos/General/books/frames/0063.jpg"
+    },
+    {
+      "i": 64,
+      "step_num": 65,
+      "thinking": "The Save As dialog didn't open. Let me try again by clicking on File menu and then Save As. Actually, looking at the screenshot, it seems the menu closed but the Save As dialog didn't appear. Let me try clicking on File again and then Save As.",
+      "action": "pyautogui.click(124, 11)",
+      "shot": "Demos/General/books/frames/0064.jpg"
+    },
+    {
+      "i": 65,
+      "step_num": 66,
+      "thinking": "The Save As dialog has opened. I can see:\n- Save As: books (currently)\n- Where: Desktop (already selected)\n- File Format: Comma-separated Values (.csv)\n\nI need to:\n1. Change the filename to \"books_filled\"\n2. Change the file format to Excel format (.xlsx)\n\nLet me first clear the current filename and type \"books_filled\". Then I'll change the file format to Excel format.",
+      "action": "pyautogui.click(995, 405)",
+      "shot": "Demos/General/books/frames/0065.jpg"
+    },
+    {
+      "i": 66,
+      "step_num": 67,
+      "thinking": "The text \"books\" is now selected in the Save As field. I'll type \"books_filled\" to replace it. Then I need to change the file format from CSV to Excel format (.xlsx).",
+      "action": "pyautogui.write('books_filled')",
+      "shot": "Demos/General/books/frames/0066.jpg"
+    },
+    {
+      "i": 67,
+      "step_num": 68,
+      "thinking": "The filename has been changed to \"books_filled\". Now I need to change the file format from \"Comma-separated Values (.csv)\" to Excel format (.xlsx). I'll click on the File Format dropdown to see the available options.",
+      "action": "pyautogui.click(1070, 538)",
+      "shot": "Demos/General/books/frames/0067.jpg"
+    },
+    {
+      "i": 68,
+      "step_num": 69,
+      "thinking": "The file format dropdown is now open. I can see \"Excel Workbook (.xlsx)\" at the top of the list. I need to click on it to select the Excel format.",
+      "action": "pyautogui.click(970, 121)",
+      "shot": "Demos/General/books/frames/0068.jpg"
+    },
+    {
+      "i": 69,
+      "step_num": 70,
+      "thinking": "The file format has been changed to \"Excel Workbook (.xlsx)\". Now I have:\n- Save As: books_filled\n- Where: Desktop\n- File Format: Excel Workbook (.xlsx)\n\nEverything is set correctly. Now I need to click the \"Save\" button to save the file.",
+      "action": "pyautogui.click(1241, 640)",
+      "shot": "Demos/General/books/frames/0069.jpg"
+    },
+    {
+      "i": 70,
+      "step_num": 71,
+      "thinking": "The file has been saved successfully. I can see:\n- The title bar now shows \"books_filled — Saved to my Mac\"\n- The data is sorted by Year from earliest to latest:\n  1. The Great Gatsby - F. Scott Fitzgerald - 1925\n  2. Brave New World - Aldous Huxley - 1932\n  3. 1984 - George Orwell - 1949\n  4. Fahrenheit 451 - Ray Bradbury - 1953\n\nThe task has been completed successfully:\n1. ✅ Opened books.csv in Excel\n2. ✅ Added Author and Year columns\n3. ✅ Looked up each book's author and first publication year using Safari\n4. ✅ Filled in the Author and Year columns\n5. ✅ Sorted all rows by Year from earliest to latest\n6. ✅ Saved the file as books_filled.xlsx on the Desktop\n\nThe task is complete!",
+      "action": "DONE (success)",
+      "shot": "Demos/General/books/frames/0070.jpg"
+    }
+  ]
+}

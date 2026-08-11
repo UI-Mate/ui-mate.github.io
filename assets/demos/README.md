@@ -12,11 +12,28 @@ Current ids:
 
 - `general-1` — General CUA · 2048 (ready) → `Demos/Genral/demo1.mp4`
 - `general-2` — General CUA · Finder / Desktop (ready) → `Demos/Genral/demo2.mp4`
+- `democua-greenhouse` — DemoCUA · Greenhouse → `Demos/DemoCUA/greenhouse/`
+- `democua-visa` — DemoCUA · Visa → `Demos/DemoCUA/visa/`
 
 Posters live here; mp4s stay under `Demos/` so the repo does not duplicate large files.
-DemoCUA clips will land under `Demos/DemoCUA/` and get wired the same way.
 
-To add a demo: drop the files here, append an entry in `UIMATE_DEMOS` with `ready: true`.
+DemoCUA entries set `kind: "democua"` plus:
+
+| File | Purpose |
+|---|---|
+| `run.mp4` | Agent execution (main stage + step-viewer frames at 1 fps) |
+| `demo.mp4` | Human demonstration slideshow (1 s / frame) |
+| `steps.json` | Subtask plan + per-step thinking / action |
+| `democua-<id>.jpg` | Poster for the agent-run player |
+
+Rebuild from local `UI_Mate/democua/` sources:
+
+```bash
+python3 scripts/build_democua_assets.py
+```
+
+To add a general demo: drop the files here, append an entry in `UIMATE_DEMOS` with `ready: true`.
+For DemoCUA, also set `demoSrc`, `stepsSrc`, and rebuild assets.
 
 ## Preparing a recording
 
