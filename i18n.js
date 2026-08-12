@@ -583,10 +583,10 @@ window.UIMATE_DEMOS = [
     id: "democua-visa",
     kind: "democua",
     ready: true,
-    src: "Demos/DemoCUA/visa/run.mp4?v=11",
+    src: "Demos/DemoCUA/visa/run.mp4?v=12",
     demoSrc: "Demos/DemoCUA/visa/demo.mp4?v=11",
-    poster: "assets/demos/democua-visa.jpg",
-    stepsSrc: "Demos/DemoCUA/visa/steps.json?v=12",
+    poster: "assets/demos/democua-visa.jpg?v=12",
+    stepsSrc: "Demos/DemoCUA/visa/steps.json?v=13",
     en: {
       tab: "DemoCUA · Visa",
       title: "Fill a DS-2019 application w/ demo",

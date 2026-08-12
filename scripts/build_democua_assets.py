@@ -311,19 +311,68 @@ def assign_subtasks(steps: list[dict], subtasks: list[dict]) -> list[dict]:
     return steps
 
 
-def visa_subtasks() -> list[dict]:
+VISA_SKIP_SUBTASK_TITLES = {"Deploy and start local web app"}
+
+
+def visa_subtasks(*, include_skipped: bool = False) -> list[dict]:
     cap_path = SRC / "visa" / "demo" / "trajectory_captioned.json"
     cap = json.loads(cap_path.read_text())
     out = []
     for st in cap["subtasks"]:
+        title = st.get("intent_summary") or f"Subtask {st['subtask_id']}"
+        if not include_skipped and title in VISA_SKIP_SUBTASK_TITLES:
+            continue
         out.append(
             {
-                "id": int(st["subtask_id"]) + 1,
-                "title": st.get("intent_summary") or f"Subtask {st['subtask_id']}",
+                "id": len(out) + 1,
+                "title": title,
                 "criterion": st.get("subtask_complete_flag") or st.get("sub_instruction") or "",
             }
         )
     return out
+
+
+def drop_skipped_visa_steps(
+    steps: list[dict], frames: list[Path], full_subtasks: list[dict]
+) -> tuple[list[dict], list[Path], list[dict]]:
+    """Remove bootstrap deploy span, then renumber the remaining plan."""
+    skip_ids = {s["id"] for s in full_subtasks if s["title"] in VISA_SKIP_SUBTASK_TITLES}
+    if not skip_ids:
+        return steps, frames, [s for s in full_subtasks if s["title"] not in VISA_SKIP_SUBTASK_TITLES]
+
+    dropped_is: set[int] = set()
+    kept_steps: list[dict] = []
+    for st in steps:
+        if st.get("subtask_id") in skip_ids:
+            merged = int(st.get("merged") or 1)
+            i = int(st["i"])
+            dropped_is.update(range(i - merged + 1, i + 1))
+            continue
+        kept_steps.append(st)
+
+    kept_subs = [s for s in full_subtasks if s["id"] not in skip_ids]
+    id_map = {old["id"]: new_id for new_id, old in enumerate(kept_subs, start=1)}
+    for new_id, sub in enumerate(kept_subs, start=1):
+        sub["id"] = new_id
+
+    kept_frames = [fr for i, fr in enumerate(frames) if i not in dropped_is]
+    old_to_new = {}
+    new_i = 0
+    for i in range(len(frames)):
+        if i in dropped_is:
+            continue
+        old_to_new[i] = new_i
+        new_i += 1
+
+    for st in kept_steps:
+        st["i"] = old_to_new[int(st["i"])]
+        sid = id_map[st["subtask_id"]]
+        st["subtask_id"] = sid
+        st["subtask"] = subtask_title(kept_subs, sid, st.get("subtask") or "")
+        st["subtask_index"] = sid
+        st["subtask_total"] = len(kept_subs)
+
+    return kept_steps, kept_frames, kept_subs
 
 
 def write_frames_video(frames: list[Path], out_mp4: Path) -> None:
@@ -415,15 +464,26 @@ def build_run_bundle(case: str, subtasks: list[dict], title: str, instr: str) ->
             }
         )
 
-    steps = assign_subtasks(steps, subtasks)
+    # Visa: label with the full plan (incl. deploy), then drop the bootstrap span.
+    label_subs = visa_subtasks(include_skipped=True) if case == "visa" else subtasks
+    steps = assign_subtasks(steps, label_subs)
     steps = merge_steps(steps)
-    # Re-apply titles after merge in case ids carried over oddly.
     for step in steps:
-        step["subtask"] = subtask_title(subtasks, step.get("subtask_id"), step.get("subtask") or "")
-        if subtasks and step.get("subtask_id") in {s["id"] for s in subtasks}:
-            ids = [s["id"] for s in subtasks]
+        step["subtask"] = subtask_title(label_subs, step.get("subtask_id"), step.get("subtask") or "")
+        if label_subs and step.get("subtask_id") in {s["id"] for s in label_subs}:
+            ids = [s["id"] for s in label_subs]
             step["subtask_index"] = ids.index(step["subtask_id"]) + 1
             step["subtask_total"] = len(ids)
+
+    if case == "visa":
+        steps, frames, subtasks = drop_skipped_visa_steps(steps, frames, label_subs)
+    else:
+        for step in steps:
+            step["subtask"] = subtask_title(subtasks, step.get("subtask_id"), step.get("subtask") or "")
+            if subtasks and step.get("subtask_id") in {s["id"] for s in subtasks}:
+                ids = [s["id"] for s in subtasks]
+                step["subtask_index"] = ids.index(step["subtask_id"]) + 1
+                step["subtask_total"] = len(ids)
 
     out_dir = OUT / case
     run_mp4 = out_dir / "run.mp4"
