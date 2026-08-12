@@ -30,7 +30,7 @@ window.UIMATE_I18N = {
     "kicker.overview": "01 — Overview",
     "overview.title": "What UI-Mate is",
     "overview.lede": "An open-weight foundation GUI agent: environment-grounded training plus in-context demonstration learning — show a procedure once instead of spelling every convention in a prompt.",
-    "overview.fig": "General computer use plus demo-guided execution. One demonstration lifts long-horizon scores without turning the agent into a replay script.",
+    "overview.fig": "General computer use plus demo-guided execution. One same-task demonstration lifts GameDev, OSWorld-subset, and OSWorker self-demo scores without turning the agent into a replay script.",
 
     "hl.osworld.k": "OSWorld-Verified",
     "hl.osworld.n": "Open-weight SOTA",
@@ -39,7 +39,7 @@ window.UIMATE_I18N = {
     "hl.worker.k": "OSWorkerBench",
     "hl.worker.n": "Strict / progress · +17.7 / +24.5 vs base",
     "hl.demo.k": "+ ONE DEMO",
-    "hl.demo.n": "OSWorker paired · strict success",
+    "hl.demo.n": "OSWorker self-demo · strict success",
 
     "kicker.approach": "02 — Approach",
     "approach.title": "Three pieces",
@@ -272,7 +272,7 @@ window.UIMATE_I18N = {
     "kicker.overview": "01 — 概览",
     "overview.title": "UI-Mate 是什么",
     "overview.lede": "开源权重的通用 GUI 智能体：环境驱动训练 + 上下文演示学习——流程演示一次即可，不必把所有约定写进提示。",
-    "overview.fig": "通用计算机使用 + 演示引导执行。一段演示提升长程任务分数，而不会把智能体变成回放脚本。",
+    "overview.fig": "通用计算机使用 + 演示引导执行。同一任务的一段演示提升 GameDev、OSWorld 子集与 OSWorker self-demo 分数，而不会把智能体变成回放脚本。",
 
     "hl.osworld.k": "OSWorld-Verified",
     "hl.osworld.n": "Open-weight SOTA",
@@ -281,7 +281,7 @@ window.UIMATE_I18N = {
     "hl.worker.k": "OSWorkerBench",
     "hl.worker.n": "Strict / progress · +17.7 / +24.5 vs base",
     "hl.demo.k": "+ ONE DEMO",
-    "hl.demo.n": "OSWorker paired · strict success",
+    "hl.demo.n": "OSWorker self-demo · 严格成功率",
 
     "kicker.approach": "02 — 方法",
     "approach.title": "三块拼图",
@@ -496,7 +496,7 @@ window.UIMATE_I18N = {
 window.UIMATE_CHART = [
   { key: "res.sub.gamedev", max: 100, wo: 76.8, w: 81.2 },
   { key: "res.sub.osworld", max: 100, wo: 40.3, w: 65.8 },
-  { key: "res.sub.osworker", max: 100, wo: 64.1, w: 74.9 }
+  { key: "res.sub.osworker", max: 100, wo: 67.9, w: 81.1 }
 ];
 
 /* ------------------------------------------------------------
