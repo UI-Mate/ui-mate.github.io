@@ -22,9 +22,15 @@ DemoCUA entries set `kind: "democua"` plus:
 | File | Purpose |
 |---|---|
 | `run.mp4` | Agent execution (main stage + step-viewer frames at 1 fps) |
+| `no_demo.mp4` | Same task run without the demonstration, for the side-by-side tab |
 | `demo.mp4` | Human demonstration slideshow (1 s / frame) |
 | `steps.json` | Subtask plan + per-step thinking / action |
 | `democua-<id>.jpg` | Poster for the agent-run player |
+
+`noDemoSeek` is a second offset into `no_demo.mp4`, where second N holds step N+1. `runSeek` is the
+same for `run.mp4`, so it equals the target step's `i`, while `viewerStep` is that step's index in
+the `steps.json` array. Those two differ whenever steps were merged — read them off `steps.json`
+rather than assuming they match.
 
 Rebuild from local `UI_Mate/democua/` sources (visa / greenhouse):
 
@@ -42,6 +48,15 @@ No-demo full run (`no_demo.mp4`) is encoded from `no_demo_run/` by the same scri
 demo (`demo.mp4`) from `demo_video/replicated/screenshots/before/`. The subtask plan comes from
 `demo_video/derived/subtasks.json`; step boundaries follow the agent's own `subtask_complete` calls.
 Pass `--steps-only` to relabel `steps.json` without re-encoding the videos.
+
+Re-encode just a no-demo run — reads `Demos/DemoCUA/<case>/no_demo_run/`, so it needs no
+`UI_Mate/` sources and leaves `run.mp4` / `steps.json` untouched:
+
+```bash
+python3 scripts/build_democua_assets.py --no-demo visa
+```
+
+The `no_demo_run/` captures themselves stay out of git; keep them locally to rebuild.
 
 To add a general demo: drop the files here, append an entry in `UIMATE_DEMOS` with `ready: true`.
 For DemoCUA, also set `demoSrc`, `stepsSrc`, and rebuild assets.

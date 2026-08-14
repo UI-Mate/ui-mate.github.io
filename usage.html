@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css?v=democua11" />
+<link rel="stylesheet" href="styles.css?v=visa18" />
 </head>
 <body>
 
@@ -240,7 +240,7 @@
           <h3 data-i18n="app.db.h">GPU 27B — vLLM service</h3>
           <p data-i18n="app.db.p">Team / eval setup on a multi-GPU box. Example launch:</p>
 <pre class="app-code">vllm serve "$MODEL_PATH" \
-  --served-model-name gui-agent-27b \
+  --served-model-name UI-Mate-27B \
   --trust-remote-code \
   --chat-template-content-format openai \
   --limit-mm-per-prompt '{"image":10,"video":0}' \
@@ -261,18 +261,18 @@
           <p data-i18n="app.dc.p">Offline on Apple Silicon. Convert, serve, then point the app at localhost.</p>
 <pre class="app-code">python -m mlx_vlm.convert \
   --hf-path /path/to/9b-checkpoint \
-  --mlx-path ~/models/gui-agent-9b-mlx-4bit \
+  --mlx-path ~/models/UI-Mate-9B-mlx-4bit \
   -q --q-bits 4 --q-group-size 64
 
 KV_BITS=4 PREFILL_STEP_SIZE=1024 \
 python -m mlx_vlm.server \
-  --model ~/models/gui-agent-9b-mlx-4bit \
+  --model ~/models/UI-Mate-9B-mlx-4bit \
   --port 8080</pre>
           <div class="table-scroll">
             <table class="rtable app-table">
               <tbody>
                 <tr><th>Endpoint</th><td><code>http://127.0.0.1:8080/v1</code></td></tr>
-                <tr><th>Model</th><td><code>~/models/gui-agent-9b-mlx-4bit</code></td></tr>
+                <tr><th>Model</th><td><code>~/models/UI-Mate-9B-mlx-4bit</code></td></tr>
                 <tr><th>Agent type</th><td><strong>UI-Mate</strong></td></tr>
               </tbody>
             </table>
@@ -319,7 +319,7 @@ export APC_EXACT_PREFIX_GUARD_TOKENS=64</pre>
   </div>
 </footer>
 
-<script src="i18n.js?v=democua10"></script>
-<script src="main.js?v=democua10"></script>
+<script src="i18n.js?v=visa18"></script>
+<script src="main.js?v=visa18"></script>
 </body>
 </html>

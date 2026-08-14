@@ -16,6 +16,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from build_democua_assets import (  # noqa: E402
     FFMPEG,
     WIDTH,
+    build_no_demo,
     extract_poster,
     merge_steps,
     normalize_action,
@@ -184,18 +185,8 @@ def main() -> None:
     if steps_only:
         return
 
-    no_demo_src = OUT / "no_demo_run"
-    no_demo_traj = no_demo_src / "traj.jsonl"
-    if no_demo_traj.exists():
-        nd_rows = load_traj(no_demo_traj)
-        nd_frames = []
-        for row in nd_rows:
-            shot = no_demo_src / row["screenshot_file"]
-            if not shot.exists():
-                raise FileNotFoundError(shot)
-            nd_frames.append(shot)
-        write_frames_video(nd_frames, OUT / "no_demo.mp4")
-        print(f"wrote no_demo.mp4 ({len(nd_frames)} frames)")
+    if (OUT / "no_demo_run" / "traj.jsonl").exists():
+        build_no_demo("gamedev")
 
     demo_frames_dir = OUT / "demo_video" / "replicated" / "screenshots" / "before"
     if demo_frames_dir.exists():

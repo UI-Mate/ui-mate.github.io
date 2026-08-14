@@ -1708,7 +1708,15 @@ html[lang="zh"] .flow-badge { text-transform: none; letter-spacing: 0.04em; }
 }
 .demo-title { font-size: 20px; letter-spacing: -0.016em; }
 .demo-title-accent { color: var(--hy-blue); font-weight: 700; }
-.demo-desc { margin-top: 10px; font-size: 14.5px; color: var(--body); }
+.demo-desc { margin-top: 10px; font-size: 14.5px; color: var(--body); text-wrap: pretty; }
+.demo-score {
+  margin-top: 12px;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  letter-spacing: 0.01em;
+  color: var(--ink-2);
+}
+.demo-score[hidden] { display: none !important; }
 .demo-guide {
   margin-top: 12px;
   font-size: 13px;
@@ -1716,8 +1724,12 @@ html[lang="zh"] .flow-badge { text-transform: none; letter-spacing: 0.04em; }
   color: var(--hy-blue);
 }
 .demo-guide[hidden] { display: none !important; }
-.demo-facts { margin: 24px 0 0; display: grid; gap: 14px; }
-.demo-facts > div { display: grid; gap: 4px; padding-top: 14px; border-top: 1px solid var(--line-soft); }
+/* Mode and Platform are one word each, so they share a row; the instruction spans both. */
+/* Zero column gap keeps the per-cell top rules touching, so each row reads as one hairline. */
+.demo-facts { margin: 20px 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 0; }
+.demo-facts > div { display: grid; gap: 3px; padding-top: 11px; border-top: 1px solid var(--line-soft); }
+.demo-facts > div:nth-child(odd) { padding-right: 20px; }
+.demo-facts > div:last-child { grid-column: 1 / -1; padding-right: 0; }
 .demo-facts dt {
   font-size: 11px;
   font-weight: 600;

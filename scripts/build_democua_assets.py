@@ -7,6 +7,7 @@ import json
 import re
 import shutil
 import subprocess
+import sys
 import tempfile
 from pathlib import Path
 
@@ -424,6 +425,22 @@ def write_frames_video(frames: list[Path], out_mp4: Path) -> None:
         subprocess.run(cmd, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
 
+def build_no_demo(case: str) -> None:
+    """Encode <case>/no_demo.mp4 from the raw no_demo_run capture kept out of git."""
+    src = OUT / case / "no_demo_run"
+    traj_path = src / "traj.jsonl"
+    if not traj_path.exists():
+        raise SystemExit(f"missing {traj_path}")
+    frames = []
+    for row in load_traj(traj_path):
+        shot = src / row["screenshot_file"]
+        if not shot.exists():
+            raise FileNotFoundError(shot)
+        frames.append(shot)
+    write_frames_video(frames, OUT / case / "no_demo.mp4")
+    print(f"wrote {case}/no_demo.mp4 ({len(frames)} frames)")
+
+
 def extract_poster(video: Path, poster: Path) -> None:
     poster.parent.mkdir(parents=True, exist_ok=True)
     cmd = [
@@ -526,6 +543,14 @@ def visa_demo_frames() -> list[Path]:
 def main() -> None:
     if not Path(FFMPEG).exists():
         raise SystemExit("ffmpeg not found")
+
+    # no_demo.mp4 comes straight from Demos/, so it can be rebuilt without UI_Mate sources.
+    if "--no-demo" in sys.argv:
+        cases = sys.argv[sys.argv.index("--no-demo") + 1 :] or ["visa"]
+        for case in cases:
+            build_no_demo(case)
+        return
+
     if not SRC.exists():
         raise SystemExit(f"missing source dir {SRC}")
 

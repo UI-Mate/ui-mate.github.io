@@ -580,7 +580,7 @@ window.UIMATE_DEMOS = [
     en: {
       tab: "DemoCUA · GameDev",
       title: "Add Godot bullet firing w/ demo",
-      desc: "Same task, two outcomes. w/ demo (steps 104–105): Open binds Bullet.tscn onto the Player.tscn template, then the Inspector thumbnail confirms it. No-demo (steps 490–491): bullet.tscn is dragged onto a nested Player inside Game.tscn; Ctrl+S saves the Game scene — looks assigned, wrong object.",
+      desc: "With the demo, the agent edits the reusable Player.tscn scene (steps 104–105), so the change persists in the source. Without it, the same binding lands on one Player copy inside Game.tscn, changing just that level (steps 490–491).\n\nScore:\u00a050.0%\u00a0→\u00a093.8%",
       mode: "DemoCUA",
       platform: "Linux",
       instr: "Create Scenes/Bullet.tscn with an Area2D root named Bullet, attach Scripts/bullet.gd with a ~300 Inspector speed override, wire Player.tscn to fire on a one-second Timer while stationary, then playtest."
@@ -588,7 +588,7 @@ window.UIMATE_DEMOS = [
     zh: {
       tab: "DemoCUA · GameDev",
       title: "在 Godot 里加子弹发射 w/ demo",
-      desc: "同一任务两种结果。有演示（step 104–105）：点 Open 把 Bullet.tscn 绑到 Player.tscn 本体，Inspector 出现缩略图即确认成功。无演示（step 490–491）：把 bullet.tscn 拖到 Game.tscn 里嵌套 Player 的 Bullet Scene，再 Ctrl+S 保存的是 Game 场景——界面看起来对，改错对象。",
+      desc: "有演示时，智能体编辑的是可复用的 Player.tscn 场景（step 104–105），改动存入源文件，可在各处复用。没有演示时，同样的绑定只落到 Game.tscn 里的单个 Player 副本上（step 490–491），只对那一关生效。\n\n评分：50.0%\u00a0→\u00a093.8%",
       mode: "DemoCUA",
       platform: "Linux",
       instr: "创建 Scenes/Bullet.tscn（Area2D 根节点 Bullet），挂上 Scripts/bullet.gd 并把 Inspector 速度覆盖设为约 300；在 Player.tscn 用约 1 秒 Timer 在静止时发射，最后试玩验证。"
@@ -600,13 +600,17 @@ window.UIMATE_DEMOS = [
     ready: true,
     src: "Demos/DemoCUA/visa/run.mp4?v=12",
     runSrc: "Demos/DemoCUA/visa/run.mp4?v=12",
+    noDemoSrc: "Demos/DemoCUA/visa/no_demo.mp4?v=1",
     demoSrc: "Demos/DemoCUA/visa/demo.mp4?v=11",
     poster: "assets/demos/democua-visa.jpg?v=12",
     stepsSrc: "Demos/DemoCUA/visa/steps.json?v=13",
+    viewerStep: 134,
+    runSeek: 150,
+    noDemoSeek: 123,
     en: {
       tab: "DemoCUA · Visa",
       title: "Fill a DS-2019 application w/ demo",
-      desc: "Documents on the Desktop plus one demonstration become a subtask plan. The agent completes the J-1 / DS-2019 request without turning the demo into a frame replay.",
+      desc: "With the demo, the agent reads the source document before filling the form (step 184) and carries over the division and the $18,000 estimate. Without the demo, it skips the cost table, submits the bank balance, and still reports success (steps 124–131).\n\nScore:\u00a024.5%\u00a0→\u00a099.5%",
       mode: "DemoCUA",
       platform: "Linux",
       instr: "Help me fill out this DS-2019 application for my J-1 student visa. All required documents are on the desktop. I am a single bachelor student applying for a US visa for the first time."
@@ -614,7 +618,7 @@ window.UIMATE_DEMOS = [
     zh: {
       tab: "DemoCUA · Visa",
       title: "填完 DS-2019 w/ demo",
-      desc: "桌面材料 + 一段演示变成子任务计划；智能体完成 J-1 / DS-2019 申请，而不是逐帧回放演示。",
+      desc: "有演示时，智能体在填表前先复核源文件（step 184），把院系与 $18,000 预估费用准确带入表单。没有演示时，它跳过费用表、改填银行余额，最后仍自报成功（step 124–131）。\n\n评分：24.5%\u00a0→\u00a099.5%",
       mode: "DemoCUA",
       platform: "Linux",
       instr: "帮我填写 J-1 学生签证的 DS-2019 申请。所需材料都在桌面。我是未婚本科生，首次申请美国签证。"

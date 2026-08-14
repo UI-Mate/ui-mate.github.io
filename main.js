@@ -501,7 +501,12 @@
     var copy = demo[lang] || demo.en;
 
     setDemoTitle(document.getElementById("demoTitle"), copy.title);
-    document.getElementById("demoDesc").textContent = copy.desc;
+    // A blank line in `desc` separates the prose from the trailing score readout.
+    var descParts = String(copy.desc).split(/\n{2,}/);
+    var scoreEl = document.getElementById("demoScore");
+    document.getElementById("demoDesc").textContent = descParts[0].trim();
+    scoreEl.textContent = descParts.length > 1 ? descParts.slice(1).join(" ").trim() : "";
+    scoreEl.hidden = !scoreEl.textContent;
     document.getElementById("demoMode").textContent = copy.mode;
     document.getElementById("demoPlatform").textContent = copy.platform;
     document.getElementById("demoInstr").textContent = '"' + copy.instr + '"';
