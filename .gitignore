@@ -7,4 +7,10 @@ node_modules/
 
 # Paper LaTeX source — keep local until the report is public
 UI_Mate/
+UI_Mate2/
+
+# Raw DemoCUA captures — only the built site assets under each demo dir are committed
+Demos/DemoCUA/gamedev/demo_run/
+Demos/DemoCUA/gamedev/no_demo_run/
+Demos/DemoCUA/gamedev/demo_video/
 .DS_Store

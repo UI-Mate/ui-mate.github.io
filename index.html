@@ -21,7 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css?v=democua14" />
+<link rel="stylesheet" href="styles.css?v=gamedev6" />
 </head>
 <body>
 
@@ -38,9 +38,9 @@
 
     <nav class="nav-links" id="navLinks">
       <a href="#overview" data-i18n="nav.overview">Overview</a>
+      <a href="#demos" data-i18n="nav.demos">Demos</a>
       <a href="#approach" data-i18n="nav.approach">Approach</a>
       <a href="#results" data-i18n="nav.results">Results</a>
-      <a href="#demos" data-i18n="nav.demos">Demos</a>
       <a href="#app" data-i18n="nav.app">App</a>
       <a href="#citation" data-i18n="nav.citation">Citation</a>
     </nav>
@@ -164,11 +164,103 @@
   </div>
 </section>
 
-<!-- ============ APPROACH ============ -->
-<section id="approach" class="section section-tint">
+<!-- ============ DEMOS ============ -->
+<section id="demos" class="section section-tint">
   <div class="wrap">
     <div class="sec-head">
-      <span class="sec-kicker" data-i18n="kicker.approach">02 — Approach</span>
+      <span class="sec-kicker" data-i18n="kicker.demos">02 — Demos</span>
+      <h2 class="sec-title" data-i18n="demo.title">See it run</h2>
+      <p class="sec-lede" data-i18n="demo.lede">
+        General CUA on a real macOS desktop. DemoCUA clips coming next.
+      </p>
+    </div>
+
+    <div class="demo-tabs" id="demoTabs" role="tablist"></div>
+
+    <div class="demo-panel">
+      <div class="demo-stage">
+        <div class="demo-player">
+          <div class="browser-bar">
+            <span class="dot dot-r" aria-hidden="true"></span>
+            <span class="dot dot-y" aria-hidden="true"></span>
+            <span class="dot dot-g" aria-hidden="true"></span>
+            <span class="browser-title" id="demoBarTitle">UI-Mate</span>
+            <div class="demo-pane-tabs" id="demoPaneTabs" hidden role="tablist" aria-label="DemoCUA panes">
+              <button type="button" class="demo-pane-tab is-active" data-pane="run" role="tab" aria-selected="true" data-i18n="demo.run.label">Agent run w/ demo</button>
+              <button type="button" class="demo-pane-tab" data-pane="nodemo" role="tab" aria-selected="false" data-i18n="demo.nodemo.label">Agent run w/o demo</button>
+              <button type="button" class="demo-pane-tab" data-pane="demo" role="tab" aria-selected="false" data-i18n="demo.demo.label">Demo</button>
+              <button type="button" class="demo-pane-tab" data-pane="subtask" role="tab" aria-selected="false" data-i18n="demo.subs.label">Subtask</button>
+            </div>
+          </div>
+          <div class="demo-video-wrap" id="demoStageWrap">
+            <div class="demo-pane is-active" data-pane="run" id="demoPaneRun">
+              <video id="demoVideo" playsinline preload="metadata" poster=""></video>
+              <div class="demo-empty" id="demoEmpty">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l12 7-12 7z"/></svg>
+                <p data-i18n="demo.empty">Drop the recording into <code>assets/demos/</code> to replace this placeholder.</p>
+              </div>
+            </div>
+            <div class="demo-pane" data-pane="nodemo" id="demoPaneNoDemo" hidden>
+              <video id="demoNoDemoVideo" playsinline preload="metadata"></video>
+              <div class="demo-empty" id="demoNoDemoEmpty">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l12 7-12 7z"/></svg>
+                <p data-i18n="demo.nodemo.empty">No-demo agent run coming soon.</p>
+              </div>
+            </div>
+            <div class="demo-pane" data-pane="demo" id="demoPaneDemo" hidden>
+              <video id="demoHumanVideo" playsinline preload="metadata"></video>
+              <div class="demo-empty" id="demoHumanEmpty">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l12 7-12 7z"/></svg>
+                <p data-i18n="demo.demo.empty">Demo video missing.</p>
+              </div>
+            </div>
+            <div class="demo-pane demo-pane-subtasks" data-pane="subtask" id="demoPaneSubtask" hidden>
+              <ol class="demo-subtasks" id="demoSubtasks"></ol>
+            </div>
+            <div class="demo-player-bar" id="demoPlayerBar" hidden>
+              <button type="button" class="demo-player-play" id="demoPlayerPlay" aria-label="Play">
+                <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l12 7-12 7z"/></svg>
+                <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true" hidden><path d="M7 5h3v14H7zm7 0h3v14h-3z"/></svg>
+              </button>
+              <span class="demo-player-time" id="demoPlayerTime">0:00 / 0:00</span>
+              <input class="demo-player-seek" id="demoPlayerSeek" type="range" min="0" max="0" step="0.01" value="0" aria-label="Seek" />
+              <label class="demo-player-speed">
+                <span class="demo-player-speed-label">Speed</span>
+                <select id="demoPlayerSpeed" aria-label="Playback speed">
+                  <option value="0.5">0.5×</option>
+                  <option value="1" selected>1×</option>
+                  <option value="1.5">1.5×</option>
+                  <option value="2">2×</option>
+                  <option value="4">4×</option>
+                </select>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <aside class="demo-meta">
+          <h3 id="demoTitle" class="demo-title">—</h3>
+          <p id="demoDesc" class="demo-desc">—</p>
+          <p class="demo-guide" id="demoGuide" hidden data-i18n="demo.guide">Guided by one demonstration.</p>
+          <dl class="demo-facts">
+            <div><dt data-i18n="demo.f.mode">Mode</dt><dd id="demoMode">—</dd></div>
+            <div><dt data-i18n="demo.f.platform">Platform</dt><dd id="demoPlatform">—</dd></div>
+            <div><dt data-i18n="demo.f.instr">Instruction</dt><dd id="demoInstr" class="mono">—</dd></div>
+          </dl>
+          <a class="btn demo-viewer-link" id="demoViewerLink" href="viewer.html" hidden>
+            <span data-i18n="demo.step.open">Open step viewer</span>
+          </a>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ APPROACH ============ -->
+<section id="approach" class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-kicker" data-i18n="kicker.approach">03 — Approach</span>
       <h2 class="sec-title" data-i18n="approach.title">Three pieces</h2>
       <p class="sec-lede" data-i18n="approach.lede">
         A closed-loop data and training stack, demonstration-guided execution, and an office benchmark that isolates what a demo adds.
@@ -354,10 +446,10 @@
 </section>
 
 <!-- ============ RESULTS ============ -->
-<section id="results" class="section">
+<section id="results" class="section section-tint">
   <div class="wrap">
     <div class="sec-head">
-      <span class="sec-kicker" data-i18n="kicker.results">03 — Results</span>
+      <span class="sec-kicker" data-i18n="kicker.results">04 — Results</span>
       <h2 class="sec-title" data-i18n="res.title">Open-weight CUA — and more reliable with one demo</h2>
       <p class="sec-lede" data-i18n="res.lede">
         General computer use on public benches, then the lift from one demonstration.
@@ -435,72 +527,6 @@
   </div>
 </section>
 
-<!-- ============ DEMOS ============ -->
-<section id="demos" class="section section-tint">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="sec-kicker" data-i18n="kicker.demos">04 — Demos</span>
-      <h2 class="sec-title" data-i18n="demo.title">See it run</h2>
-      <p class="sec-lede" data-i18n="demo.lede">
-        General CUA on a real macOS desktop. DemoCUA clips coming next.
-      </p>
-    </div>
-
-    <div class="demo-tabs" id="demoTabs" role="tablist"></div>
-
-    <div class="demo-panel">
-      <div class="demo-stage">
-        <div class="demo-player">
-          <div class="browser-bar">
-            <span class="dot dot-r" aria-hidden="true"></span>
-            <span class="dot dot-y" aria-hidden="true"></span>
-            <span class="dot dot-g" aria-hidden="true"></span>
-            <span class="browser-title" id="demoBarTitle">UI-Mate</span>
-            <div class="demo-pane-tabs" id="demoPaneTabs" hidden role="tablist" aria-label="DemoCUA panes">
-              <button type="button" class="demo-pane-tab is-active" data-pane="run" role="tab" aria-selected="true" data-i18n="demo.run.label">Agent run</button>
-              <button type="button" class="demo-pane-tab" data-pane="demo" role="tab" aria-selected="false" data-i18n="demo.demo.label">Demo</button>
-              <button type="button" class="demo-pane-tab" data-pane="subtask" role="tab" aria-selected="false" data-i18n="demo.subs.label">Subtask</button>
-            </div>
-          </div>
-          <div class="demo-video-wrap" id="demoStageWrap">
-            <div class="demo-pane is-active" data-pane="run" id="demoPaneRun">
-              <video id="demoVideo" controls playsinline preload="metadata" poster=""></video>
-              <div class="demo-empty" id="demoEmpty">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l12 7-12 7z"/></svg>
-                <p data-i18n="demo.empty">Drop the recording into <code>assets/demos/</code> to replace this placeholder.</p>
-              </div>
-            </div>
-            <div class="demo-pane" data-pane="demo" id="demoPaneDemo" hidden>
-              <video id="demoHumanVideo" controls playsinline preload="metadata"></video>
-              <div class="demo-empty" id="demoHumanEmpty">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l12 7-12 7z"/></svg>
-                <p data-i18n="demo.demo.empty">Demo video missing.</p>
-              </div>
-            </div>
-            <div class="demo-pane demo-pane-subtasks" data-pane="subtask" id="demoPaneSubtask" hidden>
-              <ol class="demo-subtasks" id="demoSubtasks"></ol>
-            </div>
-          </div>
-        </div>
-
-        <aside class="demo-meta">
-          <h3 id="demoTitle" class="demo-title">—</h3>
-          <p id="demoDesc" class="demo-desc">—</p>
-          <p class="demo-guide" id="demoGuide" hidden data-i18n="demo.guide">Guided by one demonstration.</p>
-          <dl class="demo-facts">
-            <div><dt data-i18n="demo.f.mode">Mode</dt><dd id="demoMode">—</dd></div>
-            <div><dt data-i18n="demo.f.platform">Platform</dt><dd id="demoPlatform">—</dd></div>
-            <div><dt data-i18n="demo.f.instr">Instruction</dt><dd id="demoInstr" class="mono">—</dd></div>
-          </dl>
-          <a class="btn demo-viewer-link" id="demoViewerLink" href="viewer.html" hidden>
-            <span data-i18n="demo.step.open">Open step viewer</span>
-          </a>
-        </aside>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ============ APP ============ -->
 <section id="app" class="section">
   <div class="wrap">
@@ -568,9 +594,9 @@
     </div>
     <nav class="foot-links">
       <a href="#overview" data-i18n="nav.overview">Overview</a>
+      <a href="#demos" data-i18n="nav.demos">Demos</a>
       <a href="#approach" data-i18n="nav.approach">Approach</a>
       <a href="#results" data-i18n="nav.results">Results</a>
-      <a href="#demos" data-i18n="nav.demos">Demos</a>
       <a href="#app" data-i18n="nav.app">App</a>
       <a href="#citation" data-i18n="nav.citation">Citation</a>
     </nav>
@@ -578,7 +604,7 @@
   </div>
 </footer>
 
-<script src="i18n.js?v=paper2"></script>
-<script src="main.js?v=paper2"></script>
+<script src="i18n.js?v=gamedev9"></script>
+<script src="main.js?v=gamedev9"></script>
 </body>
 </html>

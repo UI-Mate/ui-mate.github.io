@@ -90,7 +90,7 @@
     }
   });
 
-  var sections = ["overview", "approach", "results", "demos", "app", "citation"]
+  var sections = ["overview", "demos", "approach", "results", "app", "citation"]
     .map(function (id) { return document.getElementById(id); })
     .filter(Boolean);
 
@@ -163,6 +163,8 @@
   var tabsEl = document.getElementById("demoTabs");
   var video = document.getElementById("demoVideo");
   var emptyEl = document.getElementById("demoEmpty");
+  var noDemoVideo = document.getElementById("demoNoDemoVideo");
+  var noDemoEmptyEl = document.getElementById("demoNoDemoEmpty");
   var humanVideo = document.getElementById("demoHumanVideo");
   var humanEmptyEl = document.getElementById("demoHumanEmpty");
   var subtasksEl = document.getElementById("demoSubtasks");
@@ -170,13 +172,22 @@
   var guideEl = document.getElementById("demoGuide");
   var viewerLinkEl = document.getElementById("demoViewerLink");
   var paneRunEl = document.getElementById("demoPaneRun");
+  var paneNoDemoEl = document.getElementById("demoPaneNoDemo");
   var paneDemoEl = document.getElementById("demoPaneDemo");
   var paneSubtaskEl = document.getElementById("demoPaneSubtask");
+  var playerBarEl = document.getElementById("demoPlayerBar");
+  var playerPlayBtn = document.getElementById("demoPlayerPlay");
+  var playerTimeEl = document.getElementById("demoPlayerTime");
+  var playerSeekEl = document.getElementById("demoPlayerSeek");
+  var playerSpeedEl = document.getElementById("demoPlayerSpeed");
 
   var stepsCache = {};
   var activePane = "run";
   var activeSubtasks = [];
   var expandedSubtaskId = null;
+  var playbackRate = 1;
+  var seekDragging = false;
+  var allDemoVideos = [video, noDemoVideo, humanVideo];
 
   function isDemoCua(demo) {
     return !!(demo && demo.kind === "democua");
@@ -192,9 +203,63 @@
     return String(demo.id || "").replace(/^democua-/, "");
   }
 
+  function demoRunSrc(demo) {
+    if (!demo) return "";
+    return demo.runSrc || demo.src || "";
+  }
+
+  function activePlayerVideo() {
+    if (activePane === "nodemo") return noDemoVideo;
+    if (activePane === "demo") return humanVideo;
+    return video;
+  }
+
+  function formatPlayerTime(sec) {
+    if (!isFinite(sec) || sec < 0) sec = 0;
+    var s = Math.floor(sec);
+    var m = Math.floor(s / 60);
+    var r = s % 60;
+    return m + ":" + String(r).padStart(2, "0");
+  }
+
+  function applyPlaybackRate() {
+    if (playerSpeedEl) playerSpeedEl.value = String(playbackRate);
+    allDemoVideos.forEach(function (el) {
+      if (el) el.playbackRate = playbackRate;
+    });
+  }
+
+  function syncPlayerBar() {
+    var el = activePlayerVideo();
+    if (!playerBarEl) return;
+    if (!el || activePane === "subtask" || !el.getAttribute("src")) {
+      playerBarEl.hidden = true;
+      return;
+    }
+    playerBarEl.hidden = false;
+    var dur = isFinite(el.duration) ? el.duration : 0;
+    var cur = isFinite(el.currentTime) ? el.currentTime : 0;
+    if (playerSeekEl && !seekDragging) {
+      playerSeekEl.max = dur > 0 ? String(dur) : "0";
+      playerSeekEl.value = String(cur);
+    }
+    if (playerTimeEl) {
+      playerTimeEl.textContent = formatPlayerTime(cur) + " / " + formatPlayerTime(dur);
+    }
+    if (playerPlayBtn) {
+      playerPlayBtn.classList.toggle("is-playing", !el.paused && !el.ended);
+    }
+    applyPlaybackRate();
+  }
+
+  function updatePlayerVisibility() {
+    syncPlayerBar();
+  }
+
   function pauseOther(active) {
-    if (active !== video && video && !video.paused) video.pause();
-    if (active !== humanVideo && humanVideo && !humanVideo.paused) humanVideo.pause();
+    allDemoVideos.forEach(function (el) {
+      if (el && el !== active && !el.paused) el.pause();
+    });
   }
 
   function wireVideoSrc(el, empty, src, poster, ready) {
@@ -206,13 +271,16 @@
       if (empty) empty.classList.remove("is-hidden");
       el.removeAttribute("src");
       el.load();
+      syncPlayerBar();
       return;
     }
 
     if (empty) empty.classList.add("is-hidden");
     if (poster) el.poster = poster;
     el.src = src;
+    el.playbackRate = playbackRate;
     el.load();
+    syncPlayerBar();
   }
 
   function setPane(pane) {
@@ -228,6 +296,10 @@
       paneRunEl.hidden = activePane !== "run";
       paneRunEl.classList.toggle("is-active", activePane === "run");
     }
+    if (paneNoDemoEl) {
+      paneNoDemoEl.hidden = activePane !== "nodemo";
+      paneNoDemoEl.classList.toggle("is-active", activePane === "nodemo");
+    }
     if (paneDemoEl) {
       paneDemoEl.hidden = activePane !== "demo";
       paneDemoEl.classList.toggle("is-active", activePane === "demo");
@@ -237,7 +309,35 @@
       paneSubtaskEl.classList.toggle("is-active", activePane === "subtask");
     }
     if (activePane !== "run" && video && !video.paused) video.pause();
+    if (activePane !== "nodemo" && noDemoVideo && !noDemoVideo.paused) noDemoVideo.pause();
     if (activePane !== "demo" && humanVideo && !humanVideo.paused) humanVideo.pause();
+    maybeSeekHighlight();
+    updatePlayerVisibility();
+  }
+
+  function maybeSeekHighlight() {
+    var demo = DEMOS[activeDemo];
+    if (!demo) return;
+    if (activePane === "run" && video && demo.runSeek != null) {
+      seekWhenReady(video, Number(demo.runSeek));
+    }
+    if (activePane === "nodemo" && noDemoVideo && demo.noDemoSeek != null) {
+      seekWhenReady(noDemoVideo, Number(demo.noDemoSeek));
+    }
+    if (activePane === "demo" && humanVideo && demo.demoSeek != null) {
+      seekWhenReady(humanVideo, Number(demo.demoSeek));
+    }
+  }
+
+  function seekWhenReady(el, t) {
+    if (!el || !isFinite(t) || t < 0) return;
+    var apply = function () {
+      if (!isFinite(el.duration) || el.duration <= 0) return;
+      try { el.currentTime = Math.min(t, Math.max(el.duration - 0.05, 0)); } catch (e) {}
+      syncPlayerBar();
+    };
+    if (el.readyState >= 1 && isFinite(el.duration) && el.duration > 0) apply();
+    else el.addEventListener("loadedmetadata", apply, { once: true });
   }
 
   function renderSubtasks(subs) {
@@ -300,29 +400,62 @@
 
   function renderDemoExtras(demo) {
     var democua = isDemoCua(demo);
-    if (paneTabsEl) paneTabsEl.hidden = !democua;
+    var copy = (demo && (demo[lang] || demo.en)) || {};
+    if (paneTabsEl) {
+      paneTabsEl.hidden = !democua;
+      var runTabBtn = paneTabsEl.querySelector('.demo-pane-tab[data-pane="run"]');
+      var noDemoTabBtn = paneTabsEl.querySelector('.demo-pane-tab[data-pane="nodemo"]');
+      var demoTabBtn = paneTabsEl.querySelector('.demo-pane-tab[data-pane="demo"]');
+      if (runTabBtn) {
+        runTabBtn.hidden = false;
+        runTabBtn.textContent = copy.runLabel || t("demo.run.label");
+      }
+      if (noDemoTabBtn) {
+        noDemoTabBtn.hidden = !(demo && (demo.noDemoSrc || demo.noDemoPending));
+        noDemoTabBtn.textContent = copy.noDemoLabel || t("demo.nodemo.label");
+      }
+      if (demoTabBtn) {
+        demoTabBtn.hidden = !(demo && (demo.demoSrc || demo.demoPending));
+        demoTabBtn.textContent = copy.demoLabel || t("demo.demo.label");
+      }
+    }
     if (guideEl) guideEl.hidden = true;
     if (viewerLinkEl) {
       viewerLinkEl.hidden = !hasStepViewer(demo);
       if (hasStepViewer(demo)) {
         var slug = demoSlug(demo);
-        viewerLinkEl.href = "viewer.html?demo=" + encodeURIComponent(slug) + "&lang=" + lang;
+        var stepQ = demo.viewerStep != null ? "&step=" + encodeURIComponent(demo.viewerStep) : "";
+        viewerLinkEl.href = "viewer.html?demo=" + encodeURIComponent(slug) + "&lang=" + lang + stepQ;
       }
     }
 
     if (!democua) {
       setPane("run");
+      if (paneNoDemoEl) paneNoDemoEl.hidden = true;
       if (paneDemoEl) paneDemoEl.hidden = true;
       if (paneSubtaskEl) paneSubtaskEl.hidden = true;
+      wireVideoSrc(noDemoVideo, noDemoEmptyEl, null, null, false);
       wireVideoSrc(humanVideo, humanEmptyEl, null, null, false);
       if (subtasksEl) subtasksEl.innerHTML = "";
       expandedSubtaskId = null;
       return;
     }
 
-    var copy = demo[lang] || demo.en;
-    if (!demo.stepsSrc) renderSubtasks((copy && copy.subtasks) || []);
-    wireVideoSrc(humanVideo, humanEmptyEl, demo.demoSrc, null, !!(demo.ready && demo.demoSrc));
+    if (!demo.stepsSrc) renderSubtasks(copy.subtasks || []);
+    wireVideoSrc(
+      noDemoVideo,
+      noDemoEmptyEl,
+      demo.noDemoSrc,
+      null,
+      !!(demo.ready && demo.noDemoSrc)
+    );
+    wireVideoSrc(
+      humanVideo,
+      humanEmptyEl,
+      demo.demoSrc,
+      null,
+      !!(demo.ready && demo.demoSrc)
+    );
     setPane("run");
     loadStepsForDemo(demo);
   }
@@ -391,7 +524,9 @@
     if (!video || !demo) return;
 
     pauseOther(null);
-    wireVideoSrc(video, emptyEl, demo.src, demo.poster, !!(demo.ready && demo.src));
+    wireVideoSrc(video, emptyEl, demoRunSrc(demo), demo.poster, !!(demo.ready && demoRunSrc(demo)));
+    applyPlaybackRate();
+    updatePlayerVisibility();
   }
 
   if (paneTabsEl) {
@@ -402,18 +537,104 @@
     });
   }
 
+  if (playerPlayBtn) {
+    playerPlayBtn.addEventListener("click", function () {
+      var el = activePlayerVideo();
+      if (!el || !el.getAttribute("src")) return;
+      if (el.paused || el.ended) {
+        pauseOther(el);
+        el.play().catch(function () {});
+      } else {
+        el.pause();
+      }
+      syncPlayerBar();
+    });
+  }
+
+  if (playerSeekEl) {
+    var commitSeek = function () {
+      var el = activePlayerVideo();
+      if (!el) return;
+      var next = Number(playerSeekEl.value);
+      if (!isFinite(next)) return;
+      try { el.currentTime = next; } catch (e) {}
+      syncPlayerBar();
+    };
+    playerSeekEl.addEventListener("pointerdown", function () { seekDragging = true; });
+    playerSeekEl.addEventListener("pointerup", function () {
+      seekDragging = false;
+      commitSeek();
+    });
+    playerSeekEl.addEventListener("input", function () {
+      if (!playerTimeEl) return;
+      var el = activePlayerVideo();
+      var dur = el && isFinite(el.duration) ? el.duration : Number(playerSeekEl.max) || 0;
+      playerTimeEl.textContent =
+        formatPlayerTime(Number(playerSeekEl.value)) + " / " + formatPlayerTime(dur);
+    });
+    playerSeekEl.addEventListener("change", function () {
+      seekDragging = false;
+      commitSeek();
+    });
+  }
+
+  if (playerSpeedEl) {
+    playerSpeedEl.addEventListener("change", function () {
+      playbackRate = Number(playerSpeedEl.value) || 1;
+      applyPlaybackRate();
+    });
+  }
+
+  function bindPlayerEvents(el) {
+    if (!el) return;
+    ["timeupdate", "loadedmetadata", "durationchange", "play", "pause", "ended", "seeked"].forEach(function (evt) {
+      el.addEventListener(evt, syncPlayerBar);
+    });
+  }
+  bindPlayerEvents(video);
+  bindPlayerEvents(noDemoVideo);
+  bindPlayerEvents(humanVideo);
+
   if (video) {
-    video.addEventListener("play", function () { pauseOther(video); });
-    video.addEventListener("loadeddata", function () { emptyEl.classList.add("is-hidden"); });
-    video.addEventListener("error", function () { emptyEl.classList.remove("is-hidden"); });
+    video.addEventListener("play", function () { pauseOther(video); applyPlaybackRate(); });
+    video.addEventListener("loadeddata", function () { emptyEl.classList.add("is-hidden"); syncPlayerBar(); });
+    video.addEventListener("error", function () { emptyEl.classList.remove("is-hidden"); syncPlayerBar(); });
+    video.addEventListener("click", function () {
+      if (!video.getAttribute("src")) return;
+      if (video.paused) video.play().catch(function () {});
+      else video.pause();
+    });
+  }
+  if (noDemoVideo) {
+    noDemoVideo.addEventListener("play", function () { pauseOther(noDemoVideo); applyPlaybackRate(); });
+    noDemoVideo.addEventListener("loadeddata", function () {
+      if (noDemoEmptyEl) noDemoEmptyEl.classList.add("is-hidden");
+      syncPlayerBar();
+    });
+    noDemoVideo.addEventListener("error", function () {
+      if (noDemoEmptyEl) noDemoEmptyEl.classList.remove("is-hidden");
+      syncPlayerBar();
+    });
+    noDemoVideo.addEventListener("click", function () {
+      if (!noDemoVideo.getAttribute("src")) return;
+      if (noDemoVideo.paused) noDemoVideo.play().catch(function () {});
+      else noDemoVideo.pause();
+    });
   }
   if (humanVideo) {
-    humanVideo.addEventListener("play", function () { pauseOther(humanVideo); });
+    humanVideo.addEventListener("play", function () { pauseOther(humanVideo); applyPlaybackRate(); });
     humanVideo.addEventListener("loadeddata", function () {
       if (humanEmptyEl) humanEmptyEl.classList.add("is-hidden");
+      syncPlayerBar();
     });
     humanVideo.addEventListener("error", function () {
       if (humanEmptyEl) humanEmptyEl.classList.remove("is-hidden");
+      syncPlayerBar();
+    });
+    humanVideo.addEventListener("click", function () {
+      if (!humanVideo.getAttribute("src")) return;
+      if (humanVideo.paused) humanVideo.play().catch(function () {});
+      else humanVideo.pause();
     });
   }
 

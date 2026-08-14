@@ -1499,21 +1499,24 @@ html[lang="zh"] .flow-badge { text-transform: none; letter-spacing: 0.04em; }
   margin-left: auto;
   display: inline-flex;
   align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
   gap: 4px;
-  flex: none;
+  flex: 1 1 auto;
+  max-width: min(78%, 640px);
 }
 .demo-pane-tabs[hidden] { display: none !important; }
 .demo-pane-tab {
   height: 26px;
-  padding: 0 10px;
+  padding: 0 8px;
   border-radius: 999px;
   border: 1px solid transparent;
   background: transparent;
   color: var(--muted);
   font-family: inherit;
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 700;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
   cursor: pointer;
   line-height: 1;
   white-space: nowrap;
@@ -1572,6 +1575,91 @@ html[lang="zh"] .flow-badge { text-transform: none; letter-spacing: 0.04em; }
   color: #fff;
 }
 .demo-empty.is-hidden { display: none; }
+
+.demo-player-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: linear-gradient(180deg, transparent, rgba(8, 12, 22, 0.82) 35%);
+  color: #fff;
+}
+.demo-player-bar[hidden] { display: none !important; }
+.demo-player-play {
+  appearance: none;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  padding: 0;
+}
+.demo-player-play:hover { background: rgba(255, 255, 255, 0.26); }
+.demo-player-play svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
+.demo-player-play.is-playing .icon-play { display: none; }
+.demo-player-play.is-playing .icon-pause { display: block; }
+.demo-player-play:not(.is-playing) .icon-pause { display: none; }
+.demo-player-time {
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  opacity: 0.92;
+  min-width: 7.5em;
+}
+.demo-player-seek {
+  width: 100%;
+  accent-color: #fff;
+  cursor: pointer;
+  height: 4px;
+}
+.demo-player-speed {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.demo-player-speed-label {
+  opacity: 0.72;
+}
+.demo-player-speed select {
+  appearance: none;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border-radius: 8px;
+  padding: 5px 24px 5px 10px;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 650;
+  cursor: pointer;
+  background-image: linear-gradient(45deg, transparent 50%, #fff 50%),
+    linear-gradient(135deg, #fff 50%, transparent 50%);
+  background-position: calc(100% - 12px) 11px, calc(100% - 8px) 11px;
+  background-size: 4px 4px, 4px 4px;
+  background-repeat: no-repeat;
+}
+.demo-player-speed select:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.demo-player-speed option {
+  color: #111;
+  background: #fff;
+}
 
 .demo-meta {
   border: 1px solid var(--line);

@@ -10,9 +10,9 @@ Each ready entry expects:
 
 Current ids:
 
-- `general-1` — General CUA · 2048 (ready) → `Demos/Genral/demo1.mp4`
-- `general-2` — General CUA · Finder / Desktop (ready) → `Demos/Genral/demo2.mp4`
-- `democua-greenhouse` — DemoCUA · Greenhouse → `Demos/DemoCUA/greenhouse/`
+- `general-1` — General CUA · 2048 (ready) → `Demos/General/2048/`
+- `general-2` — General CUA · Books (ready) → `Demos/General/books/`
+- `democua-gamedev` — DemoCUA · GameDev → `Demos/DemoCUA/gamedev/`
 - `democua-visa` — DemoCUA · Visa → `Demos/DemoCUA/visa/`
 
 Posters live here; mp4s stay under `Demos/` so the repo does not duplicate large files.
@@ -26,11 +26,22 @@ DemoCUA entries set `kind: "democua"` plus:
 | `steps.json` | Subtask plan + per-step thinking / action |
 | `democua-<id>.jpg` | Poster for the agent-run player |
 
-Rebuild from local `UI_Mate/democua/` sources:
+Rebuild from local `UI_Mate/democua/` sources (visa / greenhouse):
 
 ```bash
 python3 scripts/build_democua_assets.py
 ```
+
+Rebuild GameDev DemoCUA from `Demos/DemoCUA/gamedev/demo_run`:
+
+```bash
+python3 scripts/build_gamedev_assets.py
+```
+
+No-demo full run (`no_demo.mp4`) is encoded from `no_demo_run/` by the same script, and the human
+demo (`demo.mp4`) from `demo_video/replicated/screenshots/before/`. The subtask plan comes from
+`demo_video/derived/subtasks.json`; step boundaries follow the agent's own `subtask_complete` calls.
+Pass `--steps-only` to relabel `steps.json` without re-encoding the videos.
 
 To add a general demo: drop the files here, append an entry in `UIMATE_DEMOS` with `ready: true`.
 For DemoCUA, also set `demoSrc`, `stepsSrc`, and rebuild assets.
