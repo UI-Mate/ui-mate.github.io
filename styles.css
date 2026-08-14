@@ -395,6 +395,26 @@ html[lang="zh"] .hero-badge-txt { text-transform: none; letter-spacing: 0.06em; 
   border: 1px solid var(--line);
   color: var(--hy-blue);
 }
+.btn-logo { width: 18px; height: 18px; flex: none; }
+.btn-logo-wide { width: auto; height: 15px; }
+.btn-multi { gap: 8px; padding: 0 8px 0 16px; }
+.btn-chip {
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--tint);
+  font-family: var(--mono);
+  font-size: 11.5px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--hy-blue);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btn-chip:hover { border-color: rgba(0, 82, 217, 0.32); }
 .btn.is-pending { border-style: dashed; }
 .btn.is-pending:not(.btn-primary) { color: var(--muted); }
 .btn.is-pending::after {
@@ -1103,6 +1123,10 @@ html[lang="zh"] .flow-badge { text-transform: none; letter-spacing: 0.04em; }
   color: var(--muted);
   line-height: 1.4;
   overflow-wrap: anywhere;
+  /* These labels run just past one line in a quarter-width card, so the default
+     greedy wrap drops a single word onto line two. Balancing evens the two lines,
+     which lands the break on the separator instead. */
+  text-wrap: balance;
 }
 .metric-v {
   font-family: var(--mono);
@@ -1430,12 +1454,22 @@ html[lang="zh"] .flow-badge { text-transform: none; letter-spacing: 0.04em; }
    ============================================================ */
 .demo-tabs {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 8px;
-  margin-bottom: 24px;
+  /* Negative inline/top margin keeps the active pill's glow from being clipped
+     by the scroll container. */
+  margin: -6px -2px 18px;
+  padding: 6px 2px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
 }
+.demo-tabs::-webkit-scrollbar { display: none; }
 .demo-tab {
   display: inline-flex;
+  flex: 0 0 auto;
+  scroll-snap-align: start;
   align-items: center;
   height: var(--ctl-md);
   border: 1px solid var(--line);
@@ -1497,16 +1531,20 @@ html[lang="zh"] .flow-badge { text-transform: none; letter-spacing: 0.04em; }
 }
 .demo-pane-tabs {
   margin-left: auto;
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  flex-wrap: wrap;
-  justify-content: flex-end;
+  flex-wrap: nowrap;
   gap: 4px;
-  flex: 1 1 auto;
+  min-width: 0;
   max-width: min(78%, 640px);
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
 }
+.demo-pane-tabs::-webkit-scrollbar { display: none; }
 .demo-pane-tabs[hidden] { display: none !important; }
 .demo-pane-tab {
+  flex: 0 0 auto;
   height: 26px;
   padding: 0 8px;
   border-radius: 999px;
@@ -2272,7 +2310,7 @@ html[lang="zh"] .demo-step-k {
   .subsets { grid-template-columns: repeat(2, 1fr); }
   .demo-stage { grid-template-columns: 1fr; }
   .demo-step-body { grid-template-columns: 1fr; }
-  .demo-pane-tabs { max-width: 55%; flex-wrap: wrap; justify-content: flex-end; }
+  .demo-pane-tabs { max-width: 62%; }
 }
 
 @media (max-width: 860px) {
@@ -2350,6 +2388,9 @@ html[lang="zh"] .demo-step-k {
   .fig img { max-width: 100%; height: auto; }
   .app-two { grid-template-columns: 1fr; }
   .foot-links { margin-left: 0; }
+  /* The window title is decorative; drop it so the pane tabs keep the whole bar. */
+  .browser-title { display: none; }
+  .demo-pane-tabs { max-width: none; }
 }
 
 @media (max-width: 480px) {

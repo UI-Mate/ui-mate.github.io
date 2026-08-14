@@ -25,6 +25,7 @@ window.UIMATE_I18N = {
     "link.arxiv": "Preprint",
     "link.code": "Code",
     "link.model": "Model Weights",
+    "link.weights": "Weights",
     "link.video": "Watch Demos",
 
     "kicker.overview": "01 — Overview",
@@ -33,9 +34,9 @@ window.UIMATE_I18N = {
     "overview.fig": "General computer use plus demo-guided execution. One same-task demonstration lifts GameDev, OSWorld-subset, and OSWorker self-demo scores without turning the agent into a replay script.",
 
     "hl.osworld.k": "OSWorld-Verified",
-    "hl.osworld.n": "Open-weight SOTA",
+    "hl.osworld.n": "Open weights · Competitive performance",
     "hl.waa.k": "WindowsAgentArena",
-    "hl.waa.n": "Open-weight SOTA",
+    "hl.waa.n": "Open weights · Competitive performance",
     "hl.worker.k": "OSWorkerBench",
     "hl.worker.n": "Strict / progress · +17.7 / +24.5 vs base",
     "hl.demo.k": "+ ONE DEMO",
@@ -271,6 +272,7 @@ window.UIMATE_I18N = {
     "link.arxiv": "预印本",
     "link.code": "代码",
     "link.model": "模型权重",
+    "link.weights": "权重",
     "link.video": "观看演示",
 
     "kicker.overview": "01 — 概览",
@@ -279,9 +281,9 @@ window.UIMATE_I18N = {
     "overview.fig": "通用计算机使用 + 演示引导执行。同一任务的一段演示提升 GameDev、OSWorld 子集与 OSWorker self-demo 分数，而不会把智能体变成回放脚本。",
 
     "hl.osworld.k": "OSWorld-Verified",
-    "hl.osworld.n": "Open-weight SOTA",
+    "hl.osworld.n": "开源权重 · 性能有竞争力",
     "hl.waa.k": "WindowsAgentArena",
-    "hl.waa.n": "Open-weight SOTA",
+    "hl.waa.n": "开源权重 · 性能有竞争力",
     "hl.worker.k": "OSWorkerBench",
     "hl.worker.n": "Strict / progress · +17.7 / +24.5 vs base",
     "hl.demo.k": "+ ONE DEMO",

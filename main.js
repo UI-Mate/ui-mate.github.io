@@ -831,7 +831,7 @@
 
   /* ---------- pending links --------------------------------- */
 
-  document.querySelectorAll("a.is-pending").forEach(function (a) {
+  document.querySelectorAll("a.is-pending, .is-pending a").forEach(function (a) {
     a.addEventListener("click", function (e) {
       e.preventDefault();
     });
