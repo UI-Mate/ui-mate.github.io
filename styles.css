@@ -470,6 +470,7 @@ html[lang="zh"] .sec-kicker { text-transform: none; letter-spacing: 0.08em; }
 .prose { margin-top: 12px; margin-bottom: 30px; }
 .prose:last-child { margin-bottom: 0; }
 .side-note { margin-top: 8px; font-size: 13.5px; color: var(--muted); }
+.note-mark { margin-left: 1px; font-size: 0.75em; color: var(--muted); }
 
 /* ============================================================
    OVERVIEW
