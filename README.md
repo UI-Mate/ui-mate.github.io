@@ -1,7 +1,7 @@
 # UI-Mate project page
 
-Project homepage for **UI-Mate Technical Report: Advancing Open-Weight Foundation GUI Agents with
-In-Context Demonstrations** — Tencent HY Frontier, Multimodal Agent Team.
+Project homepage for **UI-Mate: Advancing Open-Weight Foundation GUI Agents with
+In-Context Demonstrations** — Tencent HY Frontier.
 
 A dependency-free static page: three files, no build step, no framework. Bilingual
 (English / 中文) with the language switch in the header.

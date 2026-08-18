@@ -17,7 +17,7 @@ window.UIMATE_I18N = {
     "hero.badge": "Technical Report",
     "hero.title": "Advancing Open-Weight Foundation GUI Agents<br>with In-Context Demonstrations",
     "hero.tagline": "Strong general computer use — plus one demonstration when the instruction alone is not enough.",
-    "hero.team": "Tencent HY Frontier &middot; Multimodal Agent Team",
+    "hero.team": "Tencent HY Frontier",
     "hero.fineprint": "Links marked with a dashed border are not public yet.",
 
     "link.app": "Try App",
@@ -247,7 +247,7 @@ window.UIMATE_I18N = {
     "cite.copied": "Copied",
     "cite.note": "The preprint lists all 29 authors individually — see the arXiv page for the full list.",
 
-    "foot.team": "Tencent HY Frontier &middot; Multimodal Agent Team",
+    "foot.team": "Tencent HY Frontier",
     "foot.legal": "&copy; 2026 Tencent. Page template released for research communication."
   },
 
@@ -264,7 +264,7 @@ window.UIMATE_I18N = {
     "hero.badge": "技术报告",
     "hero.title": "Advancing Open-Weight Foundation GUI Agents<br>with In-Context Demonstrations",
     "hero.tagline": "Strong general computer use — plus one demonstration when the instruction alone is not enough.",
-    "hero.team": "腾讯混元Frontier &middot; Multimodal Agent团队",
+    "hero.team": "腾讯混元Frontier",
     "hero.fineprint": "虚线边框的链接尚未公开。",
 
     "link.app": "试用 App",
@@ -494,7 +494,7 @@ window.UIMATE_I18N = {
     "cite.copied": "已复制",
     "cite.note": "预印本逐一列出全部 29 位作者，完整名单见 arXiv 页面。",
 
-    "foot.team": "腾讯混元Frontier &middot; Multimodal Agent团队",
+    "foot.team": "腾讯混元Frontier",
     "foot.legal": "&copy; 2026 Tencent. 本页模板用于研究成果传播。"
   }
 };
