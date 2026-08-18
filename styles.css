@@ -397,31 +397,6 @@ html[lang="zh"] .hero-badge-txt { text-transform: none; letter-spacing: 0.06em; 
 }
 .btn-logo { width: 18px; height: 18px; flex: none; }
 .btn-logo-wide { width: auto; height: 15px; }
-.btn-multi { gap: 8px; padding: 0 8px 0 16px; }
-.btn-chip {
-  display: inline-flex;
-  align-items: center;
-  height: 28px;
-  padding: 0 10px;
-  border-radius: 999px;
-  border: 1px solid var(--line);
-  background: var(--tint);
-  font-family: var(--mono);
-  font-size: 11.5px;
-  font-weight: 600;
-  line-height: 1;
-  color: var(--hy-blue);
-  text-decoration: none;
-  white-space: nowrap;
-}
-.btn-chip:hover { border-color: rgba(0, 82, 217, 0.32); }
-/* A chip whose repo is not public yet: still visible, but clearly not a live link. */
-.btn-chip.is-pending {
-  border-style: dashed;
-  color: var(--muted);
-  cursor: default;
-}
-.btn-chip.is-pending:hover { border-color: var(--line); }
 .btn.is-pending { border-style: dashed; }
 .btn.is-pending:not(.btn-primary) { color: var(--muted); }
 .btn.is-pending::after {
