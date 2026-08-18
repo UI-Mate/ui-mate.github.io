@@ -83,11 +83,10 @@ missing from `zh` silently falls back to English rather than rendering blank.
 
 ## Before publishing
 
-**Remove the `noindex` tag first.** `index.html` carries
-`<meta name="robots" content="noindex, nofollow">` so the page stays out of search
-results while the report is unannounced. The site is live and anyone with the URL can
-read it — that tag only keeps it from being indexed. Leave it in at launch and the page
-stays invisible to search.
+The `noindex` tag is gone, so all three pages are indexable. Put
+`<meta name="robots" content="noindex, nofollow">` back in the `<head>` if a page ever
+needs to be hidden from search again; note that it only blocks indexing, and anyone with
+the URL can still read the page.
 
 1. **Link targets.** Done — the report, preprint, code, and weights buttons all point at
    published URLs. A button that is not live yet takes `class="btn is-pending"`, which
