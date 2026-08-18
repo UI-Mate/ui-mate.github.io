@@ -2244,7 +2244,13 @@ html[lang="zh"] .demo-step-k {
   gap: 20px 32px;
 }
 .foot-brand { display: flex; align-items: center; gap: 14px; }
-.foot-brand img { height: 20px; width: auto; filter: brightness(0) invert(1); opacity: 0.9; }
+.foot-brand img {
+  height: 28px;
+  width: 28px;
+  object-fit: cover;
+  object-position: left center;
+  flex: none;
+}
 .foot-brand p { font-size: 13.5px; color: rgba(255, 255, 255, 0.62); }
 .foot-links { display: flex; flex-wrap: wrap; gap: 6px; margin-left: auto; }
 .foot-links a {
