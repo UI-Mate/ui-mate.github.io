@@ -92,11 +92,14 @@ h1 { margin: 0; font-size: clamp(22px, 3vw, 30px); letter-spacing: -0.02em; colo
   position: relative; background: var(--dark);
   border-radius: var(--r-lg); border: 1px solid var(--line);
   overflow: hidden; box-shadow: var(--shadow);
-  min-height: 220px;
+  aspect-ratio: 16 / 10;
+  width: min(100%, calc(min(72vh, 820px) * 1.6));
+  margin-inline: auto;
 }
 .shot img, .shot video {
-  display: block; width: 100%; height: auto; max-height: min(72vh, 820px);
-  object-fit: contain; background: var(--dark);
+  position: absolute; inset: 0;
+  display: block; width: 100%; height: 100%;
+  object-fit: fill; background: var(--dark);
 }
 .shot img[hidden], .shot video[hidden] { display: none !important; }
 .marker {
