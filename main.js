@@ -815,6 +815,7 @@
   var appPanels = document.querySelectorAll("[data-app-panel]");
 
   function setAppTab(name) {
+    if (!name) return;
     appTabs.forEach(function (btn) {
       var on = btn.getAttribute("data-app-tab") === name;
       btn.classList.toggle("is-active", on);
@@ -828,11 +829,28 @@
     });
   }
 
+  function tabFromHash() {
+    var hash = (location.hash || "").replace(/^#/, "");
+    return hash === "deploy" || hash === "usage" ? hash : null;
+  }
+
   appTabs.forEach(function (btn) {
     btn.addEventListener("click", function () {
-      setAppTab(btn.getAttribute("data-app-tab"));
+      var name = btn.getAttribute("data-app-tab");
+      setAppTab(name);
+      if (location.hash !== "#" + name) {
+        history.replaceState(null, "", "#" + name);
+      }
     });
   });
+
+  window.addEventListener("hashchange", function () {
+    var name = tabFromHash();
+    if (name) setAppTab(name);
+  });
+
+  var initialTab = tabFromHash();
+  if (initialTab) setAppTab(initialTab);
 
   /* ---------- pending links --------------------------------- */
 

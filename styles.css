@@ -2071,6 +2071,16 @@ html[lang="zh"] .demo-step-k {
   font-size: 13.5px !important;
   color: var(--ink-2) !important;
 }
+.app-callout a,
+.app-table a {
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.app-callout a:hover,
+.app-table a:hover {
+  color: var(--hy-blue-600);
+}
 .app-fig { margin-top: 18px; }
 .app-fig + .app-fig { margin-top: 16px; }
 .app-fig img {

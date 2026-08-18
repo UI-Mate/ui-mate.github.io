@@ -156,7 +156,7 @@ window.UIMATE_I18N = {
     "app.u1.r3.k": "Disk",
     "app.u1.r3.v": "About 2 GB free",
     "app.u1.r4.k": "Model service",
-    "app.u1.r4.v": "Required — the app has no built-in model. See Deploy.",
+    "app.u1.r4.v": "Required — the app has no built-in model. See <a href=\"#deploy\">Deploy</a>.",
 
     "app.u2.h": "2. Grant macOS permissions",
     "app.u2.p": "Screen Recording and Accessibility are required. Use the in-app buttons — do not add the app manually in System Settings.",
@@ -181,7 +181,7 @@ window.UIMATE_I18N = {
     "app.u3.r2": "Service URL, usually ending in <code>/v1</code>",
     "app.u3.r3": "Served model name — must match the server exactly",
     "app.u3.r4": "Leave blank if unused",
-    "app.u3.note": "No endpoint yet? Ask whoever runs the model service, or follow Deploy. For a quick dry-run only: OpenRouter + Agent type <strong>Kimi</strong> — not the project model.",
+    "app.u3.note": "No endpoint yet? Ask whoever runs the model service, or follow <a href=\"#deploy\">Deploy</a>. For a quick dry-run only: OpenRouter + Agent type <strong>Kimi</strong> — not the project model.",
     "app.u3.cap": "Model Configuration — Agent type UI-Mate or Kimi.",
 
     "app.u4.h": "4. Run a task &amp; record a demo",
@@ -400,7 +400,7 @@ window.UIMATE_I18N = {
     "app.u1.r3.k": "磁盘",
     "app.u1.r3.v": "约 2 GB 可用空间",
     "app.u1.r4.k": "模型服务",
-    "app.u1.r4.v": "必备——App 不含模型。见「部署模型」。",
+    "app.u1.r4.v": "必备——App 不含模型。见<a href=\"#deploy\">部署模型</a>。",
 
     "app.u2.h": "2. 授予系统权限",
     "app.u2.p": "必须开启 Screen Recording 与 Accessibility。一律点 app 内按钮授权，不要自己到系统设置里手动「+」。",
@@ -425,7 +425,7 @@ window.UIMATE_I18N = {
     "app.u3.r2": "服务地址，一般以 <code>/v1</code> 结尾",
     "app.u3.r3": "模型名，必须和服务端完全一致",
     "app.u3.r4": "没有就留空",
-    "app.u3.note": "还没有地址？找负责部署的同事，或看「部署模型」。想先体验流程：OpenRouter + Agent type <strong>Kimi</strong>——不是本项目模型。",
+    "app.u3.note": "还没有地址？找负责部署的同事，或看<a href=\"#deploy\">部署模型</a>。想先体验流程：OpenRouter + Agent type <strong>Kimi</strong>——不是本项目模型。",
     "app.u3.cap": "Model Configuration — Agent type 选 UI-Mate 或 Kimi。",
 
     "app.u4.h": "4. 跑任务与录 Demo",

@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css?v=visa26" />
+<link rel="stylesheet" href="styles.css?v=visa27" />
 </head>
 <body>
 
@@ -56,8 +56,8 @@
     </div>
 
     <div class="app-tabs" role="tablist" aria-label="App docs">
-      <button type="button" class="app-tab is-active" role="tab" aria-selected="true" data-app-tab="usage" data-i18n="app.tab.usage">Usage</button>
-      <button type="button" class="app-tab" role="tab" aria-selected="false" data-app-tab="deploy" data-i18n="app.tab.deploy">Deploy model</button>
+      <button type="button" class="app-tab is-active" role="tab" aria-selected="true" id="usage" data-app-tab="usage" data-i18n="app.tab.usage">Usage</button>
+      <button type="button" class="app-tab" role="tab" aria-selected="false" id="deploy" data-app-tab="deploy" data-i18n="app.tab.deploy">Deploy model</button>
     </div>
 
     <div class="app-panel is-active" id="appPanelUsage" data-app-panel="usage" role="tabpanel">
@@ -69,7 +69,7 @@
               <tr><th data-i18n="app.u1.r1.k">Machine</th><td data-i18n="app.u1.r1.v">Apple Silicon Mac (M1/M2/M3/M4) for the desktop app. Intel Macs cannot run the client.</td></tr>
               <tr><th data-i18n="app.u1.r2.k">System</th><td data-i18n="app.u1.r2.v">macOS 13 Ventura or later</td></tr>
               <tr><th data-i18n="app.u1.r3.k">Disk</th><td data-i18n="app.u1.r3.v">About 2 GB free</td></tr>
-              <tr><th data-i18n="app.u1.r4.k">Model service</th><td data-i18n="app.u1.r4.v">Required — the app has no built-in model. See Deploy.</td></tr>
+              <tr><th data-i18n="app.u1.r4.k">Model service</th><td data-i18n="app.u1.r4.v">Required — the app has no built-in model. See <a href="#deploy">Deploy</a>.</td></tr>
             </tbody>
           </table>
         </div>
@@ -138,7 +138,7 @@
             </tbody>
           </table>
         </div>
-        <p class="app-callout" data-i18n="app.u3.note">No endpoint yet? Ask whoever runs the model service, or follow Deploy. For a quick dry-run only: OpenRouter + Agent type <strong>Kimi</strong> — not the project model.</p>
+        <p class="app-callout" data-i18n="app.u3.note">No endpoint yet? Ask whoever runs the model service, or follow <a href="#deploy">Deploy</a>. For a quick dry-run only: OpenRouter + Agent type <strong>Kimi</strong> — not the project model.</p>
         <figure class="fig app-fig">
           <img src="assets/app/model-configuration.png" alt="Model Configuration" loading="lazy" />
           <figcaption data-i18n="app.u3.cap">Model Configuration — Agent type UI-Mate or Kimi.</figcaption>
@@ -318,7 +318,7 @@ export APC_EXACT_PREFIX_GUARD_TOKENS=64</pre>
   </div>
 </footer>
 
-<script src="i18n.js?v=visa26"></script>
-<script src="main.js?v=visa26"></script>
+<script src="i18n.js?v=visa27"></script>
+<script src="main.js?v=visa27"></script>
 </body>
 </html>
