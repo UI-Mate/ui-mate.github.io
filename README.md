@@ -89,19 +89,17 @@ results while the report is unannounced. The site is live and anyone with the UR
 read it — that tag only keeps it from being indexed. Leave it in at launch and the page
 stays invisible to search.
 
-1. **Link targets.** Five hero buttons point at `#` and carry a `data-todo` attribute; they
-   render with a dashed border and a dot so nothing looks broken while unresolved. Replace
-   the `href` values and delete `class="... is-pending"` plus `data-todo` on each. Then
-   remove the `hero.fineprint` line from `index.html` and `i18n.js`.
-2. **Authors.** The page credits the team rather than individuals, with a note pointing at
-   the report. Add the author list to the hero and to the BibTeX entry in `index.html`.
-3. **BibTeX.** Fill in the arXiv identifier and the real citation key.
-4. **Demo clips.** See `assets/demos/README.md`. Each entry stays a placeholder until you
+1. **Link targets.** Done — the report, preprint, code, and weights buttons all point at
+   published URLs. A button that is not live yet takes `class="btn is-pending"`, which
+   `main.js` also uses to swallow its clicks; drop the class to activate it.
+2. **Authors.** The page credits Tencent HY Frontier, matching the corporate author on the
+   arXiv record, and the note under the BibTeX points at arXiv for the full author list.
+3. **Demo clips.** See `assets/demos/README.md`. Each entry stays a placeholder until you
    set `ready: true` in `i18n.js`.
-5. **Results.** The headline numbers and `window.UIMATE_CHART` come from the technical
+4. **Results.** The headline numbers and `window.UIMATE_CHART` come from the technical
    report (OSWorld-Verified, WindowsAgentArena, OSWorkerBench, paired demo lifts).
    Reconcile them with the final report before publishing.
-6. **Social preview.** `index.html` has Open Graph title and description but no
+5. **Social preview.** `index.html` has Open Graph title and description but no
    `og:image`; add a 1200×630 card if the page will be shared.
 
 ## Deploying

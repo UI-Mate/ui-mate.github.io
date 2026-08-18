@@ -407,8 +407,6 @@ html[lang="zh"] .hero-badge-txt { text-transform: none; letter-spacing: 0.06em; 
   box-shadow: 0 0 0 3px rgba(78, 203, 255, 0.22);
 }
 
-.hero-fineprint { margin-top: 20px; font-size: 12.5px; color: var(--muted); }
-
 /* ============================================================
    SECTION SHELL
    ============================================================ */

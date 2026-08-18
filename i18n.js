@@ -18,8 +18,6 @@ window.UIMATE_I18N = {
     "hero.title": "Advancing Open-Weight Foundation GUI Agents<br>with In-Context Demonstrations",
     "hero.tagline": "Strong general computer use — plus one demonstration when the instruction alone is not enough.",
     "hero.team": "Tencent HY Frontier",
-    "hero.fineprint": "Links marked with a dashed border are not public yet.",
-
     "link.app": "Try App",
     "link.paper": "Technical Report",
     "link.arxiv": "Preprint",
@@ -265,8 +263,6 @@ window.UIMATE_I18N = {
     "hero.title": "Advancing Open-Weight Foundation GUI Agents<br>with In-Context Demonstrations",
     "hero.tagline": "Strong general computer use — plus one demonstration when the instruction alone is not enough.",
     "hero.team": "腾讯混元Frontier",
-    "hero.fineprint": "虚线边框的链接尚未公开。",
-
     "link.app": "试用 App",
     "link.paper": "技术报告",
     "link.arxiv": "预印本",
