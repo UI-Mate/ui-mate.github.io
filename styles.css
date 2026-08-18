@@ -415,6 +415,13 @@ html[lang="zh"] .hero-badge-txt { text-transform: none; letter-spacing: 0.06em; 
   white-space: nowrap;
 }
 .btn-chip:hover { border-color: rgba(0, 82, 217, 0.32); }
+/* A chip whose repo is not public yet: still visible, but clearly not a live link. */
+.btn-chip.is-pending {
+  border-style: dashed;
+  color: var(--muted);
+  cursor: default;
+}
+.btn-chip.is-pending:hover { border-color: var(--line); }
 .btn.is-pending { border-style: dashed; }
 .btn.is-pending:not(.btn-primary) { color: var(--muted); }
 .btn.is-pending::after {
