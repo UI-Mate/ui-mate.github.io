@@ -2245,8 +2245,8 @@ html[lang="zh"] .demo-step-k {
 }
 .foot-brand { display: flex; align-items: center; gap: 14px; }
 .foot-brand img {
-  height: 28px;
-  width: 28px;
+  height: 22px;
+  width: 22px;
   object-fit: cover;
   object-position: left center;
   flex: none;
