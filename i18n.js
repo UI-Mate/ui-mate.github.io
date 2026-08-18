@@ -245,7 +245,7 @@ window.UIMATE_I18N = {
     "cite.lede": "If UI-Mate is useful in your research, please cite the technical report.",
     "cite.copy": "Copy",
     "cite.copied": "Copied",
-    "cite.note": "Update the entry with the arXiv identifier and full author list once the report is public.",
+    "cite.note": "The preprint lists all 29 authors individually — see the arXiv page for the full list.",
 
     "foot.team": "Tencent HY Frontier &middot; Multimodal Agent Team",
     "foot.legal": "&copy; 2026 Tencent. Page template released for research communication."
@@ -492,7 +492,7 @@ window.UIMATE_I18N = {
     "cite.lede": "如果 UI-Mate 对你的研究有帮助，欢迎引用这份技术报告。",
     "cite.copy": "复制",
     "cite.copied": "已复制",
-    "cite.note": "技术报告公开后，请补上 arXiv 编号与完整作者名单。",
+    "cite.note": "预印本逐一列出全部 29 位作者，完整名单见 arXiv 页面。",
 
     "foot.team": "腾讯混元Frontier &middot; Multimodal Agent团队",
     "foot.legal": "&copy; 2026 Tencent. 本页模板用于研究成果传播。"
