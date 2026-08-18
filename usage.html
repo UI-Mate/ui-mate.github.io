@@ -146,42 +146,60 @@
       </article>
 
       <article class="app-block">
-        <h3 data-i18n="app.u4.h">4. Run a task &amp; record a demo</h3>
-        <div class="app-two">
-          <div>
-            <h4 data-i18n="app.u4.a.h">First task</h4>
-            <ol class="app-steps">
-              <li data-i18n="app.u4.a.s1"><strong>New Conversation</strong></li>
-              <li data-i18n="app.u4.a.s2">Describe the outcome in the input box.</li>
-              <li data-i18n="app.u4.a.s3">Press Enter. Avoid fighting the mouse; <strong>Stop</strong> / Esc to cancel.</li>
-            </ol>
-          </div>
-          <div>
-            <h4 data-i18n="app.u4.b.h">Teach with a demo</h4>
-            <ol class="app-steps">
-              <li data-i18n="app.u4.b.s1"><strong>Demo Library → Record Demo</strong>, perform the flow, then <strong>Stop Recording</strong> (⌘⇧S).</li>
-              <li data-i18n="app.u4.b.s2"><strong>Process</strong> until status is <strong>Reusable</strong>.</li>
-              <li data-i18n="app.u4.b.s3"><strong>Apply</strong> (or <code>/demo</code>) → mode becomes <strong>demo-in-the-loop</strong>, then send the task.</li>
-            </ol>
-          </div>
-        </div>
-        <p data-i18n="app.u4.note">The demo is guidance, not a frame replay — the live screen stays authoritative.</p>
+        <h3 data-i18n="app.u4.h">4. General use</h3>
+        <p data-i18n="app.u4.p">Run the agent on a live task with no demo. One conversation at a time.</p>
+        <ol class="app-steps">
+          <li data-i18n="app.u4.a.s1"><strong>New Conversation</strong></li>
+          <li data-i18n="app.u4.a.s2">Describe the outcome in the input box.</li>
+          <li data-i18n="app.u4.a.s3">Press Enter. Avoid fighting the mouse; <strong>Stop</strong> / Esc to cancel.</li>
+        </ol>
         <figure class="fig app-fig">
           <img src="assets/app/main-tabs.png" alt="Main tabs" loading="lazy" />
           <figcaption data-i18n="app.u4.cap1">Conversation · Previous Tasks · Demo Library</figcaption>
         </figure>
-        <figure class="fig app-fig">
-          <img src="assets/app/demo-in-the-loop.png" alt="demo-in-the-loop" loading="lazy" />
-          <figcaption data-i18n="app.u4.cap2">Input mode after applying a reusable demo.</figcaption>
-        </figure>
+      </article>
+
+      <article class="app-block">
+        <h3 data-i18n="app.dcua.h">5. DemoCUA — record and apply</h3>
+        <p data-i18n="app.dcua.p">When the instruction alone is not enough, record a procedure once, edit the steps, then apply it so the agent runs demo-in-the-loop.</p>
+        <p class="app-callout" data-i18n="app.dcua.model">Recommended for DemoCUA: <a href="https://huggingface.co/tencent/UI-Mate-democua-27B" target="_blank" rel="noopener">UI-Mate-democua-27B</a>.</p>
+        <div class="app-two">
+          <div>
+            <h4 data-i18n="app.dcua.rec.h">Record</h4>
+            <ol class="app-steps">
+              <li data-i18n="app.dcua.rec.s1"><strong>Demo Library → Record Demo</strong>, perform the flow, then <strong>Stop Recording</strong> (⌘⇧S).</li>
+              <li data-i18n="app.dcua.rec.s2"><strong>Process</strong> until status is <strong>Reusable</strong>.</li>
+              <li data-i18n="app.dcua.rec.s3">Open the recording. In <strong>Recording detail</strong> you can reorder or delete steps, and edit the generated captions — then <strong>Save changes</strong>.</li>
+            </ol>
+          </div>
+          <div>
+            <h4 data-i18n="app.dcua.use.h">Use</h4>
+            <ol class="app-steps">
+              <li data-i18n="app.dcua.use.s1"><strong>Apply</strong> (or <code>/demo</code>) → mode becomes <strong>demo-in-the-loop</strong>.</li>
+              <li data-i18n="app.dcua.use.s2">Send the task as in general use. The demo is guidance, not a frame replay — the live screen stays authoritative.</li>
+            </ol>
+          </div>
+        </div>
         <figure class="fig app-fig">
           <img src="assets/app/demo-recording.png" alt="Demo recording" loading="lazy" />
-          <figcaption data-i18n="app.u4.cap3">Demo Library and recording flow.</figcaption>
+          <figcaption data-i18n="app.dcua.cap1">Demo Library and recording flow.</figcaption>
+        </figure>
+        <figure class="fig app-fig">
+          <img src="assets/app/recording-detail.png" alt="Recording detail — edit steps" loading="lazy" />
+          <figcaption data-i18n="app.dcua.cap2">Recording detail — reorder, delete, and edit step captions.</figcaption>
+        </figure>
+        <figure class="fig app-fig">
+          <img src="assets/app/composer-record-demo.png" alt="Attach a demonstration — Record Demo" loading="lazy" />
+          <figcaption data-i18n="app.dcua.cap3">From the task box: Choose from library, Record Demo, or Import demo file.</figcaption>
+        </figure>
+        <figure class="fig app-fig">
+          <img src="assets/app/demo-in-the-loop-ready.png" alt="demo-in-the-loop ready" loading="lazy" />
+          <figcaption data-i18n="app.dcua.cap4">After Apply — demo-in-the-loop, ready to send the task.</figcaption>
         </figure>
       </article>
 
       <article class="app-block">
-        <h3 data-i18n="app.u5.h">5. Quick FAQ</h3>
+        <h3 data-i18n="app.u5.h">6. Quick FAQ</h3>
         <div class="table-scroll">
           <table class="rtable app-table">
             <thead>
@@ -251,6 +269,7 @@
             <li data-i18n="app.db.b1"><code>--limit-mm-per-prompt image=10</code> must cover history screenshots.</li>
             <li data-i18n="app.db.b2">App Endpoint: <code>http://&lt;GPU_IP&gt;:8080/v1</code> · Model = served name · Agent <strong>UI-Mate</strong>.</li>
             <li data-i18n="app.db.b3">Do not expose unauthenticated vLLM to the public internet.</li>
+            <li data-i18n="app.db.b4">For DemoCUA, we recommend <a href="https://huggingface.co/tencent/UI-Mate-democua-27B" target="_blank" rel="noopener">UI-Mate-democua-27B</a>.</li>
           </ul>
         </article>
 
@@ -318,7 +337,7 @@ export APC_EXACT_PREFIX_GUARD_TOKENS=64</pre>
   </div>
 </footer>
 
-<script src="i18n.js?v=visa27"></script>
+<script src="i18n.js?v=visa32"></script>
 <script src="main.js?v=visa27"></script>
 </body>
 </html>
