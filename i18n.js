@@ -14,7 +14,6 @@ window.UIMATE_I18N = {
     "nav.app": "App",
     "nav.citation": "Citation",
 
-    "hero.badge": "Technical Report",
     "hero.title": "Advancing Open-Weight Foundation GUI Agents<br>with In-Context Demonstrations",
     "hero.tagline": "Strong general computer use — plus one demonstration when the instruction alone is not enough.",
     "hero.team": "Tencent HY Frontier",
@@ -259,7 +258,6 @@ window.UIMATE_I18N = {
     "nav.app": "App",
     "nav.citation": "引用",
 
-    "hero.badge": "技术报告",
     "hero.title": "Advancing Open-Weight Foundation GUI Agents<br>with In-Context Demonstrations",
     "hero.tagline": "Strong general computer use — plus one demonstration when the instruction alone is not enough.",
     "hero.team": "腾讯混元Frontier",
