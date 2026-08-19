@@ -357,6 +357,8 @@ svg .stroke {
 }
 .btn-primary:hover { box-shadow: 0 14px 38px rgba(0, 82, 217, 0.34); }
 .btn-primary svg { color: #fff; }
+.btn-plain { color: var(--ink); }
+.btn-plain svg { color: currentColor; }
 .btn-tag {
   display: inline-flex;
   align-items: center;
@@ -2001,24 +2003,6 @@ html[lang="zh"] .demo-step-k {
   flex: 1 1 100%;
   margin: 0;
 }
-
-.app-feedback {
-  margin-top: 34px;
-  padding-top: 26px;
-  border-top: 1px solid var(--line);
-  max-width: 720px;
-}
-.app-feedback h3 {
-  font-size: 18px;
-  letter-spacing: -0.014em;
-  margin-bottom: 8px;
-}
-.app-feedback > p {
-  font-size: 14.5px;
-  color: var(--body);
-  margin-bottom: 16px;
-}
-.app-feedback .app-dl-note { margin-top: 4px; }
 
 .app-tabs {
   display: flex;

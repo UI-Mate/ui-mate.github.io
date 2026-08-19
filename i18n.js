@@ -136,6 +136,7 @@ window.UIMATE_I18N = {
     "fb.h.n": "7. Feedback",
     "fb.p": "Ran the app? Tell us how far you got. The button opens a GitHub issue prefilled with a short form — machine, model route, where it stopped — so we can see which step loses people.",
     "fb.btn": "Send feedback on GitHub",
+    "fb.btn.short": "Feedback",
     "fb.browse": "Browse open issues",
     "fb.note": "Issues are public. Please strip personal data from screenshots, task text, and logs before posting — and remember that DemoCUA recordings capture whatever was on screen.",
 
@@ -399,6 +400,7 @@ window.UIMATE_I18N = {
     "fb.h.n": "7. 反馈",
     "fb.p": "跑过 App 之后，告诉我们你走到了哪一步。按钮会打开一个已经填好简短表单的 GitHub issue——机型、模型路线、卡在哪里——我们据此判断哪一步流失最多。",
     "fb.btn": "去 GitHub 提反馈",
+    "fb.btn.short": "反馈",
     "fb.browse": "查看已有 issue",
     "fb.note": "issue 内容公开可见。贴截图、任务描述和日志前请先去掉个人信息——DemoCUA 录制会把屏幕上的一切都录进去，尤其注意。",
 
