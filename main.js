@@ -170,6 +170,7 @@
   var subtasksEl = document.getElementById("demoSubtasks");
   var paneTabsEl = document.getElementById("demoPaneTabs");
   var guideEl = document.getElementById("demoGuide");
+  var noteEl = document.getElementById("demoNote");
   var viewerLinkEl = document.getElementById("demoViewerLink");
   var paneRunEl = document.getElementById("demoPaneRun");
   var paneNoDemoEl = document.getElementById("demoPaneNoDemo");
@@ -420,6 +421,11 @@
       }
     }
     if (guideEl) guideEl.hidden = true;
+    if (noteEl) {
+      var note = copy.note || t(democua ? "demo.note.democua" : "demo.note.general");
+      noteEl.textContent = note;
+      noteEl.hidden = !note;
+    }
     if (viewerLinkEl) {
       viewerLinkEl.hidden = !hasStepViewer(demo);
       if (hasStepViewer(demo)) {

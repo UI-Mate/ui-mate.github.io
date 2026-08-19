@@ -129,6 +129,8 @@ window.UIMATE_I18N = {
     "demo.f.mode": "Mode",
     "demo.f.platform": "Platform",
     "demo.f.instr": "Instruction",
+    "demo.note.general": "Note: the clip runs at about 3× real time.",
+    "demo.note.democua": "Note: the clip is a step reel — one screenshot per second.",
 
     "kicker.app": "05 — App",
     "app.title": "Run UI-Mate on your Mac",
@@ -383,6 +385,8 @@ window.UIMATE_I18N = {
     "demo.f.mode": "模式",
     "demo.f.platform": "平台",
     "demo.f.instr": "指令",
+    "demo.note.general": "备注：视频约为 3 倍速播放。",
+    "demo.note.democua": "备注：视频由逐步截图拼成，1 秒一张。",
 
     "kicker.app": "05 — App",
     "app.title": "在 Mac 上运行 UI-Mate",
