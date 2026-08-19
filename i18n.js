@@ -132,6 +132,13 @@ window.UIMATE_I18N = {
     "demo.note.general": "Note: the clip runs at about 3× real time.",
     "demo.note.democua": "Note: the clip is a step reel — one screenshot per second.",
 
+    "fb.h": "Feedback",
+    "fb.h.n": "7. Feedback",
+    "fb.p": "Ran the app? Tell us how far you got. The button opens a GitHub issue prefilled with a short form — machine, model route, where it stopped — so we can see which step loses people.",
+    "fb.btn": "Send feedback on GitHub",
+    "fb.browse": "Browse open issues",
+    "fb.note": "Issues are public. Please strip personal data from screenshots, task text, and logs before posting — and remember that DemoCUA recordings capture whatever was on screen.",
+
     "kicker.app": "05 — App",
     "app.title": "Run UI-Mate on your Mac",
     "app.lede": "Apple Silicon macOS app. Download the DMG, then follow the usage guide for permissions, model setup, and demos.",
@@ -388,6 +395,13 @@ window.UIMATE_I18N = {
     "demo.note.general": "备注：视频约为 3 倍速播放。",
     "demo.note.democua": "备注：视频由逐步截图拼成，1 秒一张。",
 
+    "fb.h": "反馈",
+    "fb.h.n": "7. 反馈",
+    "fb.p": "跑过 App 之后，告诉我们你走到了哪一步。按钮会打开一个已经填好简短表单的 GitHub issue——机型、模型路线、卡在哪里——我们据此判断哪一步流失最多。",
+    "fb.btn": "去 GitHub 提反馈",
+    "fb.browse": "查看已有 issue",
+    "fb.note": "issue 内容公开可见。贴截图、任务描述和日志前请先去掉个人信息——DemoCUA 录制会把屏幕上的一切都录进去，尤其注意。",
+
     "kicker.app": "05 — App",
     "app.title": "在 Mac 上运行 UI-Mate",
     "app.lede": "Apple Silicon 版 macOS App。先下载 DMG，再按使用说明完成权限、模型配置与 Demo。",
@@ -526,6 +540,65 @@ window.UIMATE_CHART = [
   { key: "res.sub.osworld", max: 100, wo: 40.3, w: 65.8 },
   { key: "res.sub.osworker", max: 100, wo: 67.9, w: 81.1 }
 ];
+
+/* ------------------------------------------------------------
+   App feedback. The site is static, so feedback lands as a
+   prefilled GitHub issue. No labels param: Tencent/UI-Mate has
+   only the default label set, and a missing label is dropped for
+   users without triage rights — the title prefix filters instead.
+   ------------------------------------------------------------ */
+window.UIMATE_FEEDBACK = {
+  repo: "https://github.com/Tencent/UI-Mate",
+  appVersion: "0.2.4",
+  en: {
+    title: "[App feedback] ",
+    body: [
+      "<!-- Fill in what you know, delete the rest. Public issue: no personal data in screenshots, task text, or logs. -->",
+      "",
+      "## Setup",
+      "- Mac chip: M1 / M2 / M3 / M4",
+      "- macOS version:",
+      "- App version: 0.2.4",
+      "- Model route: OpenRouter Kimi / local MLX UI-Mate-9B / self-hosted vLLM UI-Mate-27B / DemoCUA-27B / other",
+      "",
+      "## What you were doing",
+      "- Mode: general task / DemoCUA record + apply",
+      "- Task, in one line:",
+      "",
+      "## What happened",
+      "- Result: finished / partly finished / failed",
+      "- Where it stopped: permissions / model connection / task execution / recording / Apply / other",
+      "- Details:",
+      "",
+      "## Anything else",
+      "Suggestions, missing features, confusing UI."
+    ].join("\n")
+  },
+  zh: {
+    title: "[App feedback] ",
+    body: [
+      "<!-- 知道多少填多少，其余删掉。issue 公开可见：截图、任务描述、日志里请勿包含个人信息。 -->",
+      "",
+      "## 环境",
+      "- 芯片：M1 / M2 / M3 / M4",
+      "- macOS 版本：",
+      "- App 版本：0.2.4",
+      "- 模型路线：OpenRouter Kimi / 本地 MLX UI-Mate-9B / 自建 vLLM UI-Mate-27B / DemoCUA-27B / 其他",
+      "",
+      "## 在做什么",
+      "- 模式：普通任务 / DemoCUA 录制 + 复用",
+      "- 任务一句话描述：",
+      "",
+      "## 发生了什么",
+      "- 结果：跑通 / 部分完成 / 失败",
+      "- 卡在哪一步：权限 / 连接模型 / 任务执行 / 录制 / Apply / 其他",
+      "- 具体情况：",
+      "",
+      "## 其他",
+      "建议、缺失的功能、界面上让人困惑的地方。"
+    ].join("\n")
+  }
+};
 
 /* ------------------------------------------------------------
    Demo reel. General CUA clips are live; DemoCUA entries use

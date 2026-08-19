@@ -50,6 +50,7 @@
       btn.classList.toggle("is-active", btn.dataset.lang === lang);
     });
 
+    applyFeedbackLinks();
     renderChart();
     renderDemoTabs();
     renderDemoMeta();
@@ -65,6 +66,27 @@
   document.querySelectorAll(".lang-switch button").forEach(function (btn) {
     btn.addEventListener("click", function () { setLang(btn.dataset.lang); });
   });
+
+  /* ---------- feedback links ---------------------------------- */
+
+  function applyFeedbackLinks() {
+    var cfg = window.UIMATE_FEEDBACK;
+    if (!cfg) return;
+    var copy = cfg[lang] || cfg.en;
+
+    document.querySelectorAll("[data-feedback]").forEach(function (el) {
+      if (el.dataset.feedback === "list") {
+        el.href = cfg.repo + "/issues";
+        return;
+      }
+      el.href =
+        cfg.repo +
+        "/issues/new?title=" +
+        encodeURIComponent(copy.title) +
+        "&body=" +
+        encodeURIComponent(copy.body);
+    });
+  }
 
   /* ---------- nav: stuck state, scrollspy, mobile ------------- */
 
@@ -503,14 +525,16 @@
 
   function renderDemoMeta() {
     var demo = DEMOS[activeDemo];
-    if (!demo) return;
+    var descEl = document.getElementById("demoDesc");
+    // usage.html shares this script but carries no demo reel.
+    if (!demo || !descEl) return;
     var copy = demo[lang] || demo.en;
 
     setDemoTitle(document.getElementById("demoTitle"), copy.title);
     // A blank line in `desc` separates the prose from the trailing score readout.
     var descParts = String(copy.desc).split(/\n{2,}/);
     var scoreEl = document.getElementById("demoScore");
-    document.getElementById("demoDesc").textContent = descParts[0].trim();
+    descEl.textContent = descParts[0].trim();
     scoreEl.textContent = descParts.length > 1 ? descParts.slice(1).join(" ").trim() : "";
     scoreEl.hidden = !scoreEl.textContent;
     document.getElementById("demoMode").textContent = copy.mode;
@@ -525,10 +549,12 @@
     expandedSubtaskId = null;
     var demo = DEMOS[index];
 
-    tabsEl.querySelectorAll(".demo-tab").forEach(function (btn, i) {
-      btn.classList.toggle("is-active", i === index);
-      btn.setAttribute("aria-selected", String(i === index));
-    });
+    if (tabsEl) {
+      tabsEl.querySelectorAll(".demo-tab").forEach(function (btn, i) {
+        btn.classList.toggle("is-active", i === index);
+        btn.setAttribute("aria-selected", String(i === index));
+      });
+    }
 
     renderDemoMeta();
 
