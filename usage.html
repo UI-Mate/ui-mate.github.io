@@ -277,8 +277,9 @@
           <span class="app-route-k">C</span>
           <h3 data-i18n="app.dc.h">Local Mac 9B — MLX 4bit</h3>
           <p data-i18n="app.dc.p">Offline on Apple Silicon. Convert, serve, then point the app at localhost.</p>
+          <p data-i18n="app.dc.weights">Weights: <a href="https://huggingface.co/tencent/UI-Mate-9B" target="_blank" rel="noopener">UI-Mate-9B</a>.</p>
 <pre class="app-code">python -m mlx_vlm.convert \
-  --hf-path /path/to/9b-checkpoint \
+  --hf-path tencent/UI-Mate-9B \
   --mlx-path ~/models/UI-Mate-9B-mlx-4bit \
   -q --q-bits 4 --q-group-size 64
 
@@ -337,7 +338,7 @@ export APC_EXACT_PREFIX_GUARD_TOKENS=64</pre>
   </div>
 </footer>
 
-<script src="i18n.js?v=visa32"></script>
+<script src="i18n.js?v=visa33"></script>
 <script src="main.js?v=visa27"></script>
 </body>
 </html>
