@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css?v=visa36" />
+<link rel="stylesheet" href="styles.css?v=visa39" />
 </head>
 <body>
 
@@ -283,10 +283,10 @@
   --tensor-parallel-size 2 \
   --data-parallel-size 4 \
   --max-model-len 32768 \
-  --host 0.0.0.0 --port 8080</pre>
+  --host 0.0.0.0 --port 8000</pre>
           <ul class="app-bullets">
             <li data-i18n="app.db.b1"><code>--limit-mm-per-prompt image=10</code> must cover history screenshots.</li>
-            <li data-i18n="app.db.b2">App Endpoint: <code>http://&lt;GPU_IP&gt;:8080/v1</code> · Model = served name · Agent <strong>UI-Mate</strong>.</li>
+            <li data-i18n="app.db.b2">App Endpoint: <code>http://&lt;GPU_IP&gt;:8000/v1</code> · Model = served name · Agent <strong>UI-Mate</strong>.</li>
             <li data-i18n="app.db.b3">Do not expose unauthenticated vLLM to the public internet.</li>
             <li data-i18n="app.db.b4">For DemoCUA, we recommend <a href="https://huggingface.co/tencent/UI-Mate-democua-27B" target="_blank" rel="noopener">UI-Mate-democua-27B</a>.</li>
           </ul>
@@ -294,6 +294,34 @@
 
         <article class="app-route">
           <span class="app-route-k">C</span>
+          <h3 data-i18n="app.dd.h">Local Mac 9B — llama.cpp GGUF</h3>
+          <p data-i18n="app.dd.p">Same Apple Silicon Mac as the app. Pull the community GGUF, serve localhost, then point Settings at it.</p>
+          <p data-i18n="app.dd.weights">Weights: <a href="https://huggingface.co/bartowski/tencent_UI-Mate-9B-GGUF" target="_blank" rel="noopener">bartowski/tencent_UI-Mate-9B-GGUF</a> (public; no Hugging Face token).</p>
+<pre class="app-code">brew install llama.cpp
+
+llama-server -hf bartowski/tencent_UI-Mate-9B-GGUF:Q4_K_M \
+  --port 8000 \
+  -ngl 99 \
+  -c 8192 \
+  --alias UI_Mate</pre>
+          <div class="table-scroll">
+            <table class="rtable app-table">
+              <tbody>
+                <tr><th>Endpoint</th><td><code>http://127.0.0.1:8000/v1</code></td></tr>
+                <tr><th>Model</th><td><code>UI_Mate</code></td></tr>
+                <tr><th>Agent type</th><td><strong>UI-Mate</strong></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <ul class="app-bullets">
+            <li data-i18n="app.dd.b1">Needs llama.cpp <strong>b10472</strong> or newer (<code>qwen35</code>). <code>-hf</code> downloads <code>Q4_K_M</code> and the vision <code>mmproj</code> automatically.</li>
+            <li data-i18n="app.dd.b2">Community quant of <a href="https://huggingface.co/tencent/UI-Mate-9B" target="_blank" rel="noopener">tencent/UI-Mate-9B</a>. Tool-calling may differ from the official vLLM / MLX paths.</li>
+          </ul>
+          <p class="app-callout" data-i18n="app.dd.note">Quantized weights can lower agent performance versus the full-precision checkpoint.</p>
+        </article>
+
+        <article class="app-route">
+          <span class="app-route-k">D</span>
           <h3 data-i18n="app.dc.h">Local Mac 9B — MLX 4bit</h3>
           <p data-i18n="app.dc.p">Offline on Apple Silicon. Convert, serve, then point the app at localhost.</p>
           <p data-i18n="app.dc.weights">Weights: <a href="https://huggingface.co/tencent/UI-Mate-9B" target="_blank" rel="noopener">UI-Mate-9B</a>.</p>
@@ -305,17 +333,18 @@
 KV_BITS=4 PREFILL_STEP_SIZE=1024 \
 python -m mlx_vlm.server \
   --model ~/models/UI-Mate-9B-mlx-4bit \
-  --port 8080</pre>
+  --port 8000</pre>
           <div class="table-scroll">
             <table class="rtable app-table">
               <tbody>
-                <tr><th>Endpoint</th><td><code>http://127.0.0.1:8080/v1</code></td></tr>
+                <tr><th>Endpoint</th><td><code>http://127.0.0.1:8000/v1</code></td></tr>
                 <tr><th>Model</th><td><code>~/models/UI-Mate-9B-mlx-4bit</code></td></tr>
                 <tr><th>Agent type</th><td><strong>UI-Mate</strong></td></tr>
               </tbody>
             </table>
           </div>
           <p data-i18n="app.dc.tune">Local must-tunes: image detail <strong>balanced_1280</strong>, keep 1–2 screenshots.</p>
+          <p class="app-callout" data-i18n="app.dc.note">Quantized weights can lower agent performance versus the full-precision checkpoint.</p>
           <h4 data-i18n="app.dc.patch.h">Optional · MLX prefix-cache patch</h4>
           <p data-i18n="app.dc.patch.p">Stock mlx-vlm barely hits prefix cache on multi-turn agent loads. Download the patch pack, unzip, apply — about 3× prefill and ~2× end-to-end step time.</p>
           <p>
@@ -357,7 +386,7 @@ export APC_EXACT_PREFIX_GUARD_TOKENS=64</pre>
   </div>
 </footer>
 
-<script src="i18n.js?v=visa36"></script>
-<script src="main.js?v=visa36"></script>
+<script src="i18n.js?v=visa39"></script>
+<script src="main.js?v=visa39"></script>
 </body>
 </html>
