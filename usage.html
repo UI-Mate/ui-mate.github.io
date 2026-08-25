@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css?v=visa40" />
+<link rel="stylesheet" href="styles.css?v=visa41" />
 </head>
 <body>
 
@@ -322,29 +322,29 @@ llama-server -hf bartowski/tencent_UI-Mate-9B-GGUF:Q6_K \
 
         <article class="app-route">
           <span class="app-route-k">D</span>
-          <h3 data-i18n="app.dc.h">Local Mac 9B — MLX 4bit</h3>
+          <h3 data-i18n="app.dc.h">Local Mac 9B — MLX 6bit</h3>
           <p data-i18n="app.dc.p">Offline on Apple Silicon. Convert, serve, then point the app at localhost.</p>
           <p data-i18n="app.dc.weights">Weights: <a href="https://huggingface.co/tencent/UI-Mate-9B" target="_blank" rel="noopener">UI-Mate-9B</a>.</p>
 <pre class="app-code">python -m mlx_vlm.convert \
   --hf-path tencent/UI-Mate-9B \
-  --mlx-path ~/models/UI-Mate-9B-mlx-4bit \
-  -q --q-bits 4 --q-group-size 64
+  --mlx-path ~/models/UI-Mate-9B-mlx-6bit \
+  -q --q-bits 6 --q-group-size 64
 
 KV_BITS=4 PREFILL_STEP_SIZE=1024 \
 python -m mlx_vlm.server \
-  --model ~/models/UI-Mate-9B-mlx-4bit \
+  --model ~/models/UI-Mate-9B-mlx-6bit \
   --port 8000</pre>
           <div class="table-scroll">
             <table class="rtable app-table">
               <tbody>
                 <tr><th>Endpoint</th><td><code>http://127.0.0.1:8000/v1</code></td></tr>
-                <tr><th>Model</th><td><code>~/models/UI-Mate-9B-mlx-4bit</code></td></tr>
+                <tr><th>Model</th><td><code>~/models/UI-Mate-9B-mlx-6bit</code></td></tr>
                 <tr><th>Agent type</th><td><strong>UI-Mate</strong></td></tr>
               </tbody>
             </table>
           </div>
           <p data-i18n="app.dc.tune">Local must-tunes: image detail <strong>balanced_1280</strong>, keep 1–2 screenshots.</p>
-          <p class="app-callout" data-i18n="app.dc.note">Quantized weights can lower agent performance versus the full-precision checkpoint.</p>
+          <p class="app-callout" data-i18n="app.dc.note">Use 6-bit. 4-bit has a clear quality drop versus the full-precision checkpoint.</p>
           <h4 data-i18n="app.dc.patch.h">Optional · MLX prefix-cache patch</h4>
           <p data-i18n="app.dc.patch.p">Stock mlx-vlm barely hits prefix cache on multi-turn agent loads. Download the patch pack, unzip, apply — about 3× prefill and ~2× end-to-end step time.</p>
           <p>
@@ -366,7 +366,7 @@ export APC_EXACT_CACHE_ENTRIES=8
 export APC_EXACT_PREFIX_GUARD_TOKENS=64</pre>
           <ul class="app-bullets">
             <li data-i18n="app.dc.patch.b1">Patch targets mlx-vlm 0.6.8; features stay off until those env vars are set when starting the server.</li>
-            <li data-i18n="app.dc.patch.b2">After patching you can keep more screenshots; still prefer <strong>balanced_1280</strong>. Prefer 6-bit quant when memory allows.</li>
+            <li data-i18n="app.dc.patch.b2">After patching you can keep more screenshots; still prefer <strong>balanced_1280</strong>. Stay on 6-bit — 4-bit quality drop is clear.</li>
             <li data-i18n="app.dc.patch.b3">Confirm in server logs: <code>Prefill completed</code> shows <code>cached_tokens &gt; 0</code>.</li>
           </ul>
         </article>
@@ -386,7 +386,7 @@ export APC_EXACT_PREFIX_GUARD_TOKENS=64</pre>
   </div>
 </footer>
 
-<script src="i18n.js?v=visa40"></script>
-<script src="main.js?v=visa40"></script>
+<script src="i18n.js?v=visa41"></script>
+<script src="main.js?v=visa41"></script>
 </body>
 </html>
