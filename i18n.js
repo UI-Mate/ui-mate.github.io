@@ -260,7 +260,7 @@ window.UIMATE_I18N = {
     "app.dd.h": "Local Mac 9B — llama.cpp GGUF",
     "app.dd.p": "Same Apple Silicon Mac as the app. Pull the community GGUF, serve localhost, then point Settings at it.",
     "app.dd.weights": "Weights: <a href=\"https://huggingface.co/bartowski/tencent_UI-Mate-9B-GGUF\" target=\"_blank\" rel=\"noopener\">bartowski/tencent_UI-Mate-9B-GGUF</a> (public; no Hugging Face token).",
-    "app.dd.b1": "Needs llama.cpp <strong>b10472</strong> or newer (<code>qwen35</code>). <code>-hf</code> downloads <code>Q4_K_M</code> and the vision <code>mmproj</code> automatically.",
+    "app.dd.b1": "Needs llama.cpp <strong>b10472</strong> or newer (<code>qwen35</code>). <code>-hf</code> downloads <code>Q6_K</code> and the vision <code>mmproj</code> automatically.",
     "app.dd.b2": "Community quant of <a href=\"https://huggingface.co/tencent/UI-Mate-9B\" target=\"_blank\" rel=\"noopener\">tencent/UI-Mate-9B</a>. Tool-calling may differ from the official vLLM / MLX paths.",
     "app.dd.note": "Quantized weights can lower agent performance versus the full-precision checkpoint.",
 
@@ -531,7 +531,7 @@ window.UIMATE_I18N = {
     "app.dd.h": "本地 Mac 9B — llama.cpp GGUF",
     "app.dd.p": "和 App 同一台 Apple Silicon Mac。拉取社区 GGUF，在本机起服务，再把 Settings 指到 localhost。",
     "app.dd.weights": "权重：<a href=\"https://huggingface.co/bartowski/tencent_UI-Mate-9B-GGUF\" target=\"_blank\" rel=\"noopener\">bartowski/tencent_UI-Mate-9B-GGUF</a>（公开仓库，无需 Hugging Face token）。",
-    "app.dd.b1": "需要 llama.cpp <strong>b10472</strong> 或更新（架构 <code>qwen35</code>）。<code>-hf</code> 会自动下载 <code>Q4_K_M</code> 和视觉 <code>mmproj</code>。",
+    "app.dd.b1": "需要 llama.cpp <strong>b10472</strong> 或更新（架构 <code>qwen35</code>）。<code>-hf</code> 会自动下载 <code>Q6_K</code> 和视觉 <code>mmproj</code>。",
     "app.dd.b2": "社区量化自 <a href=\"https://huggingface.co/tencent/UI-Mate-9B\" target=\"_blank\" rel=\"noopener\">tencent/UI-Mate-9B</a>。工具调用可能与官方 vLLM / MLX 路径不完全一致。",
     "app.dd.note": "量化后，智能体表现可能低于全精度权重。",
 
