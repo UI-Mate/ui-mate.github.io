@@ -23,6 +23,7 @@ window.UIMATE_I18N = {
     "link.code": "Code",
     "link.model": "Model Weights",
     "link.weights": "Weights",
+    "link.bench": "OSWorkerBench",
     "link.video": "Watch Demos",
 
     "kicker.overview": "01 — Overview",
@@ -145,7 +146,7 @@ window.UIMATE_I18N = {
     "app.lede": "Apple Silicon macOS app. Download the DMG, then follow the usage guide for permissions, model setup, and demos.",
     "app.dl.h": "Download for macOS",
     "app.dl.p": "Apple Silicon (M1–M4) · macOS 13 Ventura or later · ~2 GB free disk",
-    "app.dl.btn": "Download DMG · 0.2.4",
+    "app.dl.btn": "Download DMG · 0.3.0",
     "app.dl.note": "App requires Apple Silicon Mac · Intel Macs cannot run the client",
     "app.dl.s1": "Open the DMG and drag <strong>UI-Mate.app</strong> into Applications.",
     "app.dl.s2": "Launch from Applications — do not run from inside the DMG.",
@@ -294,6 +295,7 @@ window.UIMATE_I18N = {
     "link.code": "代码",
     "link.model": "模型权重",
     "link.weights": "权重",
+    "link.bench": "评测集",
     "link.video": "观看演示",
 
     "kicker.overview": "01 — 概览",
@@ -416,7 +418,7 @@ window.UIMATE_I18N = {
     "app.lede": "Apple Silicon 版 macOS App。先下载 DMG，再按使用说明完成权限、模型配置与 Demo。",
     "app.dl.h": "下载 macOS 版",
     "app.dl.p": "Apple Silicon（M1–M4）· macOS 13 Ventura 及以上 · 约 2 GB 可用空间",
-    "app.dl.btn": "下载 DMG · 0.2.4",
+    "app.dl.btn": "下载 DMG · 0.3.0",
     "app.dl.note": "仅桌面 App 需 Apple Silicon · Intel Mac 无法运行客户端",
     "app.dl.s1": "打开 DMG，把 <strong>UI-Mate.app</strong> 拖进「应用程序」。",
     "app.dl.s2": "从「应用程序」启动——不要在 DMG 里直接双击运行。",
@@ -565,7 +567,7 @@ window.UIMATE_CHART = [
    ------------------------------------------------------------ */
 window.UIMATE_FEEDBACK = {
   repo: "https://github.com/Tencent/UI-Mate",
-  appVersion: "0.2.4",
+  appVersion: "0.3.0",
   en: {
     title: "[App feedback] ",
     body: [
@@ -574,7 +576,7 @@ window.UIMATE_FEEDBACK = {
       "## Setup",
       "- Mac chip: M1 / M2 / M3 / M4",
       "- macOS version:",
-      "- App version: 0.2.4",
+      "- App version: 0.3.0",
       "- Model route: OpenRouter Kimi / local MLX UI-Mate-9B / self-hosted vLLM UI-Mate-27B / DemoCUA-27B / other",
       "",
       "## What you were doing",
@@ -598,7 +600,7 @@ window.UIMATE_FEEDBACK = {
       "## 环境",
       "- 芯片：M1 / M2 / M3 / M4",
       "- macOS 版本：",
-      "- App 版本：0.2.4",
+      "- App 版本：0.3.0",
       "- 模型路线：OpenRouter Kimi / 本地 MLX UI-Mate-9B / 自建 vLLM UI-Mate-27B / DemoCUA-27B / 其他",
       "",
       "## 在做什么",
