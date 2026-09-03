@@ -674,6 +674,33 @@ window.UIMATE_DEMOS = [
     }
   },
   {
+    id: "general-blender",
+    kind: "general",
+    ready: true,
+    src: "inspect-camo/preview.mp4?v=1",
+    runSrc: "inspect-camo/preview.mp4?v=1",
+    poster: "assets/demos/general-blender.jpg",
+    viewerHref: "inspect-camo/",
+    en: {
+      tab: "General · Blender",
+      title: "Chinese spec, English Blender",
+      desc: "The art-QA inspect spec is written in Chinese; Blender's UI is English. UI-Mate follows the Chinese instruction on the English desktop: swap Skin_Default for Skin_Camo, key a 360° spin, render the clip, and open it in Finder — no demonstration attached.",
+      mode: "General CUA",
+      platform: "macOS · Apple silicon",
+      instr: "这是一个枪械检视跑测录制任务（美术验收），Blender 场景已打开。将 Rifle 的 Skin_Default 换成已有材质 Skin_Camo；不要改 InspectCam；第 1 帧和第 90 帧打 Rotation 关键帧（Z 转到 360°），End=90，输出 Video / MPEG-4 / H.264 到桌面 inspect_camo，Render Animation 后在 Finder 打开。",
+      note: "Note: the clip is a step reel — one screenshot per second."
+    },
+    zh: {
+      tab: "通用 · Blender",
+      title: "中文任务，英文 Blender",
+      desc: "验收说明是中文，Blender 界面是英文。UI-Mate 按中文指令在英文桌面上把 Skin_Default 换成 Skin_Camo，打 360° 旋转关键帧、渲染检视片，再在 Finder 打开——不挂演示。",
+      mode: "General CUA",
+      platform: "macOS · Apple 芯片",
+      instr: "这是一个枪械检视跑测录制任务（美术验收），Blender 场景已打开。将 Rifle 的 Skin_Default 换成已有材质 Skin_Camo；不要改 InspectCam；第 1 帧和第 90 帧打 Rotation 关键帧（Z 转到 360°），End=90，输出 Video / MPEG-4 / H.264 到桌面 inspect_camo，Render Animation 后在 Finder 打开。",
+      note: "备注：视频由逐步截图拼成，1 秒一张。"
+    }
+  },
+  {
     id: "democua-gamedev",
     kind: "democua",
     ready: true,

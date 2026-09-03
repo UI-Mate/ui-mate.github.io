@@ -217,7 +217,7 @@
   }
 
   function hasStepViewer(demo) {
-    return !!(demo && demo.stepsSrc);
+    return !!(demo && (demo.stepsSrc || demo.viewerHref));
   }
 
   function demoSlug(demo) {
@@ -451,9 +451,15 @@
     if (viewerLinkEl) {
       viewerLinkEl.hidden = !hasStepViewer(demo);
       if (hasStepViewer(demo)) {
-        var slug = demoSlug(demo);
-        var stepQ = demo.viewerStep != null ? "&step=" + encodeURIComponent(demo.viewerStep) : "";
-        viewerLinkEl.href = "viewer.html?demo=" + encodeURIComponent(slug) + "&lang=" + lang + stepQ;
+        if (demo.viewerHref) {
+          var href = demo.viewerHref;
+          var sep = href.indexOf("?") >= 0 ? "&" : "?";
+          viewerLinkEl.href = href + sep + "lang=" + encodeURIComponent(lang);
+        } else {
+          var slug = demoSlug(demo);
+          var stepQ = demo.viewerStep != null ? "&step=" + encodeURIComponent(demo.viewerStep) : "";
+          viewerLinkEl.href = "viewer.html?demo=" + encodeURIComponent(slug) + "&lang=" + lang + stepQ;
+        }
       }
     }
 

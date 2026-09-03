@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>UI-Mate — 枪械检视跑测</title>
+<title>UI-Mate — Weapon inspect turntable</title>
 <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png" />
 <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -41,11 +41,26 @@ body {
 button { font-family: inherit; }
 .wrap { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
 .brand {
-  display: flex; align-items: center; gap: 12px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
   padding: 22px 0 0; font-size: 13.5px;
 }
+.brand-left { display: flex; align-items: center; gap: 12px; }
 .brand img { height: 22px; width: auto; }
 .brand a { color: var(--hy-blue); font-weight: 600; }
+.lang-switch {
+  display: flex; padding: 3px; background: #fff;
+  border: 1px solid var(--line); border-radius: 999px;
+}
+.lang-switch button {
+  height: 26px; border: 0; background: transparent;
+  font-family: inherit; font-size: 12.5px; font-weight: 600;
+  color: var(--muted); padding: 0 11px; border-radius: 999px; cursor: pointer;
+}
+.lang-switch button:hover { color: var(--ink); }
+.lang-switch button.is-active {
+  color: #fff; background: var(--hy-blue);
+  box-shadow: 0 2px 8px rgba(0, 82, 217, 0.3);
+}
 .top {
   display: flex;
   flex-wrap: wrap;
@@ -137,8 +152,14 @@ h1 { margin: 0; font-size: clamp(22px, 3vw, 30px); letter-spacing: -0.02em; colo
 <body>
   <div class="wrap">
     <div class="brand">
-      <img src="../assets/hy_logo.png" alt="Tencent Hunyuan" />
-      <a href="../index.html">← UI-Mate</a>
+      <div class="brand-left">
+        <img src="../assets/hy_logo.png" alt="Tencent Hunyuan" />
+        <a href="../index.html">← UI-Mate</a>
+      </div>
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button type="button" data-lang="en">EN</button>
+        <button type="button" data-lang="zh">中文</button>
+      </div>
     </div>
     <div class="top">
       <div>
@@ -147,14 +168,14 @@ h1 { margin: 0; font-size: clamp(22px, 3vw, 30px); letter-spacing: -0.02em; colo
         <div class="meta" id="meta"></div>
       </div>
       <div class="nav">
-        <button type="button" id="prev" aria-label="上一步">←</button>
+        <button type="button" id="prev" aria-label="Previous step">←</button>
         <span class="count" id="count">—</span>
-        <button type="button" id="next" aria-label="下一步">→</button>
+        <button type="button" id="next" aria-label="Next step">→</button>
       </div>
     </div>
-    <p class="hint">空格播放 / 暂停。← → 逐步查看。右侧可调倍速（默认 1 秒一帧）。</p>
+    <p class="hint" id="hint"></p>
     <details class="task">
-      <summary>任务说明</summary>
+      <summary id="taskSummary">Task</summary>
       <p id="task"></p>
     </details>
     <div class="grid">
@@ -165,22 +186,22 @@ h1 { margin: 0; font-size: clamp(22px, 3vw, 30px); letter-spacing: -0.02em; colo
           <div class="marker" id="marker" hidden></div>
         </div>
         <div class="toolbar">
-          <button type="button" class="tool" id="play">播放</button>
-          <button type="button" class="tool" id="toggleShot" hidden>显示 after</button>
-          <span class="rates" id="rates" role="group" aria-label="播放倍速"></span>
+          <button type="button" class="tool" id="play">Play</button>
+          <button type="button" class="tool" id="toggleShot" hidden>Show after</button>
+          <span class="rates" id="rates" role="group" aria-label="Playback speed"></span>
         </div>
       </section>
       <aside class="fields">
         <div class="field">
-          <span class="k">Thinking</span>
+          <span class="k" id="kThought">Thinking</span>
           <div class="v think" id="thought">—</div>
         </div>
         <div class="field">
-          <span class="k">Action</span>
+          <span class="k" id="kAction">Action</span>
           <div class="v mono" id="action">—</div>
         </div>
         <div class="field">
-          <span class="k">Step time</span>
+          <span class="k" id="kDur">Step time</span>
           <div class="v" id="dur">—</div>
         </div>
       </aside>
@@ -217,16 +238,105 @@ h1 { margin: 0; font-size: clamp(22px, 3vw, 30px); letter-spacing: -0.02em; colo
     var playBtn = document.getElementById("play");
     var toggleShot = document.getElementById("toggleShot");
     var ratesEl = document.getElementById("rates");
+    var hint = document.getElementById("hint");
+    var taskSummary = document.getElementById("taskSummary");
+    var kThought = document.getElementById("kThought");
+    var kAction = document.getElementById("kAction");
+    var kDur = document.getElementById("kDur");
+    var STORE_KEY = "uimate.lang";
 
-    document.title = S.title + " — UI-Mate";
-    title.textContent = S.title;
+    var COPY = {
+      en: {
+        title: "Weapon inspect turntable · Blender",
+        task: "This is a weapon inspect turntable task (art QA). The Blender scene is already open.\n- Rifle has a single material slot: replace Skin_Default with the existing Skin_Camo. Open the Shading tab; in the editor below, use the material dropdown (sphere icon) to the left of Skin_Default.\n- Do not move or modify the InspectCam camera.\n- At frame 1, select Rifle, press K, and choose Rotation to insert a rotation keyframe.\n- Jump to frame 90, set Rifle's Z Rotation to 360°, then press K → Rotation to insert a second keyframe.\n- Set Animation End to 90, leave Start at 1.\n- Output: Video, MPEG-4, H.264, path /Users/yingchenyu/Desktop/inspect_camo.\n- Use Render Animation to render and export the whole animation. When it finishes, end the task and open the rendered video in Finder.",
+        hint: "Space to play / pause. ← → to step. Speed is on the right (default 1 s per frame).",
+        taskSummary: "Task",
+        play: "Play",
+        pause: "Pause",
+        showAfter: "Show after",
+        showBefore: "Show before",
+        prev: "Previous step",
+        next: "Next step",
+        rates: "Playback speed",
+        success: "success",
+        failed: "failed",
+        steps: "steps",
+        perFrame: "1s / frame",
+        thinking: "Thinking",
+        action: "Action",
+        stepTime: "Step time",
+        modelStep: "model step",
+        playback: "playback",
+        step: "Step"
+      },
+      zh: {
+        title: S.title || "枪械检视跑测录制 · Blender",
+        task: S.task,
+        hint: "空格播放 / 暂停。← → 逐步查看。右侧可调倍速（默认 1 秒一帧）。",
+        taskSummary: "任务说明",
+        play: "播放",
+        pause: "暂停",
+        showAfter: "显示 after",
+        showBefore: "显示 before",
+        prev: "上一步",
+        next: "下一步",
+        rates: "播放倍速",
+        success: "成功",
+        failed: "失败",
+        steps: "步",
+        perFrame: "1s / 截图",
+        thinking: "思考",
+        action: "动作",
+        stepTime: "单步耗时",
+        modelStep: "模型步",
+        playback: "播放",
+        step: "Step"
+      }
+    };
+
+    function resolveLang() {
+      var fromQuery = new URLSearchParams(location.search).get("lang");
+      if (fromQuery === "zh" || fromQuery === "en") return fromQuery;
+      try {
+        var stored = localStorage.getItem(STORE_KEY);
+        if (stored === "zh" || stored === "en") return stored;
+      } catch (e) { /* private mode */ }
+      return /^zh\b/i.test(navigator.language || "") ? "zh" : "en";
+    }
+
+    var lang = resolveLang();
+
+    function c(key) {
+      var dict = COPY[lang] || COPY.en;
+      return dict[key] != null ? dict[key] : (COPY.en[key] != null ? COPY.en[key] : key);
+    }
+
+    function applyLang() {
+      document.documentElement.lang = lang;
+      document.title = c("title") + " — UI-Mate";
+      title.textContent = c("title");
+      hint.textContent = c("hint");
+      taskSummary.textContent = c("taskSummary");
+      task.textContent = c("task");
+      kThought.textContent = c("thinking");
+      kAction.textContent = c("action");
+      kDur.textContent = c("stepTime");
+      prev.setAttribute("aria-label", c("prev"));
+      next.setAttribute("aria-label", c("next"));
+      ratesEl.setAttribute("aria-label", c("rates"));
+      playBtn.textContent = playing ? c("pause") : c("play");
+      meta.innerHTML =
+        '<span class="pill ' + (S.success ? "ok" : "bad") + '">' + (S.success ? c("success") : c("failed")) + "</span>" +
+        '<span class="pill">' + steps.length + " " + c("steps") + "</span>" +
+        (S.model ? '<span class="pill">' + S.model + "</span>" : "") +
+        '<span class="pill">' + c("perFrame") + "</span>";
+      document.querySelectorAll(".lang-switch button").forEach(function (btn) {
+        btn.classList.toggle("is-active", btn.dataset.lang === lang);
+      });
+    }
+
     lede.textContent = S.id || "";
-    task.textContent = S.task;
-    meta.innerHTML =
-      '<span class="pill ' + (S.success ? "ok" : "bad") + '">' + (S.success ? "success" : "failed") + "</span>" +
-      '<span class="pill">' + steps.length + " steps</span>" +
-      (S.model ? '<span class="pill">' + S.model + "</span>" : "") +
-      '<span class="pill">1s / 截图</span>';
+    applyLang();
 
     if (S.video) {
       video.src = S.video;
@@ -264,7 +374,7 @@ h1 { margin: 0; font-size: clamp(22px, 3vw, 30px); letter-spacing: -0.02em; colo
 
     function setPlaying(on) {
       playing = on;
-      playBtn.textContent = on ? "暂停" : "播放";
+      playBtn.textContent = on ? c("pause") : c("play");
       showAfter = false;
       img.hidden = true;
       video.hidden = false;
@@ -293,15 +403,17 @@ h1 { margin: 0; font-size: clamp(22px, 3vw, 30px); letter-spacing: -0.02em; colo
 
     function render() {
       var step = steps[i] || {};
-      count.textContent = "Step " + (i + 1) + " / " + steps.length;
+      count.textContent = c("step") + " " + (i + 1) + " / " + steps.length;
       thought.textContent = step.thought || "—";
       thought.scrollTop = 0;
       action.textContent = step.action || "—";
-      dur.textContent = step.duration_ms ? (step.duration_ms / 1000).toFixed(1) + "s 模型步 · 播放 " + rate + "×" : "播放 " + rate + "×";
+      dur.textContent = step.duration_ms
+        ? (step.duration_ms / 1000).toFixed(1) + "s " + c("modelStep") + " · " + c("playback") + " " + rate + "×"
+        : c("playback") + " " + rate + "×";
       prev.disabled = i <= 0;
       next.disabled = i >= steps.length - 1;
       toggleShot.hidden = !hasShots;
-      toggleShot.textContent = showAfter ? "显示 before" : "显示 after";
+      toggleShot.textContent = showAfter ? c("showBefore") : c("showAfter");
       toggleShot.disabled = !(step.before && step.after);
 
       var useImg = showAfter && srcFor(step);
@@ -322,6 +434,16 @@ h1 { margin: 0; font-size: clamp(22px, 3vw, 30px); letter-spacing: -0.02em; colo
         marker.hidden = true;
       }
     }
+
+    document.querySelectorAll(".lang-switch button").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        if (btn.dataset.lang === lang) return;
+        lang = btn.dataset.lang;
+        try { localStorage.setItem(STORE_KEY, lang); } catch (e) { /* ignore */ }
+        applyLang();
+        render();
+      });
+    });
 
     prev.addEventListener("click", function () { goto(i - 1); });
     next.addEventListener("click", function () { goto(i + 1); });

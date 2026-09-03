@@ -12,6 +12,7 @@ Current ids:
 
 - `general-1` — General CUA · 2048 (ready) → `Demos/General/2048/`
 - `general-2` — General CUA · Books (ready) → `Demos/General/books/`
+- `general-blender` — General CUA · Blender inspect-camo (ready) → `inspect-camo/`
 - `democua-gamedev` — DemoCUA · GameDev → `Demos/DemoCUA/gamedev/`
 - `democua-visa` — DemoCUA · Visa → `Demos/DemoCUA/visa/`
 
