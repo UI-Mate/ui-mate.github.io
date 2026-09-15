@@ -33,6 +33,8 @@ forces one for sharing a specific version.
 | `assets/figures/` | Paper figures converted to PNG for the page |
 | `UI_Mate/` | Paper source (LaTeX + figures) |
 | `Demos/` | Raw demo recordings (General CUA / DemoCUA) |
+| `inspect-camo/` | Standalone step viewer for the Blender inspect demo, linked from the demo reel |
+| `celestia-audit/` | Standalone A-05 capability audit report, built by `scripts/build_celestia_audit.py` |
 
 Sections, in order: title and team, overview, approach, results, demos, citation.
 
