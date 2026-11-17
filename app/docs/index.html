@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#121316" media="(prefers-color-scheme: dark)" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="referrer" content="no-referrer" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'" />
+    <meta name="description" content="UI-Mate 使用指南：安装、连接模型、授予权限、发起任务、录制演示，以及在浏览器和手机上使用。" />
+    <link rel="icon" href="../icon.png" type="image/png" />
+    <title>UI-Mate 使用指南</title>
+    <script src="../docs-theme.js"></script>
+    <script type="module" crossorigin src="../assets/docs-BXDpJDGq.js"></script>
+    <link rel="modulepreload" crossorigin href="../assets/language-CDKmbKlT.js">
+    <link rel="stylesheet" crossorigin href="../assets/docs-Cydf6Fge.css">
+  </head>
+  <body class="docs-page">
+    <a class="skip-link" href="#doc-content" data-i18n="docsSkip">跳到正文</a>
+
+    <header class="docs-topbar">
+      <button class="icon-button" type="button" id="sidebar-open" aria-controls="sidebar" aria-expanded="false" aria-label="打开目录" data-i18n-aria="docsMenu">
+        <svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true"><path d="M3.5 5.5h13M3.5 10h13M3.5 14.5h13" /></svg>
+      </button>
+      <a class="docs-wordmark" href="../" aria-label="UI-Mate 首页" data-i18n-aria="homeLabel"><img src="../icon.png" width="26" height="26" alt="" /><span>UI-Mate</span></a>
+      <button class="icon-button" type="button" data-search-open aria-label="搜索使用指南" data-i18n-aria="docsSearchLabel">
+        <svg viewBox="0 0 20 20" width="19" height="19" aria-hidden="true"><circle cx="8.75" cy="8.75" r="5.25" /><path d="m12.75 12.75 3.75 3.75" /></svg>
+      </button>
+    </header>
+
+    <div class="docs-shell" id="docs-shell">
+      <aside class="sidebar" id="sidebar" aria-label="使用指南目录" data-i18n-aria="docsNav">
+        <div class="sidebar-head">
+          <a class="docs-wordmark" href="../" aria-label="UI-Mate 首页" data-i18n-aria="homeLabel"><img src="../icon.png" width="28" height="28" alt="" /><span>UI-Mate</span></a>
+          <button class="icon-button sidebar-collapse" type="button" id="sidebar-collapse" aria-controls="sidebar" aria-label="收起侧栏" data-i18n-aria="docsCollapse">
+            <svg viewBox="0 0 20 20" width="19" height="19" aria-hidden="true"><rect x="3" y="3.5" width="14" height="13" rx="2.5" /><path d="M8 3.5v13" /></svg>
+          </button>
+          <button class="icon-button sidebar-close" type="button" id="sidebar-close" aria-controls="sidebar" aria-label="关闭目录" data-i18n-aria="docsCloseMenu">
+            <svg viewBox="0 0 20 20" width="19" height="19" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15" /></svg>
+          </button>
+        </div>
+
+        <button class="search-trigger" type="button" data-search-open aria-haspopup="dialog">
+          <svg viewBox="0 0 20 20" width="17" height="17" aria-hidden="true"><circle cx="8.75" cy="8.75" r="5.25" /><path d="m12.75 12.75 3.75 3.75" /></svg>
+          <span data-i18n="docsSearch">搜索</span>
+          <span class="search-keys" aria-hidden="true"><kbd id="search-modifier">⌘</kbd><kbd>K</kbd></span>
+        </button>
+
+        <div class="doc-switch">
+          <a class="doc-switch-item is-active" href="./" aria-current="page">
+            <svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M3 4.5c2.3-.9 4.6-.7 7 .8v11c-2.4-1.5-4.7-1.7-7-.8zM17 4.5c-2.3-.9-4.6-.7-7 .8v11c2.4-1.5 4.7-1.7 7-.8z" /></svg>
+            <span data-i18n="docsTabGuide">使用指南</span>
+          </a>
+          <a class="doc-switch-item" href="../releases/">
+            <svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M10 3.5v9M6.25 9 10 12.75 13.75 9M4 15.5h12" /></svg>
+            <span data-i18n="docsTabDownload">下载与更新</span>
+          </a>
+        </div>
+
+        <nav class="doc-nav" id="doc-nav" aria-label="使用指南目录" data-i18n-aria="docsNav"></nav>
+
+        <div class="sidebar-foot">
+          <a id="language-toggle" class="language-link" href="?lang=en" lang="en" aria-label="Switch to English">English</a>
+          <div class="theme-switch" role="group" aria-label="外观" data-i18n-aria="docsTheme">
+            <button type="button" data-theme-choice="light" aria-pressed="false" aria-label="浅色" data-i18n-aria="docsThemeLight">
+              <svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><circle cx="10" cy="10" r="3.25" /><path d="M10 2.5v1.75M10 15.75v1.75M2.5 10h1.75M15.75 10h1.75M4.7 4.7l1.25 1.25M14.05 14.05l1.25 1.25M4.7 15.3l1.25-1.25M14.05 5.95l1.25-1.25" /></svg>
+            </button>
+            <button type="button" data-theme-choice="dark" aria-pressed="false" aria-label="深色" data-i18n-aria="docsThemeDark">
+              <svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M15.75 12.4A6.25 6.25 0 0 1 7.6 4.25a6.25 6.25 0 1 0 8.15 8.15z" /></svg>
+            </button>
+          </div>
+        </div>
+      </aside>
+      <div class="sidebar-backdrop" id="sidebar-backdrop" hidden></div>
+
+      <main class="doc-main" id="doc-content" tabindex="-1">
+        <button class="icon-button sidebar-expand" type="button" id="sidebar-expand" aria-controls="sidebar" aria-label="展开侧栏" data-i18n-aria="docsExpand" hidden>
+          <svg viewBox="0 0 20 20" width="19" height="19" aria-hidden="true"><rect x="3" y="3.5" width="14" height="13" rx="2.5" /><path d="M8 3.5v13" /></svg>
+        </button>
+        <article class="doc-article" aria-labelledby="doc-title">
+          <header class="doc-header">
+            <p class="doc-eyebrow" id="doc-group"></p>
+            <h1 id="doc-title">UI-Mate 使用指南</h1>
+            <p class="doc-lead" id="doc-lead"></p>
+            <div class="doc-actions">
+              <button class="doc-action" type="button" id="copy-markdown">
+                <svg viewBox="0 0 20 20" width="15" height="15" aria-hidden="true"><rect x="7" y="7" width="9.5" height="9.5" rx="2" /><path d="M13 7V5.5a2 2 0 0 0-2-2H5.5a2 2 0 0 0-2 2V11a2 2 0 0 0 2 2H7" /></svg>
+                <span id="copy-markdown-label">复制 Markdown</span>
+              </button>
+              <span class="visually-hidden" id="copy-status" role="status" aria-live="polite"></span>
+            </div>
+          </header>
+          <div class="doc-body" id="doc-body">
+            <noscript><p data-i18n="docsNoScript">使用指南需要启用 JavaScript 才能显示。</p></noscript>
+          </div>
+          <nav class="doc-pager" id="doc-pager" aria-label="翻页" data-i18n-aria="docsPager"></nav>
+          <footer class="doc-footer"><p data-i18n="docsFeedback">内容有误或没讲清楚？<a href="https://github.com/UI-Mate/ui-mate.github.io/issues" target="_blank" rel="noopener noreferrer">告诉我们</a>，也可以在 App 侧栏点 bug 按钮反馈。</p></footer>
+        </article>
+        <aside class="doc-toc" aria-labelledby="toc-heading">
+          <p class="toc-heading" id="toc-heading">
+            <svg viewBox="0 0 20 20" width="15" height="15" aria-hidden="true"><path d="M3.5 5h13M3.5 10h9M3.5 15h11" /></svg>
+            <span data-i18n="docsOnThisPage">本页目录</span>
+          </p>
+          <nav id="doc-toc" aria-labelledby="toc-heading"></nav>
+        </aside>
+      </main>
+    </div>
+
+    <dialog class="search-dialog" id="search-dialog" aria-label="搜索使用指南" data-i18n-aria="docsSearchLabel">
+      <div class="search-box">
+        <svg viewBox="0 0 20 20" width="19" height="19" aria-hidden="true"><circle cx="8.75" cy="8.75" r="5.25" /><path d="m12.75 12.75 3.75 3.75" /></svg>
+        <input id="search-input" type="search" autocomplete="off" spellcheck="false" placeholder="搜索使用指南" aria-label="搜索使用指南" aria-controls="search-results" aria-autocomplete="list" data-i18n-placeholder="docsSearchPlaceholder" data-i18n-aria="docsSearchLabel" />
+        <button class="search-close" type="button" id="search-close"><kbd>Esc</kbd></button>
+      </div>
+      <p class="search-status" id="search-status" role="status" aria-live="polite"></p>
+      <ul class="search-results" id="search-results" role="listbox" aria-label="搜索结果" data-i18n-aria="docsSearchResults"></ul>
+      <div class="search-hints" aria-hidden="true"><span><kbd>↑</kbd><kbd>↓</kbd> <span data-i18n="docsHintMove">选择</span></span><span><kbd>↵</kbd> <span data-i18n="docsHintOpen">打开</span></span><span><kbd>Esc</kbd> <span data-i18n="docsHintClose">关闭</span></span></div>
+    </dialog>
+
+    <dialog class="image-dialog" id="image-dialog" aria-label="大图" data-i18n-aria="docsImage">
+      <img alt="" />
+      <button type="button" class="image-close" aria-label="关闭大图"><svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15" /></svg></button>
+    </dialog>
+
+  </body>
+</html>
