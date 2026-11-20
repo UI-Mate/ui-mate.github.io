@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'" />
+  <title>UI-Mate Browser Privacy Policy · 隐私政策</title>
+  <meta name="description" content="What the UI-Mate Browser Chrome extension reads, where it sends it, and what it keeps." />
+  <link rel="icon" href="../icon.png" />
+  <link rel="stylesheet" href="privacy.css" />
+</head>
+<body>
+  <!-- Source: apps/homepage/public/privacy/ (copied verbatim into /app/privacy/). The store draft in
+       packages/browser-extension/store/privacy-policy.md must say the same thing. -->
+  <header>
+    <a class="brand" href="../"><img src="../icon.png" alt="" width="28" height="28" />UI-Mate</a>
+    <nav aria-label="Language"><a href="#en" lang="en">English</a><a href="#zh" lang="zh-CN">中文</a></nav>
+  </header>
+  <main>
+    <article id="en" lang="en">
+      <h1>UI-Mate Browser Privacy Policy</h1>
+      <p class="meta">Effective 20 November 2026</p>
+      <p>UI-Mate Browser (the “extension”) is the Chrome extension for the UI-Mate desktop app. It lets a task you start in UI-Mate open and operate web pages in your Chrome. This policy explains what data the extension handles and where it goes.</p>
+
+      <h2>Data the extension reads</h2>
+      <p>Only for the tabs a task opened itself:</p>
+      <ul>
+        <li>The page’s accessibility tree: element roles, names, states and visible text. Values typed into editable fields are not included, and protected fields such as password boxes appear only as <code>[protected]</code>.</li>
+        <li>Screenshots of that tab when the task needs one, and a live preview shown to you in UI-Mate. A screenshot contains whatever is visible on the page.</li>
+        <li>The tab’s title and URL, and events such as navigation, you taking over, or the task stopping.</li>
+      </ul>
+      <p>The extension does not read your other tabs, browsing history, bookmarks, downloads, cookies or saved passwords.</p>
+
+      <h2>Where the data goes</h2>
+      <ul>
+        <li>The extension communicates only with the UI-Mate app on the same computer (address <code>127.0.0.1</code>). It connects to no other server. So that you never have to paste a code, it also uses Chrome’s native messaging to ask a small helper that UI-Mate registers on your computer for UI-Mate’s local address and a one-time connection credential; no page content passes through it.</li>
+        <li>The UI-Mate app sends the page text and screenshots to the AI model service you configured in the app, to decide the next step. UI-Mate does not operate a model service and does not preset one: you choose the service and enter its key in the app. Those services handle the data under their own privacy policies.</li>
+        <li>The live preview is shown only to you in UI-Mate and is not sent to a model service.</li>
+      </ul>
+
+      <h2>Data stored on your computer</h2>
+      <ul>
+        <li>The extension stores its pairing with UI-Mate (a local port and an access token) in Chrome’s extension storage so it can reconnect after a restart, and keeps the list of tasks under control until Chrome closes. Clicking “Disconnect” in the extension popup or removing the extension deletes it.</li>
+        <li>The UI-Mate app keeps task records on your computer, including page text and screenshots read during a task and the requests sent to the model service, in <code>~/Library/Application Support/UI-Mate-v04</code>. Deleting a task in UI-Mate deletes its records; deleting that folder deletes all of them.</li>
+      </ul>
+
+      <h2>What we do not do</h2>
+      <ul>
+        <li>We do not sell or rent data.</li>
+        <li>We do not use data for advertising, profiling, creditworthiness or lending, or any purpose unrelated to the features above.</li>
+        <li>Neither the extension nor the UI-Mate app sends any data to servers run by the UI-Mate developers.</li>
+      </ul>
+
+      <h2>Your control</h2>
+      <ul>
+        <li>A task operates only tabs it opened itself, grouped in a blue tab group named after the task.</li>
+        <li>Click one of the task’s tabs and the assistant pauses so you can take over. You can stop a task at any time from the extension popup or from UI-Mate. Stopping releases the debugger and keeps the pages open.</li>
+        <li>Closing Chrome’s debugging bar at the top of the page also ends control immediately.</li>
+      </ul>
+
+      <h2>Limited Use</h2>
+      <p>The use of information received by this extension adheres to the <a href="https://developer.chrome.com/docs/webstore/program-policies/limited-use">Chrome Web Store User Data Policy</a>, including the Limited Use requirements.</p>
+
+      <h2>Contact</h2>
+      <p>Ask a question or report a problem on GitHub: <a href="https://github.com/UI-Mate/ui-mate.github.io/issues">github.com/UI-Mate/ui-mate.github.io/issues</a></p>
+    </article>
+
+    <article id="zh" lang="zh-CN">
+      <h1>UI-Mate Browser 隐私政策</h1>
+      <p class="meta">生效日期：2026 年 11 月 20 日</p>
+      <p>UI-Mate Browser（下称「本扩展」）是 UI-Mate 桌面应用的 Chrome 扩展。它让你在 UI-Mate 里发起的任务，在你的 Chrome 中打开网页并完成操作。本政策说明本扩展处理哪些数据、发往哪里。</p>
+
+      <h2>本扩展读取的数据</h2>
+      <p>只针对任务自己打开的标签页：</p>
+      <ul>
+        <li>页面的无障碍树：元素的类型、名称、状态和可见文字。可编辑输入框里的内容不包含在内，受保护的字段（如密码框）只显示为 <code>[protected]</code>。</li>
+        <li>截图：任务需要时截取的该标签页画面，以及在 UI-Mate 里给你看的实时预览图。截图会包含页面上看得见的任何内容。</li>
+        <li>标签页的标题和网址，以及页面跳转、你接管或停止任务等事件。</li>
+      </ul>
+      <p>本扩展不读取你的其他标签页、浏览记录、书签、下载内容、Cookie 或已保存的密码。</p>
+
+      <h2>数据发往哪里</h2>
+      <ul>
+        <li>本扩展只和同一台电脑上的 UI-Mate 应用通信（地址 <code>127.0.0.1</code>），不连接任何其他服务器。为了不用粘贴连接码，它还会通过 Chrome 的 native messaging 向 UI-Mate 在本机注册的小程序询问 UI-Mate 的本机地址和一次性连接凭据；这条通道不传送任何网页内容。</li>
+        <li>UI-Mate 应用会把页面文字和截图发给你在应用里配置的 AI 模型服务，用来决定下一步操作。UI-Mate 不运营模型服务，也不预设任何服务：用哪家服务、用哪个密钥由你在应用里填写。这些服务按各自的隐私政策处理数据。</li>
+        <li>实时预览图只在 UI-Mate 里显示给你看，不发给模型服务。</li>
+      </ul>
+
+      <h2>保存在本机的数据</h2>
+      <ul>
+        <li>本扩展在 Chrome 的扩展存储里保存与 UI-Mate 的配对信息（本机端口和访问令牌），以便重启后自动重连；在 Chrome 关闭前保存当前受控任务的列表。在扩展弹窗点「Disconnect」或卸载本扩展即会删除。</li>
+        <li>UI-Mate 应用会在本机保存任务记录，包括任务过程中读到的页面文字和截图，以及发给模型服务的请求记录，位置是 <code>~/Library/Application Support/UI-Mate-v04</code>。在 UI-Mate 里删除任务会删除它的记录；删除这个文件夹会删除全部记录。</li>
+      </ul>
+
+      <h2>我们不做的事</h2>
+      <ul>
+        <li>不出售或出租数据。</li>
+        <li>不把数据用于广告、用户画像、信用评估或借贷，也不用于与上述功能无关的任何目的。</li>
+        <li>本扩展和 UI-Mate 应用都不向 UI-Mate 开发者的服务器发送任何数据。</li>
+      </ul>
+
+      <h2>你的控制权</h2>
+      <ul>
+        <li>任务只操作它自己打开的标签页，并放在一个以任务命名的蓝色标签页分组里。</li>
+        <li>点一下任务的标签页，助手就会暂停，由你接手；你可以随时在扩展弹窗或 UI-Mate 里停止任务。停止后本扩展释放调试连接，网页保留。</li>
+        <li>关闭 Chrome 页面上方的调试提示条也会立即结束控制。</li>
+      </ul>
+
+      <h2>Limited Use 声明</h2>
+      <p>本扩展对所获取信息的使用遵守 <a href="https://developer.chrome.com/docs/webstore/program-policies/limited-use">Chrome 应用商店用户数据政策</a>，包括其中的 Limited Use（有限使用）要求。</p>
+
+      <h2>联系我们</h2>
+      <p>在 GitHub 上提问或反馈：<a href="https://github.com/UI-Mate/ui-mate.github.io/issues">github.com/UI-Mate/ui-mate.github.io/issues</a></p>
+    </article>
+  </main>
+</body>
+</html>
